@@ -11,7 +11,6 @@ function generateView(id, type){
                 tableD += `<select>`
                 data.forEach(val => {
                 tableD += `<option>${val.option_value}</option>`
-
                 });
                 tableD += `</select>`
             }

@@ -1,10 +1,8 @@
 const express = require('express')
 const app = express()
 const PORT =  6999 
-const connection = require('./connection')
 const getData =  require('./getData')
 const generateView = require('./generateView')
-
 
 app.set('view engine', 'ejs')
 
@@ -29,9 +27,20 @@ var valArr = ""
 
 //     })
 // }
+function createT(){
+    let qry =  `select option_value from option_master inner join select_master on option_master.select_id = select_master.select_id where select_master.select_id = ${id}`
+
+
+            connection.query(qry,(err,d)=>{
+                if(err) throw err
+                return d
+            })
+        }
+
+
+
 app.get('/', async (req,res)=>{
-
-
+    console.log(createT(1))
     await new Promise((resolve, reject)=>{
         let i = 1
         fnList.forEach(data=>{
@@ -43,11 +52,12 @@ app.get('/', async (req,res)=>{
         abc=valArr;
         valArr =""
     })
+
+
+    
 res.render('index', {abc})
 })
 
-
-
-app.listen(PORT, ()=>[
+app.listen(PORT, ()=>{
     console.log(`Server Listening on PORT: ${PORT}`)
-])
+})
