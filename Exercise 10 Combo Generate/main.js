@@ -27,7 +27,7 @@ var valArr = ""
 
 //     })
 // }
-function createT(){
+function createT(id){
     let qry =  `select option_value from option_master inner join select_master on option_master.select_id = select_master.select_id where select_master.select_id = ${id}`
 
 
