@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search data</title>
+</head>
+<body>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            width: 100%;
+        }
+        #main-container{
+            display: flex;
+            flex-direction: column;
+            align-items:center;
+            justify-content: center;
+            background: linear-gradient(to top right, #ad48ffff, #48f9ffff);
+            color: rgb(0, 0, 0);
+        }
+        table, tr, td, th{
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        table{
+            margin-bottom: 20px;
+            border: 3px solid rgb(0, 0, 0);
+        }
+        td,th{
+            padding: 5px;
+        }
+        th>a{
+            color:rgb(255, 255, 255);
+        }
+        #linkContainer a{
+            float: left;
+            padding: 8px 16px;
+        }
+        .linkBtn{
+            background-color: #ffffff;
+            padding: 5px 10px;
+            border: none;
+            text-decoration: none;
+            color: rgb(0, 0, 0);
+            text-align: center;
+            margin: 4px 2px;
+            font-size: 15px;
+            justify-content:stretch;
+        }
+        .linkBtn:hover{
+            border-radius: 5px;
+            background-color: rgb(250, 7, 39);
+        }
+        .active{
+            background-color:chartreuse;
+            border-radius: 5px;
+        }
+        .sortByOrder{
+            display: flex;
+            column-gap: 20px;
+            margin: 20px 0;
+        }
+        .selectBox{
+            background-color: #ffcdcd ;
+            font-size: 20px;
+            border: 2px solid black;
+            border-radius: 5px;
+        }
+
+
+        .searchContainer{
+            margin: 20px 0;           
+        }
+        #searchBox{
+            font-size: large;
+            border: 2px solid #000000;
+            border-radius: 5px;
+        }
+        #searchBtn{
+            border: none;
+            padding: 6px 8px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            color: #000000;
+            cursor: pointer;
+        }
+        #searchBtn:hover{
+            background-color: #000000;
+            color: #ffffff;
+        }
+    </style>
+    <div id="main-container">
+
+        <div class="searchContainer" id="searchBoxContainer">
+            <form action="/table/" method="get" >
+                <input type="text" id="searchBox" name="searchVal" value="<%= searchVal%>" placeholder="Search"   />
+                <input type="submit" id="searchBtn" value="Search">
+            </form>
+        </div>
+        <div class="info_container">
+            <h3>Your Input : <%= searchVal%> </h3>
+            <br />
+            <p> <span>First Name= "^"</span> <span>Last Name ="$"</span> <span>ContactNumber ="*"</span> <span>Email="@"</span> <span>City="&"</span><span>College Name="#"</span></p>
+            <br />
+        </div>
+
+    <table id="tableMain">
+        <tr>
+            <th>Student ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Date Of Birth</th>
+            <th>Contact Number</th>
+            <th>Email</th>
+            <th>City</th>
+            <th>College</th>
+        </tr>
+        <%resultArr.forEach(function(data){ %>
+            <tr>
+                <td><%= data.student_id%></td>
+                <td><%= data.first_name%></td>
+                <td><%= data.last_name%></td>
+                <td><%= data.date_of_birth%></td>
+                <td><%= data.contact_number%></td>
+                <td><%= data.email%></td>
+                <td><%= data.city%></td>
+                <td><%= data.clg_name%></td>
+            </tr>   
+        <% }); %>
+    </table>
+
+    <div id="linkContainer">
+        <% for(let i = 1; i<=counter;i++){ %>
+            <% if(i == page){ %>
+                <a id="btn" class="linkBtn active" href="/table/?searchVal=<%= searchVal%>"><%= i %></a> 
+                <% } else {%>
+                    <a id="btn" class="linkBtn" href="/table/?searchVal=<%= searchVal%>"><%= i %></a> 
+                <%}%>
+          
+        <% } %>
+
+</div>
+</body>
+</html>

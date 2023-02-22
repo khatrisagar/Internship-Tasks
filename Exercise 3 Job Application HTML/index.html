@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Html Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+        <div class="containerMain">
+            <section class="headerSection">
+                <h1>Job Application Form</h1>
+            </section>
+            
+            <section class="basicDetails">
+                <fieldset>
+                    <legend>Basic Details</legend>
+                    <table>
+                        <tr>
+                            <td><label for="first_name">First Name</label></td>
+                            <td><input type="text" name="first_name" class="firstName rightlabel" /></td>
+                            <td><label for="last_name">last Name</label></td>
+                            <td><input type="text" name="last_name" class="lastName" /></td>
+                            
+                        </tr>
+
+                        <tr>
+                            <td><label for="designation">Designation</label></td>
+                            <td><input type="text" name="designation" class="designation" /></td>
+                            <td><label for="address">Address</label></td>
+                            <td>
+                                <textarea name="address" id="addressField" cols="30" rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="email">Email</label></td>
+                            <td><input type="text" name="email" class="email" /></td>
+                            <td><label for="address_2">Address 2</label></td>
+                            <td>
+                                <textarea name="address_2" id="addressField" cols="30" rows="1" /></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="mobile_number">Phone Number</label></td>
+                            <td><input type="text" name="mobile_number" class="mobileNumber" /></td>
+
+                            <td><label for="city">City</label></td>
+                            <td><input type="text" name="city" class="cityField"></td>
+                        </tr>
+
+                        <tr>
+                            <td><label for="date_of_birth">Date Of Birth</label></td>
+                            <td><input type="date" name="date_of_birth" class="dateOfBirth"></td>
+                            <td><label for="state">State</label></td>
+                            <td><input type="text" name="state" class="stateField"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Gender</span>
+                            </td>
+                            <td>
+                                <span>
+                                    <input type="radio" name="gender" class="male" />
+                                    <label for="male">Male</label>
+                                </span>
+                                <span>
+                                    <input type="radio" name="gender" class="female" />
+                                    <label for="female">Female</label>
+                                </span>
+                                <span>
+                                    <input type="radio" name="gender" class="other" />
+                                    <label for="other">Other</label>
+                                </span>
+                            </td>
+
+                            
+
+                            <td><label for="zipcode">Zip Code</label></td>
+                            <td><input type="text" name="zipcode" class="zipCode"/></td>
+                        
+                            
+                            
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="relationshi_status">Relationship Status</label>
+                            </td>
+                            <td>
+                                <select name="relationship_status" id="relationshipStatus">
+                                    <option value="single">Single</option>
+                                    <option value="married">Married</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset> 
+            </section>       
+        
+            <section class="educationDetails">
+                <fieldset>
+                    <legend>Education Details</legend>
+                    
+                    <table id="eductionTable">
+                        <tr id="addEduFieldTr">
+                            <input type="button" onclick="addEdu()" id="addEduField" value="Add More Details"/>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                <hr /> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span>Degree</span></td>
+                        </tr>
+                        <tr>
+                            <td><label for="course_name">Course Name</label></td>
+                            <td><input type="text" name="course_name" class="courseName" /></td>
+
+                            <td><label for="university_name">University Name</label></td>
+                            <td><input type="text" name="university_name" class="universityName"></td>
+
+                        </tr>
+
+                        <tr>
+                            <td><label for="passing_year">Passing Year</label></td>
+                            <td><input type="text" name="passing_year" class="passingYear"></td>
+                            
+                            <td><label for="percentage">Percentage</label></td>
+                            <td><input type="text" name="percentage" class="percentage"></td>
+                            
+                        </tr>
+                    </table>
+                </fieldset>
+            </section>
+
+            <section class="workExperience">
+                <fieldset>
+                    <legend>Work Experience</legend>
+                
+
+                    <table id="workExeperience">
+                        <tr id="workExeperienceTr">
+                            <input type="button" onclick="addWorkExe()"value="Add Work Experince"/>
+                        </tr>
+                        <!-- <tr>
+                            <td><label for="company_name">Company Name</label></td>
+                            <td><input type="text" name="company_name" class="companyName" /></td>
+
+                            <td><label for="designation">Designation</label></td>
+                            <td><input type="text" name="designation" class="designation" /></td>
+                            
+                            
+                            
+                            <td><label for="start_date">Start Date</label></td>
+                            <td><input type="date" name="start_date" class="startDate"></td>
+
+                            <td><label for="end-date"></label>End Date</td>
+                            <td><input type="date" name="end_date" class="endDate"></td>
+                        </tr> -->
+                    </table>
+                </fieldset>
+            </section>
+
+            <section class="languageKnown">
+                <fieldset>
+                    <legend>Language Known</legend>
+                
+                    <table>
+                        <tr>    
+                            <td><label for="hindi">Hindi</label></td>
+                            <td><input type="checkbox" name="hindi" class="language1"></td>
+                            <td><label for="read">Read</label></td>
+                            <td><input type="checkbox" name="read" class="language1"></td>
+                            <td><label for="write">Write</label></td>
+                            <td><input type="checkbox" name="write" class="language1"></td>
+                            <td><label for="speak">Speak</label></td>
+                            <td><input type="checkbox" name="speak" class="language1"></td>
+                        </tr>
+                        <tr>    
+                            <td><label for="gujrati">Gujrati</label></td>
+                            <td><input type="checkbox" name="hindi" class="language2"></td>
+                            <td><label for="read">Read</label></td>
+                            <td><input type="checkbox" name="read" class="language2"></td>
+                            <td><label for="write">Write</label></td>
+                            <td><input type="checkbox" name="write" class="language2"></td>
+                            <td><label for="speak">Speak</label></td>
+                            <td><input type="checkbox" name="speak" class="language2"></td>
+                        </tr>
+                        <tr>    
+                            <td><label for="english">English</label></td>
+                            <td><input type="checkbox" name="hindi" class="language3"></td>
+                            <td><label for="read">Read</label></td>
+                            <td><input type="checkbox" name="read" class="language3"></td>
+                            <td><label for="write">Write</label></td>
+                            <td><input type="checkbox" name="write" class="language3"></td>
+                            <td><label for="speak">Speak</label></td>
+                            <td><input type="checkbox" name="speak" class="language3"></td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </section>
+
+            <section>
+                <fieldset>
+                    <legend>Technologies You Know</legend>
+
+                    <table id="techTable">
+
+                        <tr id="addTechnology">
+                            <input type="text" id="techName" />
+                            <input type="button" onclick="addTech()" id="addTechnologyField" value="Add Technologies"/>
+                        </tr>
+
+
+
+                        <!-- <tr>    
+                            <td><input type="checkbox" name="html" class="tech1"></td>
+                            <td><label for="html">HTML</label></td>
+                            <td><input type="radio" name="tech1" class="tech1"></td>
+                            <td><label for="beginer">Beginer</label></td>
+                            <td><input type="radio" name="tech1" class="tech1"></td>
+                            <td><label for="mideator">Mideator</label></td>
+                            <td><input type="radio" name="tech1" class="tech1"></td>
+                            <td><label for="expert">Expert</label></td>
+                        </tr>
+                        <tr>    
+                            <td><input type="checkbox" name="css" class="tech1"></td>
+                            <td><label for="css">CSS</label></td>
+                            <td><input type="radio" name="tech1" class="tech1"></td>
+                            <td><label for="beginer">Beginer</label></td>
+                            <td><input type="radio" name="tech1" class="tech1"></td>
+                            <td><label for="mideator">Mideator</label></td>
+                            <td><input type="radio" name="tech1" class="tech1"></td>
+                            <td><label for="expert">Expert</label></td>
+                        </tr>
+                        <tr>    
+                            <td><input type="checkbox" name="javascript" class="tech1"></td>
+                            <td><label for="javascript">JavaScript</label></td>
+                            <td><input type="radio" name="tech1" class="tech1"></td>
+                            <td><label for="beginer">Beginer</label></td>
+                            <td><input type="radio" name="tech1" class="tech1"></td>
+                            <td><label for="mideator">Mideator</label></td>
+                            <td><input type="radio" name="tech1" class="tech1"></td>
+                            <td><label for="expert">Expert</label></td>
+                        </tr>
+                        <tr>    
+                            <td><input type="checkbox" name="mysql" class="tech1"></td>
+                            <td><label for="mysql">MySQL</label></td>
+                            <td><input type="radio" name="tech1" class="tech1"></td>
+                            <td><label for="beginer">Beginer</label></td>
+                            <td><input type="radio" name="tech1" class="tech1"></td>
+                            <td><label for="mideator">Mideator</label></td>
+                            <td><input type="radio" name="tech1" class="tech1"></td>
+                            <td><label for="expert">Expert</label></td>
+                        </tr> -->
+                    </table>
+                </fieldset>
+            </section>
+
+            <section>
+                <fieldset>
+                    <legend>Reference Contact</legend>
+                    
+                    <table id="refenreceTable">
+                        <tr id="reference">
+                            <input type="button" onclick="addReference()" id="referncesBtn" value="Add More References"/>
+                        </tr>
+                        <tr>
+                            <td><label for="name">Reference Name</label></td>
+                            <td><input type="text" name="name" /></td>
+                            
+                            <td><label for="contact_number">Contact Number</label></td>
+                            <td><input type="text" name="contact_number" /></td>
+                            
+                            <td><label for="relation">Relation</label></td>
+                            <td><input type="text" name="relation" /></td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </section>
+
+            <section>
+                <fieldset>
+                    <legend>Prefrences</legend>
+                    
+                    <table>
+                        <tr>
+                            <td><label for="location">Prefered Location</label></td>
+                            <td>
+                                <select name="location" id="loaction">
+                                    <option value="location">Ahmedabad</option>
+                                    <option value="location2">Rajkot</option>
+                                </select>
+                            </td>
+
+                            <td><label for="department">Department</label></td>
+                            <td>
+                                <select name="department" id="department">
+                                    <option value="department2">Web Developement</option>
+                                    <option value="department1">Android Development</option>
+                                    <option value="department2">IOS Developement</option>
+                                </select>
+                            </td>
+                        
+                        </tr>
+                        <tr>
+                            <td><label for="current_ctc">Curernt CTC</label></td>
+                            <td><input type="text" name="current_ctc" class="current_ctc"></td>
+                        
+                        
+                            <td><label for="expected_ctc">Expected CTC</label></td>
+                            <td><input type="text" name="expected_ctc" class="expected_ctc"></td>
+                        </tr>
+
+                        <tr>
+                            <td><label for="notice_period">Notice Pereiod</label></td>
+                            <td><input type="text" name="notice_period" class="noticePeriod"></td>
+
+                        </tr>
+                    </table>
+                </fieldset>
+            </section>
+
+        </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

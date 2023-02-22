@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Data</title>
+</head>
+<body>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        body{
+            width: 100%;
+        }
+        #main-container{
+            display: flex;
+            flex-direction: column;
+            align-items:center;
+            justify-content: center;
+            background-color: #033c86;
+            color: white;
+        }
+        table, tr, td, th{
+            border: 2px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        table{
+            margin-bottom: 20px;
+        }
+        td,th{
+            padding: 5px;
+        }
+        #linkContainer a{
+            float: left;
+            padding: 8px 16px;
+        }
+        .linkBtn{
+            background-color: rgb(255, 178, 35);
+            padding: 5px 10px;
+            border: none;
+            text-decoration: none;
+            color: rgb(0, 0, 0);
+            text-align: center;
+            margin: 4px 2px;
+            font-size: 15px;
+            justify-content:stretch;
+        }
+        .linkBtn:hover{
+            border-radius: 5px;
+            background-color: rgb(250, 7, 39);
+        }
+        .active{
+            background-color:chartreuse;
+            border-radius: 5px;
+        }
+    </style>
+
+
+        <div id="main-container">
+            
+            <table id="tableMain">
+                <tr>
+                    <th>Student ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Date Of Birth</th>
+                    <th>Contact Number</th>
+                    <th>Email</th>
+                    <th>City</th>
+                    <th>College</th>
+                </tr>
+                <%resultArr.forEach(function(data){ %>
+                    <tr>
+                        <td><%= data.student_id%></td>
+                        <td><%= data.first_name%></td>
+                        <td><%= data.last_name%></td>
+                        <td><%= data.date_of_birth%></td>
+                        <td><%= data.contact_number%></td>
+                        <td><%= data.email%></td>
+                        <td><%= data.city%></td>
+                        <td><%= data.clg_name%></td>
+                    </tr>   
+                <% }); %>
+            </table>
+            
+
+            <div id="linkContainer">
+            <% for(let i = 1; i<=counter;i++){ %>
+                <a id="btn" class="linkBtn" href="/table/<%= i%>" id="<%= i%>" onclick="makeActive()"><%= i %></a> 
+            <% } %>
+            </div>
+        </div>
+
+        <script>
+            function makeActive(i){
+                let ele = document.getElementById('btn')
+                let idVal = ele.innerHTML
+                console.log(idVal)
+
+                ele.classList.add('active')
+            }
+        </script>
+
+</body>
+</html>
