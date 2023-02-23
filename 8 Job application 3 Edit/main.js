@@ -533,6 +533,7 @@ app.get('/edit',async function(req,res){
         // preference data
         let preference_data = await query(`select * from prefrences where candidate_id = ${candidateId}`)
 
+
         res.render('editForm', {relationData, stateData,genderData,uniData,courseData,locationData,techData,deptData,lanData,cityData, 
             candidate_basic_data, academics_data, work_experience_data,reference_data, preference_data})
     }
@@ -566,15 +567,27 @@ app.post('/edited', async function(req,res){
     // candaidate data update
     let candidate_basic_update=  await query(`update candidate_basic set firstname = "${first_name}", surname = "${req.body.last_name}", designation = "${req.body.designation}", email="${req.body.email}", address= "${req.body.address}", age= "${req.body.age}", contact = "${req.body.mobile_number}",state = "${req.body.state_select}" ,city = "${req.body.city}", gender = "${req.body.gender_select}",date_of_birth = "${req.body.date_of_birth}",zipcode = "${req.body.zipcode}", relation_status= "${req.body.relationship_select}" where candidate_id = ${candidateId}`)
     
-    
+    // academics data update
+    let academics_update 
+
+    // experience data update
+    let experience_update
+
+    // languages data update
+    let languages_update
+
+    // technologies data update
+    let technologies_update
+
+    // references daa update
+    let references_update
+
     // peference data update
     let preference_update = await query(`update prefrences set prefered_location = "${req.body.loacation_select}", department = "${req.body.department_select}", current_ctc = "${req.body.current_ctc}", expected_ctc = "${req.body.expected_ctc}", notice_period = "${req.body.notice_period}"   where candidate_id = ${candidateId}`)
     
     
     res.render('post', {type:"Updated"})
 })
-
-
 
     app.listen(PORT , ()=>{
     console.log(`Listening on PORT: ${PORT}`)

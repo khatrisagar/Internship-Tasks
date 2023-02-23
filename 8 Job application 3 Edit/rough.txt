@@ -2,3 +2,4 @@ TO kill Running port in ubuntu
 
 sudo kill -9 $(lsof -t -i:9999)
 
+How to update multiple rows sharing same foreign key in Codeigniter
