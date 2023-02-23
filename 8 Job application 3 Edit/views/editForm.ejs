@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Form</title>
+    <script src="https://kit.fontawesome.com/2d11fdd863.js" crossorigin="anonymous"></script>
+   
+</head>
+<body>
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.containerMain{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.5;
+}
+
+fieldset{
+    border: 2px solid black;
+    padding: 20px;
+    margin: auto;
+    width: 1000px;
+}
+
+.headerSection{
+    text-align: center;
+}
+label{
+    margin-right: 10px;
+}
+
+    #addEduField{
+        padding: 10px;
+        border-radius: 50%;
+        border: none;
+        color: #ffffff;
+        background-color: #192764;
+    }
+    td:nth-child(3){
+        padding-left: 100px;
+    }
+
+    </style>
+
+<div class="containerMain">
+    <section class="headerSection">
+        <h1>Job Application Form</h1>
+    </section>
+    
+    
+        <form action="/edited" method="POST">
+        <% candidate_basic_data.forEach(data =>{ %>
+        <section class="basicDetails">
+            <fieldset>
+                <legend>Basic Details</legend>
+                <table>
+                    <tr>
+                        <input type="text" name="candidateId" value="<%=data.candidate_id%>" hidden>
+
+
+                        <td><label for="first_name">First Name</label></td>
+                        <td><input type="text" name="first_name" class="firstName rightlabel" value="<%= data.firstname%>"/></td>
+                        <td><label for="last_name">last Name</label></td>
+                        <td><input type="text" name="last_name" class="lastName" value="<%= data.surname%>"/></td>
+                        
+                    </tr>
+
+                    <tr>
+                        <td><label for="designation">Designation</label></td>
+                        <td><input type="text" name="designation" class="designation" value="<%= data.designation%>"/></td>
+                        <td><label for="address">Address</label></td>
+                        <td>
+                            <textarea name="address" id="addressField" cols="30" rows="1" ><%= data.address %></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="email">Email</label></td>
+                        <td><input type="text" name="email" class="email" value="<%= data.email%>"/></td>
+                        <td><label for="age">Age</label></td>
+                        <td>
+                            <input type="text" name="age" class="ageField" value="<%= data.age%>">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="mobile_number">Phone Number</label></td>
+                        <td><input type="text" name="mobile_number" class="mobileNumber" value="<%= data.contact%>"/></td>
+
+                        <td><label for="state">State</label></td>
+                        <td><select name="state_select" id="state_select">
+                            <option value="<%= data.state%>"><%= data.state%></option>
+                            <% for(let i = 0 ; i<stateData.length; i++){ %>
+                                <% if(data.state!= stateData[i].option_value){ %>
+                                    <option value="<%= stateData[i].option_value%>"><%= stateData[i].option_value%></option>
+                                <% } %>        
+                            <% } %>
+                        </select>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td><label for="date_of_birth">Date Of Birth</label></td>
+                        <td><input type="date" name="date_of_birth" class="dateOfBirth" value="<%= data.date_of_birth.toJSON('yyyy/mm/dd').slice(0,10)%>" /></td>
+                        
+                        <td><label for="city">City</label></td>
+
+                        <td><select name="city" id="cityOptions">
+                            <option value="<%= data.city%>"><%= data.city%></option>
+                            <% cityData.forEach(data_city=>{ %>
+                                <% if(data.city != data_city.city_name){ %>
+                                    <option value="<%= data_city.city_name%>"><%= data_city.city_name%></option>
+                                <% } %> 
+                                    
+                            <% }) %>
+
+                            
+                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <!-- data.gender =  candidate gender -->
+                        <!-- genderData[i].option_value =  All gender -->
+                        <td><label for="gender">Gender</label></td>
+                        <td><select name="gender_select" id="">
+                            <option value="<%= data.gender%>"><%= data.gender%></option>
+                            <% for(let i = 0 ; i<genderData.length; i++){ %>
+                                <% if(data.gender != genderData[i].option_value){ %>
+                                    <option value="<%= genderData[i].option_value%>"><%= genderData[i].option_value%></option>
+                                <% } %>  
+                            <% } %>
+                        </select>
+                        </td>
+
+                        <td><label for="zipcode">Zip Code</label></td>
+                        <td><input type="text" name="zipcode" class="zipCode" value="<%= data.zipcode%>"/></td>
+                    
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="relationship_status">Relationship Status</label>
+                        </td>
+                        <td><select name="relationship_select" id="">
+                            <option value="<%= data.relation_status%>"><%= data.relation_status%></option>
+                            <% for(let i = 0 ; i<relationData.length; i++){ %>
+                                <% if(data.relation_status!= relationData[i].option_value){ %>
+                                    <option value="<%= relationData[i].option_value%>"><%= relationData[i].option_value%></option>
+                                <% } %>
+                            <% } %>
+                        </select>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset> 
+        </section>     
+        
+        <% })%>  
+
+        <section class="educationDetails">
+            <fieldset>
+                <legend>Education Details</legend>
+                
+                <table id="eductionTable">
+                    <tr id="addEduFieldTr">
+                        <td>
+                            <input type="button" onclick="addEdu()" id="addEduField" value=" + "/>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <hr /> 
+                        </td>
+                    </tr>
+                    <% academics_data.forEach(data=>{ %>
+                    <tr>
+                        <td><label for="course_name">Course Name</label></td>
+                        <td>
+                            <select name="course_select" id="">
+                                <option value="<% data.course_name %>"><%= data.course_name %></option>
+                                <% for(let i = 0 ; i<courseData.length; i++){ %>
+                                    <% if(data.course_name!= courseData[i].option_value){ %>
+                                        <option value="<%= courseData[i].option_value%>"><%= courseData[i].option_value%></option>
+                                    <% } %>
+                                <% } %>
+                            </select>
+                        </td>
+
+                        <td><label for="university_name">University Name</label></td>
+                        <td>
+                            <select name="uni_select" id="">
+                                <option value="<%= data.course_name %>"><%= data.university_name %></option>
+                                <% for(let i = 0 ; i<uniData.length; i++){ %>
+                                    <% if(data.university_name!= uniData[i].option_value){ %>
+                                    <option value="<%= uniData[i].option_value%>"><%= uniData[i].option_value%></option>
+                                    <% } %>
+                                <% } %>
+                            </select>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td><label for="passing_year">Passing Year</label></td>
+                        <td><input type="text" name="passing_year" class="passingYear" value="<%= data.pass_out_year %>"></td>
+                        
+                        <td><label for="score_data">Percentage</label></td>
+                        <td><input type="text" name="score_data" class="scoreData" value="<%= data.score %>"></td>
+                    </tr>
+                    <%})%>
+                </table>
+            </fieldset>
+        </section>
+       
+
+        <section class="workExperience">
+            <fieldset>
+                <legend>Work Experience</legend>
+                
+
+                <table id="workExeperience">
+                    <tr id="workExeperienceTr">
+                        <input type="button" onclick="addWorkExe()"value="Add Work Experince"/>
+                    </tr>
+                    <% work_experience_data.forEach(data=>{%>
+
+                    <% if(data.company_name != ""){%>
+                    <tr>
+                        <td><label for="company_name">Company Name</label></td>
+                        <td><input type="text" name="company_name" class="companyName" value="<%= data.company_name%>"/></td>
+                    
+                        <td><label for="designation">Designation</label></td>
+                        <td><input type="text" name="designationData" class="designation" value="<%= data.designation%>" /></td>`
+                    
+                       
+                    </tr>
+                    <tr>
+                        `<td><label for="start_date">Start Date</label></td>
+                        <td><input type="date" name="start_date" class="startDate" value="<%= data.start_date.toJSON('yyyy/mm/dd').slice(0,10) %>"></td>
+                    
+                        <td><label for="end-date"></label>End Date</td>
+                        <td><input type="date" name="end_date" class="endDate" value="<%= data.end_date.toJSON('yyyy/mm/dd').slice(0,10) %>"></td>
+                    </tr>
+                    <% } %>
+                    <%})%>
+                </table>
+            </fieldset>
+        </section>
+
+        <section class="languageKnown">
+            <fieldset>
+                <legend>Language Known</legend>
+            
+                <table>
+                    
+                    <% for(let i = 0 ; i<lanData.length; i++){ %>
+                    <tr>    
+                        <td><input type="checkbox" name="lan1" value="<%= lanData[i].option_value%>"></td>
+                        <td><label for="lanData"><%= lanData[i].option_value%></label></td>
+                        <td><input type="checkbox" name="ch1" id="<%= lanData[i].option_value%>" value="<%= lanData[i].option_value%>"></td>
+                        <td><label for="read">Read</label></td>
+                        <td><input type="checkbox" name="ch2" id="<%= lanData[i].option_value%>" value="<%= lanData[i].option_value%>"></td>
+                        <td><label for="write">Write</label></td>
+                        <td><input type="checkbox" name="ch3" id="<%= lanData[i].option_value%>" value="<%= lanData[i].option_value%>"></td>
+                        <td><label for="speak">Speak</label></td>
+                    </tr>
+                    <% } %>
+                </table>
+            </fieldset>
+        </section>
+
+        <section>
+            <fieldset>
+                <legend>Technologies You Know</legend>
+
+                <table id="techTable">
+
+                    <% for(let i = 0 ; i<techData.length; i++){ %>
+                        <tr id="addTechnology">
+                        <td><input type="checkbox" name="techname" value="<%= techData[i].option_value%>"></td>
+                        <td><label for="<%= techData[i].option_value%>"><%= techData[i].option_value%></label></td>
+                        <td><input type="radio" name="<%= techData[i].option_value%>" value = "Beginer"></td>
+                        <td><label for="beginer">Beginer</label></td>
+                        <td><input type="radio" name="<%= techData[i].option_value%>" value="Mideator"></td>
+                        <td><label for="mideator">Mideator</label></td>
+                        <td><input type="radio" name="<%= techData[i].option_value%>" value="Expert"></td>
+                        <td><label for="expert">Expert</label></td>
+                    </tr>
+                    <% } %>
+                </table>
+            </fieldset>
+        </section>
+
+        <section>
+            <fieldset>
+                <legend>Reference Contact</legend>
+                
+                <table id="refenreceTable">
+                    <tr id="reference">
+                        <input type="button" onclick="addReference()" id="referncesBtn" value="Add More References"/>
+                    </tr>
+                    <% reference_data.forEach(data=>{ %>
+                    
+                    <tr>
+                        <td><label for="name">Reference Name</label></td>
+                        <td><input type="text" name="ref_name" value="<%= data.reference_name%>"/></td>
+                        
+                        <td><label for="contact_number">Contact Number</label></td>
+                        <td><input type="text" name="ref_contact_number" value="<%= data.reference_contact_number%>" /></td>
+                        
+                        <td><label for="relation">Relation</label></td>
+                        <td><input type="text" name="relation" value="<%= data.reference_releation%>"/></td>
+                    </tr>
+                    <% })%>
+                </table>
+            </fieldset>
+        </section>
+
+        <section>
+            <fieldset>
+                <legend>Prefrences</legend>
+                
+                <table>
+                    <% preference_data.forEach(data =>{ %>
+                        
+
+                    <tr>
+                        <td><label for="location">Prefered Location</label></td>
+                        <td>
+                            <select name="loacation_select" id="">
+                                <option value="<%=data.prefered_location%>" ><%=data.prefered_location%></option>
+                                <% for(let i = 0 ; i<locationData.length; i++){ %>
+                                    <% if(data.prefered_location != locationData[i].option_value){ %>
+                                        <option value="<%= locationData[i].option_value%>"><%= locationData[i].option_value%></option>
+                                    <% } %>
+                                <% } %>
+                            </select>
+                        </td>
+
+                        <td><label for="department">Department</label></td>
+                        <td>
+                            <select name="department_select" id="">
+                                <option value="<%= data.department%>"><%= data.department%></option>
+                                <% for(let i = 0 ; i<deptData.length; i++){ %>
+                                    <% if(data.department != deptData[i].option_value){ %>
+                                        <option value="<%= deptData[i].option_value%>"><%= deptData[i].option_value%></option>
+                                    <% } %>
+                                <% } %>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="current_ctc">Curernt CTC</label></td>
+                        <td><input type="text" name="current_ctc" class="current_ctc" value="<%= data.current_ctc%>"></td>
+                    
+                    
+                        <td><label for="expected_ctc">Expected CTC</label></td>
+                        <td><input type="text" name="expected_ctc" class="expected_ctc" value="<%= data.expected_ctc%>"></td>
+                    </tr>
+
+                    <tr>
+                        <td><label for="notice_period">Notice Pereiod</label></td>
+                        <td><input type="text" name="notice_period" class="noticePeriod" value="<%= data.notice_period%>"></td>
+
+                    </tr>
+                    <% })%>
+                </table>
+            </fieldset>
+        </section>
+        <table>
+            <Tr><td>
+                <input type="submit" value="submit">
+            </td></Tr>
+        </table>
+    </form> 
+    </div>
+<script>
+let eductionId = document.getElementById("eductionTable");
+let addEduField = document.getElementById("addEduField")
+let addEduFieldTr = document.getElementById("addEduFieldTr")
+
+
+let data = `
+<td><label for="course_name">Course Name</label></td>
+<td>
+ <select name="course_select" id="">
+<option value="" disabled selected>Select Your Course</option>
+<% for(let i = 0 ; i<courseData.length; i++){ %>
+<option value="<%= courseData[i].option_value%>"><%= courseData[i].option_value%></option>
+<% } %>
+</select>
+</td>
+
+<td><label for="university_name">University Name</label></td>
+<td>
+<select name="uni_select" id="">
+ <option value="" disabled selected>Select Your University</option>
+<% for(let i = 0 ; i<uniData.length; i++){ %>
+<option value="<%= uniData[i].option_value%>"><%= uniData[i].option_value%></option>
+<% } %>
+</select>
+</td>`
+
+let data2 = `<td><label for="passing_year">Passing Year</label></td>
+<td><input type="text" name="passing_year" class="passingYear"></td>
+
+<td><label for="score_data">Percentage</label></td>
+<td><input type="text" name="score_data" class="scoreData"></td>`
+
+function addEdu(){
+    let trEdu = document.createElement('tr');
+    let trEdu2 = document.createElement('tr');
+    trEdu.innerHTML += `${data}`
+    trEdu2.innerHTML += `${data2}`
+
+
+    eductionId.appendChild(trEdu)
+    eductionId.appendChild(trEdu2)
+}
+
+let workExeId = document.getElementById("workExeperience")
+
+function addWorkExe(){
+    let trWork = document.createElement('tr');
+    let trWork2 = document.createElement('tr');
+
+    trWork.innerHTML= `<td><label for="company_name">Company Name</label></td>
+    <td><input type="text" name="company_name" class="companyName" /></td>
+
+    <td><label for="designation">Designation</label></td>
+    <td><input type="text" name="designationData" class="designation" /></td>`
+
+    trWork2.innerHTML = `<td><label for="start_date">Start Date</label></td>
+    <td><input type="date" name="start_date" class="startDate"></td>
+
+    <td><label for="end-date"></label>End Date</td>
+    <td><input type="date" name="end_date" class="endDate"></td>`
+
+workExeId.appendChild(trWork)
+workExeId.appendChild(trWork2)
+}
+
+
+
+let referenceTable = document.getElementById("refenreceTable")
+
+function addReference(){
+    let referenceTr = document.createElement('tr')
+
+    referenceTr.innerHTML += `<td><label for="name">Reference Name</label></td>
+    <td><input type="text" name="ref_name" /></td>
+    
+    <td><label for="contact_number">Contact Number</label></td>
+    <td><input type="text" name="ref_contact_number" /></td>
+    
+    <td><label for="relation">Relation</label></td>
+    <td><input type="text" name="relation" /></td>`
+        
+    referenceTable.appendChild(referenceTr)
+    
+}
+
+let state_select =  document.getElementById('state_select');
+state_select.addEventListener('click', function(){
+        fetch(`http://localhost:9999/city?stateName="${state_select.value}"`)
+        .then((res) => res.json())
+        .then((data) => {
+
+    let cityOptions = document.getElementById("cityOptions")
+    // var val = ""
+    var val = `<option value="" disabled selected>Select Your City</option>`
+        for(let x of data){
+            val += `<option value="${x.city_name}">${x.city_name}</option>`
+        }
+        cityOptions.innerHTML = val
+    })
+    })
+
+
+</script>
+</body>
+</html>
+

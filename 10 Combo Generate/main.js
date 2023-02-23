@@ -21,21 +21,15 @@ let fnList = [
 var abc;
 var valArr = ""
 
-// function make(id,type){
-//     generateView(id,type).then(dataVal =>{
-//         valArr += dataVal
-
-//     })
-// }
-function createT(id){
-    let qry =  `select option_value from option_master inner join select_master on option_master.select_id = select_master.select_id where select_master.select_id = ${id}`
+// function createT(id){
+//     let qry =  `select option_value from option_master inner join select_master on option_master.select_id = select_master.select_id where select_master.select_id = ${id}`
 
 
-            connection.query(qry,(err,d)=>{
-                if(err) throw err
-                return d
-            })
-        }
+//             connection.query(qry,(err,d)=>{
+//                 if(err) throw err
+//                 return d
+//             })
+//         }
 
 
 

@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "date-and-time": "^2.4.2",
+    "node-calendar": "^0.1.5",
+    "upper-case": "^2.0.2"
+  }
+}

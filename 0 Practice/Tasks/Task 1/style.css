@@ -1,0 +1,24 @@
+
+.textStyle:hover{
+    border: 1px;
+    background-color: black;
+    transition:0.5s;
+}
+.textStyle{
+    border: 1px solid rgb(26, 22, 253);
+    border-radius: 10px black;
+    width: 60px;
+    height: 30px;
+    color: aqua;  
+}
+
+.tableStyle{
+    background-color: aqua;  
+    
+}
+.tableSection{
+    margin: 100px 0px;
+    display: flex;
+    justify-content: space-around;
+}
+

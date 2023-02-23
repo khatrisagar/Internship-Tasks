@@ -1,0 +1,259 @@
+
+select * from select_master;
+select * from option_master;
+insert into option_master(select_id,option_value)
+values
+('2','Gujrat'),
+('2','Madhya Pradesh'),
+('2','Maharashtra'),
+('2','Andhra Pradesh'),
+('2','Arunachal Pradesh'),
+('2','Assam'),
+('2','Bihar'),
+('2','Chhattisgarh'),
+('2','Goa'),
+('2','Haryana'),
+('2','Himachal Pradesh'),
+('2','Jharkhand'),
+('2','Karnataka'),
+('2','Kerala'),
+('2','Manipur'),
+('2','Meghalaya'),
+('2','Mizoram'),
+('2','Nagaland'),
+('2','Odisha'),
+('2','Punjab'),
+('2','Rajasthan'),
+('2','Sikkim'),
+('2','Tamil Nadu'),
+('2','Telangana'),
+('2','Tripura'),
+('2','Uttar Pradesh'),
+('2','West Bengal');
+
+
+insert into option_master(select_id,option_value)
+values
+('3','Male'),
+('3','Female'),
+('3','Other');
+
+insert into option_master(select_id,option_value)
+values
+('4','GTU'),
+('4','SPU'),
+('4','Other');
+
+insert into option_master(select_id,option_value)
+values
+('5','BE'),
+('5','ME'),
+('5','BCA'),
+('5','MCA'),
+('5','BTech'),
+('5','MTech');
+
+insert into option_master(select_id,option_value)
+values
+('6','NodeJs'),
+('6','ReactJs'),
+('6','CPP'),
+('6','Python'),
+('6','Java'),
+('6','AngularJs'),
+('6','Ruby on Rails'),
+('6','Dotnet');
+
+insert into option_master(select_id,option_value)
+values
+('7','Ahmedabad'),
+('7','Pune'),
+('7','Bengaluru'),
+('7','Rajkot');
+
+insert into option_master(select_id,option_value)
+values
+('8','Web Development'),
+('8','Android Development'),
+('8','IOS Development'),
+('8','Graphics Designing'),
+('8','Video Editing'),
+('8','Content Writing'),
+('8','Marketing');
+
+insert into option_master(select_id,option_value)
+values
+('9','Hindi'),
+('9','English'),
+('9','Gujrati');
+
+
+use job_application_form;
+select * from candidate_basic;
+select * from academics;
+select * from experience;
+select * from languages;
+select * from technologies;
+select * from reference_contact;
+select * from prefrences; 
+
+desc reference_contact;	
+
+create table state_master(
+	state_id int primary key auto_increment,
+    state_name varchar(40)
+);
+
+
+insert into state_master(state_name)
+values
+('Gujrat'),
+('Madhya Pradesh'),
+('Maharashtra'),
+('Andhra Pradesh'),
+('Arunachal Pradesh'),
+('Assam'),
+('Bihar'),
+('Chhattisgarh'),
+('Goa'),
+('Haryana'),
+('Himachal Pradesh'),
+('Jharkhand'),
+('Karnataka'),
+('Kerala'),
+('Manipur'),
+('Meghalaya'),
+('Mizoram'),
+('Nagaland'),
+('Odisha'),
+('Punjab'),
+('Rajasthan'),
+('Sikkim'),
+('Tamil Nadu'),
+('Telangana'),
+('Tripura'),
+('Uttar Pradesh'),
+('West Bengal');
+
+
+select * from state_master;
+
+
+create table city_master(
+	city_id int primary key auto_increment,
+    state_id int,
+    city_name varchar(40),
+    foreign key(state_id) references state_master(state_id)
+);
+select * from city_master;
+desc city_master;
+
+insert into city_master(state_id, city_name)values
+('1','Ahmedabad'),
+('1','Amreli'),
+('1','Bharuch'),
+('1','Bhavnagar'),
+('1','Bhuj'),
+('1','Dwarka'),
+('1','Gandhinagar'),
+('1','Godhra'),
+('1','Jamnagar'),
+('1','Junagadh'),
+('1','Kandla'),
+('1','Khambhat'),
+('1','Kheda'),
+('1','Mahesana'),
+('1','Morbi'),
+('1','Nadiad'),
+('1','Navsari'),
+('1','Okha'),
+('1','Palanpur'),
+('1','Patan'),
+('1','Porbandar'),
+('1','Rajkot'),
+('1','Surat'),
+('1','Surendranagar'),
+('1','Valsad'),
+('1','Veraval');
+
+insert into city_master(state_id, city_name)values
+('2','Balaghat'),
+('2','Barwani'),
+('2','Betul'),
+('2','Bharhut'),
+('2','Bhind'),
+('2','Bhojpur'),
+('2','Bhopal'),
+('2','Burhanpur'),
+('2','Chhatarpur'),
+('2','Chhindwara'),
+('2','Damoh'),
+('2','Datia'),
+('2','Dewas'),
+('2','Dhar'),
+('2','Dr. Ambedkar Nagar (Mhow)'),
+('2','Guna'),
+('2','Gwalior'),
+('2','Hoshangabad'),
+('2','Indore'),
+('2','Itarsi'),
+('2','Jabalpur'),
+('2','Jhabua'),
+('2','Khajuraho'),
+('2','Khandwa'),
+('2','Khargone'),
+('2',''),
+('2','Maheshwar'),
+('2','Mandla'),
+('2','Mandsaur'),
+('2','Morena'),
+('2','Murwara'),
+('2','Narsimhapur'),
+('2','Narsinghgarh'),
+('2','Narwar'),
+('2','Neemuch'),
+('2','Nowgong'),
+('2','Orchha'),
+('2','Panna'),
+('2','Raisen'),
+('2','Rajgarh'),
+('2','Ratlam'),
+('2','Rewa'),
+('2','Sagar'),
+('2','Sarangpur'),
+('2','Satna'),
+('2','Sehore'),
+('2','Seoni'),
+('2','Shahdol'),
+('2','Shajapur'),
+('2','Sheopur'),
+('2','Shivpuri'),
+('2','Ujjain'),
+('2','Vidisha');
+
+
+insert into city_master(state_id, city_name)values
+('3','Ahmadnagar'),
+('3','Akola'),
+('3','Amravati'),
+('3','Aurangabad'),
+('3','Bhandara'),
+('3','Bhusawal'),
+('3','Bid'),
+('3','Buldhana'),
+('3','Chandrapur'),
+('3','Daulatabad'),
+('3','Dhule'),
+('3','Jalgaon'),
+('3','Kalyan'),
+('3','Karli'),
+('3','Kolhapur'),
+('3','Mahabaleshwar'),
+('3','Malegaon'),
+('3','Nanded'),
+('3','Nashik'),
+('3','Pune'),
+('3','Thane'),
+('3','Yavatmal'),
+('3','Ulhasnagar'),
+('3','Pandharpur');

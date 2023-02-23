@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+
+    
+    <div class="main-form">
+        <section class="formTitle">
+            <h1>Login</h1>
+            <hr />
+            <br />
+        </section>
+        <form action="/" method="POST" id="form1" oninput="return onChnageValidation()">
+            <label for="username">UserName</label>
+            <br />
+            <input type="text" class="inputBox" name="username" placeholder="Enter Your User Name"/>
+            <p id="alertUname"></p>
+            <br />
+            <label for="password">Password</label>
+            <br />
+            <input type="password" class="inputBox" id="passwordBox" name="password" placeholder="Enter the Password" />
+            <br />
+            <input type="button" id="viewPass" value="View Password" onclick="showPass()"> 
+            <p id="alertPass"></p>
+            <input type="submit" value="Submit" onclick="buttonHandle(event)" id="submitButton"/>
+        </form>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

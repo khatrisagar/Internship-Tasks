@@ -1,0 +1,112 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TASK 1</title>
+    <script src="main.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div style="text-align:center;" id="main-div">
+        <h1>Table</h1>
+        <form>
+            <input type="number" id="rowCount" />
+            <input type="number" id="columnCount" />
+            <input type="button" id="submitButton" value="Create Table" onclick="createTable()"/>
+            <br />
+            <input type="button" id="incrementCells" value="+" onclick="incCell()"/>
+            <input type="button" id="decrementCells" value="-" onclick="decrCell()"/>
+        </form>
+
+        <div class="tableSection">
+            <table id="table">
+
+            </table>
+        </div>
+        <hr />
+        <div class="eventSection" id="eventId">
+           
+        </div>
+
+    </div>
+
+<script>
+
+
+
+
+
+let rowCount = Number(document.getElementById("rowCount").value)
+let columnCount = Number(document.getElementById("columnCount").value)
+
+function createTable(){
+    
+
+    for(let i = 1; i<=rowCount; i++){
+        let row = document.createElement("tr")
+        
+        for (let j = 1; j<=columnCount; j++){
+            
+            let col = document.createElement("td")
+            let text = document.createTextNode(`(${i},${j})`)
+            col.classList.add("textStyle")
+            col.appendChild(text)
+            row.appendChild(col)
+            
+            col.onclick = function(){
+                // alert(`${i}, ${j}`)
+                
+            }
+            console.log("end loop: " + columnCount)
+        }
+
+        const tableId = document.getElementById("table")
+        
+        tableId.appendChild(row)
+        // tableId.replaceChild(row)
+        // const child = tableId.appendChild(row)
+        tableId.classList.add("tableStyle")
+    }
+}
+
+function incCell(){
+    columnCount = columnCount +1;
+    console.log(columnCount)
+    createTable()
+}
+
+function decrCell(){
+    columnCount = columnCount - 1;
+    console.log(columnCount)
+    createTable()
+}
+
+
+// function onclickFn(){
+//     let mainDiv= document.getElementById("main-div");
+//     let clickEventId= document.getElementById("eventId");
+//     let eventEle = document.createElement("p");
+
+//     mainDiv.addEventListener('keyboard', (event) =>{
+
+//         console.log(event.key)
+//         let eventText = document.createTextNode(`${event.key}`)
+
+//         eventEle.appendChild(eventText)
+//         clickEventId.appendChild(eventEle)
+        
+//     })
+// }
+
+
+
+</script>
+
+</body>
+
+</html> -->

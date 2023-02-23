@@ -1,0 +1,4 @@
+TO kill Running port in ubuntu 
+
+sudo kill -9 $(lsof -t -i:9999)
+
