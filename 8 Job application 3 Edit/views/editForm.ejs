@@ -182,10 +182,11 @@ label{
                     </tr>
                     <% academics_data.forEach(data=>{ %>
                     <tr>
+                        <input type="text" name="academicsId" value="<%=data.academics_id%>" hidden>
                         <td><label for="course_name">Course Name</label></td>
                         <td>
                             <select name="course_select" id="">
-                                <option value="<% data.course_name %>"><%= data.course_name %></option>
+                                <option value="<%= data.course_name %>"><%= data.course_name %></option>
                                 <% for(let i = 0 ; i<courseData.length; i++){ %>
                                     <% if(data.course_name!= courseData[i].option_value){ %>
                                         <option value="<%= courseData[i].option_value%>"><%= courseData[i].option_value%></option>
@@ -197,7 +198,7 @@ label{
                         <td><label for="university_name">University Name</label></td>
                         <td>
                             <select name="uni_select" id="">
-                                <option value="<%= data.course_name %>"><%= data.university_name %></option>
+                                <option value="<%= data.university_name %>"><%= data.university_name %></option>
                                 <% for(let i = 0 ; i<uniData.length; i++){ %>
                                     <% if(data.university_name!= uniData[i].option_value){ %>
                                     <option value="<%= uniData[i].option_value%>"><%= uniData[i].option_value%></option>
@@ -233,17 +234,18 @@ label{
                     <% work_experience_data.forEach(data=>{%>
 
                     <% if(data.company_name != ""){%>
-                    <tr>
+                        <tr>
+                        <input type="text" name="experienceId" value="<%=data.experience_id%>" hidden>
                         <td><label for="company_name">Company Name</label></td>
                         <td><input type="text" name="company_name" class="companyName" value="<%= data.company_name%>"/></td>
                     
                         <td><label for="designation">Designation</label></td>
-                        <td><input type="text" name="designationData" class="designation" value="<%= data.designation%>" /></td>`
+                        <td><input type="text" name="designationData" class="designation" value="<%= data.designation%>" /></td>
                     
                        
                     </tr>
                     <tr>
-                        `<td><label for="start_date">Start Date</label></td>
+                        <td><label for="start_date">Start Date</label></td>
                         <td><input type="date" name="start_date" class="startDate" value="<%= data.start_date.toJSON('yyyy/mm/dd').slice(0,10) %>"></td>
                     
                         <td><label for="end-date"></label>End Date</td>
@@ -262,14 +264,19 @@ label{
                 <table>
                     
                     <% for(let i = 0 ; i<lanData.length; i++){ %>
-                    <tr>    
-                        <td><input type="checkbox" name="lan1" value="<%= lanData[i].option_value%>"></td>
+                    <tr> 
+                        <input type="text" name="languagesId" value="<%=language_data[i].languages_id%>" hidden>
+                        <% let checkedName = language_data[i].language_name == lanData[i].option_value ? "checked" : "" %>
+                        <td><input type="checkbox" name="lan1" value="<%= lanData[i].option_value%>" <%= checkedName %> ></td>
                         <td><label for="lanData"><%= lanData[i].option_value%></label></td>
-                        <td><input type="checkbox" name="ch1" id="<%= lanData[i].option_value%>" value="<%= lanData[i].option_value%>"></td>
+                        <% let checkedVal = language_data[i].language_read == 'Yes' ? "checked" : "" %>
+                        <td><input type="checkbox" name="ch1" value="<%= lanData[i].option_value%>" <%= checkedVal %>></td>
                         <td><label for="read">Read</label></td>
-                        <td><input type="checkbox" name="ch2" id="<%= lanData[i].option_value%>" value="<%= lanData[i].option_value%>"></td>
+                        <% let checkedVal2 = language_data[i].language_write == 'Yes' ? "checked" : "" %>
+                        <td><input type="checkbox" name="ch2" value="<%= lanData[i].option_value%>" <%= checkedVal2 %>></td>
                         <td><label for="write">Write</label></td>
-                        <td><input type="checkbox" name="ch3" id="<%= lanData[i].option_value%>" value="<%= lanData[i].option_value%>"></td>
+                        <% let checkedVal3 = language_data[i].language_speak == 'Yes' ? "checked" : "" %>
+                        <td><input type="checkbox" name="ch3" value="<%= lanData[i].option_value%>" <%= checkedVal3 %>></td>
                         <td><label for="speak">Speak</label></td>
                     </tr>
                     <% } %>
@@ -285,15 +292,15 @@ label{
 
                     <% for(let i = 0 ; i<techData.length; i++){ %>
                         <tr id="addTechnology">
-                        <td><input type="checkbox" name="techname" value="<%= techData[i].option_value%>"></td>
-                        <td><label for="<%= techData[i].option_value%>"><%= techData[i].option_value%></label></td>
-                        <td><input type="radio" name="<%= techData[i].option_value%>" value = "Beginer"></td>
-                        <td><label for="beginer">Beginer</label></td>
-                        <td><input type="radio" name="<%= techData[i].option_value%>" value="Mideator"></td>
-                        <td><label for="mideator">Mideator</label></td>
-                        <td><input type="radio" name="<%= techData[i].option_value%>" value="Expert"></td>
-                        <td><label for="expert">Expert</label></td>
-                    </tr>
+                            <td><input type="checkbox" name="techname" value="<%= techData[i].option_value%>"></td>
+                            <td><label for="<%= techData[i].option_value%>"><%= techData[i].option_value%></label></td>
+                            <td><input type="radio" name="<%= techData[i].option_value%>" value = "Beginer"></td>
+                            <td><label for="beginer">Beginer</label></td>
+                            <td><input type="radio" name="<%= techData[i].option_value%>" value="Mideator"></td>
+                            <td><label for="mideator">Mideator</label></td>
+                            <td><input type="radio" name="<%= techData[i].option_value%>" value="Expert"></td>
+                            <td><label for="expert">Expert</label></td>
+                        </tr>
                     <% } %>
                 </table>
             </fieldset>
@@ -310,6 +317,7 @@ label{
                     <% reference_data.forEach(data=>{ %>
                     
                     <tr>
+                        <input type="text" name="referenceId" value="<%=data.reference_id%>" hidden>
                         <td><label for="name">Reference Name</label></td>
                         <td><input type="text" name="ref_name" value="<%= data.reference_name%>"/></td>
                         

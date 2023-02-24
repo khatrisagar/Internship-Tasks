@@ -6,6 +6,7 @@ const bodyParser =  require('body-parser')
 const url =  require('url')
 const util =  require('util');
 const { resolve } = require("path");
+const { type } = require("os");
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -201,7 +202,7 @@ app.post('/submit', async function(req,res){
 
         if(typeof language_name =="object"){
         for(let i = 0; i<language_name.length; i++){
-
+            // have to add a one condition to stop a loop for low data
             connection.query(`insert into languages(candidate_id,language_name, language_read,language_write,language_speak)values(
                 "${last_id}",
                 "${language_name[i]}",
@@ -225,7 +226,7 @@ app.post('/submit', async function(req,res){
             resolve(lan)
             console.log("Lan Inserted")
           })
-    }
+        }
     })
 
     // tech data started...
@@ -414,7 +415,7 @@ app.get('/dashboard',async function(req,res){
         let xyz= req.query.xyz ||false
         let page =  req.query.page || 1
         let counter = 0
-        let limit = 2
+        let limit = 5
         let offset =  (page-1)*limit||0
         connection.query(sql, async function(err, data1){
             if(err) throw err;
@@ -515,17 +516,21 @@ app.get('/edit',async function(req,res){
 
         // academics data
         let academics_data = await query(`select * from academics where candidate_id = ${candidateId}`)
+  
         
         // work experience data
         let work_experience_data =  await query(`select * from experience where candidate_id = ${candidateId}`)
 
         // language data
-
+        let language_data = await query(`select * from languages where candidate_id =${candidateId}`)
+        // console.log(language_data)
 
 
         // technologies data
-
-
+        let technologies_data = await query(`select * from technologies where candidate_id = ${candidateId}`)
+        // for(let i = 0; i <technologies_data.length; i++){
+        //     console.log(technologies_data[i].technology_name)
+        // }
 
         // reference data
         let reference_data =  await query(`select * from reference_contact where candidate_id = ${candidateId}`)
@@ -533,9 +538,8 @@ app.get('/edit',async function(req,res){
         // preference data
         let preference_data = await query(`select * from prefrences where candidate_id = ${candidateId}`)
 
-
         res.render('editForm', {relationData, stateData,genderData,uniData,courseData,locationData,techData,deptData,lanData,cityData, 
-            candidate_basic_data, academics_data, work_experience_data,reference_data, preference_data})
+            candidate_basic_data, academics_data, work_experience_data, reference_data, preference_data,language_data,technologies_data})
     }
 
     catch(e){
@@ -567,20 +571,210 @@ app.post('/edited', async function(req,res){
     // candaidate data update
     let candidate_basic_update=  await query(`update candidate_basic set firstname = "${first_name}", surname = "${req.body.last_name}", designation = "${req.body.designation}", email="${req.body.email}", address= "${req.body.address}", age= "${req.body.age}", contact = "${req.body.mobile_number}",state = "${req.body.state_select}" ,city = "${req.body.city}", gender = "${req.body.gender_select}",date_of_birth = "${req.body.date_of_birth}",zipcode = "${req.body.zipcode}", relation_status= "${req.body.relationship_select}" where candidate_id = ${candidateId}`)
     
+
+
     // academics data update
-    let academics_update 
+
+if (typeof courseSelect == "object"){
+    let academicsId = req.body.academicsId;
+    let courseSelect =  req.body.course_select
+    let academicsLen = academicsId.length;
+    let courseLen = courseSelect.length
+
+    if(academicsLen == courseLen && courseSelect == "object"){
+        for(let i = 0; i<academicsLen;i++){
+            let academics_update = await query(`update academics set course_name = "${req.body.course_select[i]}", university_name = "${req.body.uni_select[i]}", pass_out_year = "${req.body.passing_year[i]}", score = "${req.body.score_data[i]}" where academics_id = ${academicsId[i]} `)
+        }
+    }
+    else if(academicsLen < courseLen){
+        for(let i = academicsLen; i<courseLen; i++){
+            let academics_add_update = await query(`insert into academics(candidate_id,course_name,university_name,pass_out_year,score)values("${candidateId}","${req.body.course_select[i]}","${req.body.uni_select[i]}","${req.body.passing_year[i]}","${req.body.score_data[i]}")`)
+        }
+    }
+}
 
     // experience data update
-    let experience_update
+    let experienceId =  req.body.experienceId || ""
+    let companyName = req.body.company_name || "";
+
+    let experienceLen = 0
+    let companyLen = 0
+    console.log(typeof companyName)
+    
+    if(typeof companyName == "object" && typeof experienceId == "object"){
+        experienceLen = experienceId.length
+        companyLen = companyName.length
+        console.log("inexe obj", companyLen, experienceLen,)
+        if(experienceLen == companyLen){
+            for(let i = 0; i<experienceLen;i++){
+                let experience_update = await query(`update experience set company_name = "${req.body.company_name[i]}",designation = "${req.body.designationData[i]}",start_date = "${req.body.start_date[i]}", end_date = "${req.body.end_date[i]}" where experience_id= ${experienceId[i]}`)
+            }
+            console.log("updated obj ==")
+        }
+        else if(experienceLen < companyLen){
+            for(let i = experienceLen; i<companyLen; i++){
+                let experience_add_update = await query(`insert into experience(candidate_id,company_name,designation,start_date,end_date)values("${candidateId}","${req.body.company_name[i]}","${req.body.designationData[i]}","${req.body.start_date[i]}","${req.body.end_date[i]}")`)
+            }
+            console.log("inserted obj <")
+        }
+    }
+    else if(typeof companyName == "object" && typeof experienceId == "string" && experienceId != 0){
+        companyLen = companyName.length;
+        experienceLen = 1;
+
+        if(experienceLen == companyLen){
+            for(let i = 0; i<experienceLen;i++){
+                let experience_update = await query(`update experience set company_name = "${req.body.company_name[i]}",designation = "${req.body.designationData[i]}",start_date = "${req.body.start_date[i]}", end_date = "${req.body.end_date[i]}" where experience_id= ${experienceId[i]}`)
+            }
+            console.log("updated str ==")
+        }
+        else if(experienceLen < companyLen){
+            for(let i = experienceLen; i<companyLen; i++){
+                let experience_add_update = await query(`insert into experience(candidate_id,company_name,designation,start_date,end_date)values("${candidateId}","${req.body.company_name[i]}","${req.body.designationData[i]}","${req.body.start_date[i]}","${req.body.end_date[i]}")`)
+            }
+            console.log("inserted str <")
+        }
+    }
+    else if(typeof companyName == "string" && typeof experienceId == "string"){
+
+        
+
+        // already 1 added
+         if(experienceId != ""){
+            let experienceLen =  1
+            let companyLen = 1;
+            let experience_update = await query(`update experience set company_name = "${req.body.company_name}",designation = "${req.body.designationData}",start_date = "${req.body.start_date}", end_date = "${req.body.end_date}" where experience_id= ${experienceId}`)
+            
+        }
+    }
+    // for initial empty 
+    else if(experienceId == ""){
+
+        // in empty to obj add
+        if(typeof companyName =="object"){
+            console.log("updated by me")
+            for(let i =0; i<companyName.length;i++){
+                let empty_obj_update =  await query(`insert into experience(candidate_id,company_name,designation,start_date,end_date)values("${candidateId}","${req.body.company_name[i]}","${req.body.designationData[i]}","${req.body.start_date[i]}","${req.body.end_date[i]}")`)
+            }
+        }
+        // in empty to str add
+        else{
+            console.log("added by me")
+            let empty_str_update = await query(`insert into experience(candidate_id,company_name,designation,start_date,end_date)values("${candidateId}","${req.body.company_name}","${req.body.designationData}","${req.body.start_date}","${req.body.end_date}")`)
+        }
+    }
+
+
 
     // languages data update
-    let languages_update
+    let languagesId = req.body.languagesId;
+    let language_name = req.body.lan1 || ""
+    let language_read =  req.body.ch1 || ""
+    let language_write = req.body.ch2 || ""
+    let language_speak = req.body.ch3  || ""
 
+
+    // if(typeof lanName =="object"){
+    //     for(let i = 0; i<lanName.length; i++){
+    //         if(lanName[i]){}
+    //         let languages_update =  await query(`update languages set language_name = "${lanName[i]}", language_read= "${language_read[i].includes(lanName[i])?'Yes':'No'}", language_write = "${language_write[i].includes(lanName[i])?'Yes':'No'}", language_speak = "${language_speak[i].includes(lanName[i]) ?'Yes':'No'}" where languages_id = ${languagesId[i]}`)
+    //     }
+    // }
+    // else if(typeof lanName == "string"){
+    //     let languages_update =  await query(`update languages set language_name = "${lanName}", language_read= "${language_read.includes(lanName)?'Yes':'No'}", language_write = "${language_write.includes(lanName)?'Yes':'No'}", language_speak = "${language_write.includes(lanName)?'Yes':'No'}" where languages_id = ${languagesId}`)
+    // }
+    let language_delete =  await query(`delete from languages where candidate_id = ${candidateId}`)
+
+    if(typeof language_name =="object"){
+
+        for(let i = 0; i<language_name.length; i++){
+            let laguage_obj_update=  await query(`insert into languages(candidate_id,language_name, language_read,language_write,language_speak)values(
+            "${candidateId}",
+            "${language_name[i]}",
+            "${language_read.includes(language_name[i])?'Yes':'No'}",
+            "${language_write.includes(language_name[i])?'Yes':'No'}",
+            "${language_speak.includes(language_name[i])?'Yes':'No'}")`)
+        }
+    }
+    else{
+        let laguage_obj_update = await query(`insert into languages(candidate_id,language_name, language_read,language_write,language_speak)values(
+            "${candidateId}",
+            "${language_name}",
+            "${language_read.includes(language_name)?'Yes':'No'}",
+            "${language_write.includes(language_name)?'Yes':'No'}",
+            "${language_speak.includes(language_name)?'Yes':'No'}")`)
+    }
+    
     // technologies data update
     let technologies_update
 
-    // references daa update
-    let references_update
+    // references data update
+    let referenceId =  req.body.referenceId || ""
+    let refName = req.body.ref_name || "";
+
+    let referenceLen = 0
+    let refNameLen = 0
+    // console.log(typeof refName)
+    
+    if(typeof refName == "object" && typeof referenceId == "object"){
+        referenceLen = referenceId.length
+        refNameLen = refName.length
+        if(referenceLen == refNameLen){
+            for(let i = 0; i<referenceLen;i++){
+                let reference_update = await query(`update reference_contact set reference_name = "${req.body.ref_name[i]}",reference_contact_number = "${req.body.ref_contact_number[i]}",reference_releation = "${req.body.relation[i]}" where reference_id= ${referenceId[i]}`)
+            }
+            console.log("updated obj ==")
+        }
+        else if(referenceLen < refNameLen){
+            for(let i = referenceLen; i<refNameLen; i++){
+                let reference_add_update = await query(`insert into reference_contact(candidate_id,reference_name,reference_contact_number,reference_releation)values("${candidateId}","${req.body.ref_name[i]}","${req.body.ref_contact_number[i]}","${req.body.relation[i]}")`)
+            }
+            console.log("inserted obj <")
+        }
+    }
+    else if(typeof refName == "object" && typeof referenceId == "string" && referenceId != 0){
+        refNameLen = refName.length;
+        referenceLen = 1;
+
+        if(referenceLen == refNameLen){
+            for(let i = 0; i<referenceLen;i++){
+                let reference_update = await query(`update reference_contact set reference_name = "${req.body.ref_name[i]}",reference_contact_number = "${req.body.ref_contact_number[i]}",reference_releation = "${req.body.relation}" where reference_id= ${referenceId[i]}`)
+            }
+            console.log("updated str ==")
+        }
+        else if(referenceLen < refNameLen){
+            for(let i = referenceLen; i<companyLen; i++){
+                let reference_add_update = await query(`insert into reference_contact(candidate_id,reference_name,reference_contact_number,reference_releation)values("${candidateId}","${req.body.ref_name[i]}","${req.body.ref_contact_number[i]}","${req.body.relation[i]}")`)
+            }
+            console.log("inserted str <")
+        }
+    }
+    else if(typeof refName == "string" && typeof referenceId == "string"){
+
+        // already 1 added
+         if(referenceId != ""){
+            let referenceLen = 1;
+            let refNameLen = 1;
+            let reference_update = await query(`update reference_contact set reference_name = "${req.body.ref_name}",reference_contact_number = "${req.body.ref_contact_number}",reference_releation = "${req.body.relation}" where reference_id= ${referenceId}`)
+            
+        }
+    }
+    // for initial empty 
+    else if(referenceId == ""){
+
+        // in empty to obj add
+        if(typeof refName =="object"){
+            console.log("updated by me")
+            for(let i =0; i<refName.length;i++){
+                let reference_empty_obj_update =  await query(`insert into reference_contact(candidate_id,reference_name,reference_contact_number,reference_releation)values("${candidateId}","${req.body.ref_name[i]}","${req.body.ref_contact_number[i]}","${req.body.relation[i]}")`)
+            }
+        }
+        // in empty to str add
+        else{
+            console.log("added by empty str")
+            let reference_empty_str_update = await query(`insert into reference_contact(candidate_id,reference_name,reference_contact_number,reference_releation)values("${candidateId}","${req.body.ref_name}","${req.body.ref_contact_number}","${req.body.relation}")`)
+        }
+    }
 
     // peference data update
     let preference_update = await query(`update prefrences set prefered_location = "${req.body.loacation_select}", department = "${req.body.department_select}", current_ctc = "${req.body.current_ctc}", expected_ctc = "${req.body.expected_ctc}", notice_period = "${req.body.notice_period}"   where candidate_id = ${candidateId}`)
