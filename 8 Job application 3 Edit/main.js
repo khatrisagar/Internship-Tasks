@@ -557,7 +557,6 @@ app.get('/edit',async function(req,res){
 //     }
 // })
 
-
 app.post('/edited', async function(req,res){
 
     const query =  util.promisify(connection.query).bind(connection)
@@ -565,12 +564,11 @@ app.post('/edited', async function(req,res){
     let first_name =  req.body.first_name
 
     // candaidate data update
+    
     let candidate_basic_update=  await query(`update candidate_basic set firstname = "${first_name}", surname = "${req.body.last_name}", designation = "${req.body.designation}", email="${req.body.email}", address= "${req.body.address}", age= "${req.body.age}", contact = "${req.body.mobile_number}",state = "${req.body.state_select}" ,city = "${req.body.city}", gender = "${req.body.gender_select}",date_of_birth = "${req.body.date_of_birth}",zipcode = "${req.body.zipcode}", relation_status= "${req.body.relationship_select}" where candidate_id = ${candidateId}`)
     
 
-
     // academics data update
-
 
     let academicsId = req.body.academicsId || ""
     let courseSelect =  req.body.course_select || ""
@@ -610,10 +608,8 @@ app.post('/edited', async function(req,res){
                 let experienceLen =  1
                 let companyLen = 1;
                 let experience_update = await query(`uupdate academics set course_name = "${req.body.course_select}", university_name = "${req.body.uni_select}", pass_out_year = "${req.body.passing_year}", score = "${req.body.score_data}" where academics_id = ${academicsId} `)
-                
             }
         }
-      
     }
 
     // experience data update
