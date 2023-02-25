@@ -238,7 +238,6 @@ app.post('/submit', async function(req,res){
 
         console.log(req.body.techname[i],eval("req.body."+(req.body.techname[i])))
         // console.log()
-
             connection.query(`insert into technologies(candidate_id,technology_name, tech_rating)
             values("${last_id}",
             "${tech_name[i]}",
@@ -528,9 +527,6 @@ app.get('/edit',async function(req,res){
 
         // technologies data
         let technologies_data = await query(`select * from technologies where candidate_id = ${candidateId}`)
-        // for(let i = 0; i <technologies_data.length; i++){
-        //     console.log(technologies_data[i].technology_name)
-        // }
 
         // reference data
         let reference_data =  await query(`select * from reference_contact where candidate_id = ${candidateId}`)
@@ -575,23 +571,50 @@ app.post('/edited', async function(req,res){
 
     // academics data update
 
-if (typeof courseSelect == "object"){
-    let academicsId = req.body.academicsId;
-    let courseSelect =  req.body.course_select
+
+    let academicsId = req.body.academicsId || ""
+    let courseSelect =  req.body.course_select || ""
     let academicsLen = academicsId.length;
     let courseLen = courseSelect.length
 
-    if(academicsLen == courseLen && courseSelect == "object"){
-        for(let i = 0; i<academicsLen;i++){
-            let academics_update = await query(`update academics set course_name = "${req.body.course_select[i]}", university_name = "${req.body.uni_select[i]}", pass_out_year = "${req.body.passing_year[i]}", score = "${req.body.score_data[i]}" where academics_id = ${academicsId[i]} `)
+    if(typeof courseSelect == "object" && typeof academicsId == "object"){
+        if(academicsLen == courseLen){
+            for(let i = 0; i<academicsLen;i++){
+                let academics_update = await query(`update academics set course_name = "${req.body.course_select[i]}", university_name = "${req.body.uni_select[i]}", pass_out_year = "${req.body.passing_year[i]}", score = "${req.body.score_data[i]}" where academics_id = ${academicsId[i]} `)
+            }
+        }
+        else if(academicsLen < courseLen){
+            for(let i = academicsLen; i<courseLen; i++){
+                let academics_add_update = await query(`insert into academics(candidate_id,course_name,university_name,pass_out_year,score)values("${candidateId}","${req.body.course_select[i]}","${req.body.uni_select[i]}","${req.body.passing_year[i]}","${req.body.score_data[i]}")`)
+            }
         }
     }
-    else if(academicsLen < courseLen){
-        for(let i = academicsLen; i<courseLen; i++){
-            let academics_add_update = await query(`insert into academics(candidate_id,course_name,university_name,pass_out_year,score)values("${candidateId}","${req.body.course_select[i]}","${req.body.uni_select[i]}","${req.body.passing_year[i]}","${req.body.score_data[i]}")`)
+    else if(typeof courseSelect == "object" && typeof academicsId == "string" && academicsId != 0){
+        courseLen = courseSelect.length;
+        academicsLen = 1;
+
+        if(academicsLen == courseLen){
+            for(let i = 0; i<academicsLen;i++){
+                let academics_update = await query(`update academics set course_name = "${req.body.course_select[i]}", university_name = "${req.body.uni_select[i]}", pass_out_year = "${req.body.passing_year[i]}", score = "${req.body.score_data[i]}" where academics_id = ${academicsId[i]} `)
+            }
         }
+        else if(academicsLen < courseLen){
+            for(let i = academicsLen; i<courseLen; i++){
+                let academics_add_update = await query(`insert into academics(candidate_id,course_name,university_name,pass_out_year,score)values("${candidateId}","${req.body.course_select[i]}","${req.body.uni_select[i]}","${req.body.passing_year[i]}","${req.body.score_data[i]}")`)
+            }
+        }
+        else if(typeof courseSelect == "string" && typeof academicsId == "string"){
+
+            // already 1 added
+             if(academicsId != ""){
+                let experienceLen =  1
+                let companyLen = 1;
+                let experience_update = await query(`uupdate academics set course_name = "${req.body.course_select}", university_name = "${req.body.uni_select}", pass_out_year = "${req.body.passing_year}", score = "${req.body.score_data}" where academics_id = ${academicsId} `)
+                
+            }
+        }
+      
     }
-}
 
     // experience data update
     let experienceId =  req.body.experienceId || ""
@@ -637,8 +660,6 @@ if (typeof courseSelect == "object"){
     }
     else if(typeof companyName == "string" && typeof experienceId == "string"){
 
-        
-
         // already 1 added
          if(experienceId != ""){
             let experienceLen =  1
@@ -664,8 +685,6 @@ if (typeof courseSelect == "object"){
         }
     }
 
-
-
     // languages data update
     let languagesId = req.body.languagesId;
     let language_name = req.body.lan1 || ""
@@ -674,15 +693,6 @@ if (typeof courseSelect == "object"){
     let language_speak = req.body.ch3  || ""
 
 
-    // if(typeof lanName =="object"){
-    //     for(let i = 0; i<lanName.length; i++){
-    //         if(lanName[i]){}
-    //         let languages_update =  await query(`update languages set language_name = "${lanName[i]}", language_read= "${language_read[i].includes(lanName[i])?'Yes':'No'}", language_write = "${language_write[i].includes(lanName[i])?'Yes':'No'}", language_speak = "${language_speak[i].includes(lanName[i]) ?'Yes':'No'}" where languages_id = ${languagesId[i]}`)
-    //     }
-    // }
-    // else if(typeof lanName == "string"){
-    //     let languages_update =  await query(`update languages set language_name = "${lanName}", language_read= "${language_read.includes(lanName)?'Yes':'No'}", language_write = "${language_write.includes(lanName)?'Yes':'No'}", language_speak = "${language_write.includes(lanName)?'Yes':'No'}" where languages_id = ${languagesId}`)
-    // }
     let language_delete =  await query(`delete from languages where candidate_id = ${candidateId}`)
 
     if(typeof language_name =="object"){
@@ -706,7 +716,22 @@ if (typeof courseSelect == "object"){
     }
     
     // technologies data update
-    let technologies_update
+    let techname = req.body.techname
+    let technologies_update =  await query(`delete from technologies where candidate_id = ${candidateId}`)
+    if(typeof techname =="object"){
+        for(let i = 0; i<techname.length; i++){
+            let technologies_update = await query(`insert into technologies(candidate_id,technology_name,tech_rating)
+            values("${candidateId}",
+            "${techname[i]}",
+            "${eval("req.body."+(techname[i]))}")`)
+        }
+    }
+    else{
+        let technologies_update = await query(`insert into technologies(candidate_id,technology_name,tech_rating)
+        values("${candidateId}",
+        "${techname}",
+        "${eval("req.body."+(techname))}")`)
+    }
 
     // references data update
     let referenceId =  req.body.referenceId || ""
@@ -714,7 +739,7 @@ if (typeof courseSelect == "object"){
 
     let referenceLen = 0
     let refNameLen = 0
-    // console.log(typeof refName)
+  
     
     if(typeof refName == "object" && typeof referenceId == "object"){
         referenceLen = referenceId.length

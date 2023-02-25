@@ -122,7 +122,6 @@ label{
                                     
                             <% }) %>
 
-                            
                         </select>
                         </td>
                     </tr>
@@ -262,24 +261,43 @@ label{
                 <legend>Language Known</legend>
             
                 <table>
-                    
-                    <% for(let i = 0 ; i<lanData.length; i++){ %>
-                    <tr> 
-                        <input type="text" name="languagesId" value="<%=language_data[i].languages_id%>" hidden>
-                        <% let checkedName = language_data[i].language_name == lanData[i].option_value ? "checked" : "" %>
-                        <td><input type="checkbox" name="lan1" value="<%= lanData[i].option_value%>" <%= checkedName %> ></td>
-                        <td><label for="lanData"><%= lanData[i].option_value%></label></td>
-                        <% let checkedVal = language_data[i].language_read == 'Yes' ? "checked" : "" %>
-                        <td><input type="checkbox" name="ch1" value="<%= lanData[i].option_value%>" <%= checkedVal %>></td>
-                        <td><label for="read">Read</label></td>
-                        <% let checkedVal2 = language_data[i].language_write == 'Yes' ? "checked" : "" %>
-                        <td><input type="checkbox" name="ch2" value="<%= lanData[i].option_value%>" <%= checkedVal2 %>></td>
-                        <td><label for="write">Write</label></td>
-                        <% let checkedVal3 = language_data[i].language_speak == 'Yes' ? "checked" : "" %>
-                        <td><input type="checkbox" name="ch3" value="<%= lanData[i].option_value%>" <%= checkedVal3 %>></td>
-                        <td><label for="speak">Speak</label></td>
-                    </tr>
+                    <% var lanArr = [] %>
+                    <% for(let j = 0; j<language_data.length; j++) { %>
+                        <% lanArr.push(language_data[j].language_name) %>
                     <% } %>
+                   <% var k = 0 %>
+                        <% for(let i = 0 ; i<lanData.length; i++){ %>
+                        <tr> 
+                            <% if(lanArr.includes(lanData[i].option_value)) { %>
+
+                                <% let checkedName = language_data[k].language_name == lanData[i].option_value ? "checked" : "" %>
+                                <td><input type="checkbox" name="lan1" value="<%= lanData[i].option_value%>" <%= checkedName %> ></td>
+                                <td><label for="lanData"><%= lanData[i].option_value%></label></td>
+                                <% let checkedVal = language_data[k].language_read == 'Yes' ? "checked" : "" %>
+                                <td><input type="checkbox" name="ch1" value="<%= lanData[i].option_value%>" <%= checkedVal %>>Read</td>
+                                <% let checkedVal2 = language_data[k].language_write == 'Yes' ? "checked" : "" %>
+                                <td><input type="checkbox" name="ch2" value="<%= lanData[i].option_value%>" <%= checkedVal2 %>>Write</td>
+                                <% let checkedVal3 = language_data[k].language_speak == 'Yes' ? "checked" : "" %>
+                                <td><input type="checkbox" name="ch3" value="<%= lanData[i].option_value%>" <%= checkedVal3 %>>Speak</td>
+                            
+                            <% }else {%>
+                                
+                                <td><input type="checkbox" name="lan1" value="<%= lanData[i].option_value%>" ></td>
+                                <td><label for="lanData"><%= lanData[i].option_value%></label></td>
+                                <td><input type="checkbox" name="ch1" value="<%= lanData[i].option_value%>" >Read</td>
+                                <td><input type="checkbox" name="ch2" value="<%= lanData[i].option_value%>" >Write</td>
+                                <td><input type="checkbox" name="ch3" value="<%= lanData[i].option_value%>" >Speak</td>
+                            
+                            
+                            <% } %> 
+                        </tr>
+                    <% k++ %>
+                        <% } %> 
+
+
+
+
+
                 </table>
             </fieldset>
         </section>
@@ -289,18 +307,41 @@ label{
                 <legend>Technologies You Know</legend>
 
                 <table id="techTable">
-
+                    <% var techArr = [] %>
+                    <% for(let j = 0; j<technologies_data.length; j++) { %>
+                        <% techArr.push(technologies_data[j].technology_name) %>
+                    <% } %>
+                    <% var k = 0 %>
                     <% for(let i = 0 ; i<techData.length; i++){ %>
+                        
                         <tr id="addTechnology">
-                            <td><input type="checkbox" name="techname" value="<%= techData[i].option_value%>"></td>
-                            <td><label for="<%= techData[i].option_value%>"><%= techData[i].option_value%></label></td>
-                            <td><input type="radio" name="<%= techData[i].option_value%>" value = "Beginer"></td>
-                            <td><label for="beginer">Beginer</label></td>
-                            <td><input type="radio" name="<%= techData[i].option_value%>" value="Mideator"></td>
-                            <td><label for="mideator">Mideator</label></td>
-                            <td><input type="radio" name="<%= techData[i].option_value%>" value="Expert"></td>
-                            <td><label for="expert">Expert</label></td>
-                        </tr>
+                            <% if(techArr.includes(techData[i].option_value)) { %>
+                            
+                                <% let techValName = techArr[k] == techData[i].option_value ? "checked" : "" %>
+                                <% console.log(techValName)%>
+                                <input type="text" name="technologiesId" value="<%=technologies_data.technologies_id%>" hidden>
+                        
+                                <td><input type="checkbox" name="techname" value="<%= techData[i].option_value%>"  <%= techValName %>> </td>
+                                <td><label for="<%= techData[i].option_value%>"><%= techData[i].option_value%></label></td>
+                                
+                                <td><input type="radio" name="<%= techData[i].option_value%>" value = "Beginer" <%= technologies_data[k].tech_rating ==  "Beginer" ? "checked" : "" %>>Beginer</td>
+                                <td><input type="radio" name="<%= techData[i].option_value%>" value="Mideator" <%= technologies_data[k].tech_rating ==  "Mideator" ? "checked" : "" %>>Mideator</td>
+                                <td><input type="radio" name="<%= techData[i].option_value%>" value="Expert" <%= technologies_data[k].tech_rating ==  "Expert" ? "checked" : "" %>>Expert</td>
+                                
+                                <% k++ %>
+                                <% } else{ %>
+                                    <td><input type="checkbox" name="techname" value="<%= techData[i].option_value%>" > </td>
+                                    <td><label for="<%= techData[i].option_value%>"><%= techData[i].option_value%></label></td>
+                                    
+                                    <td><input type="radio" name="<%= techData[i].option_value%>" value = "Beginer">Beginer</td>
+                                    <td><input type="radio" name="<%= techData[i].option_value%>" value="Mideator">Mideator</td>
+                                    <td><input type="radio" name="<%= techData[i].option_value%>" value="Expert">Expert</td>
+                                
+                                    
+                                    
+                                    
+                                <% } %>
+                                </tr>
                     <% } %>
                 </table>
             </fieldset>
