@@ -607,7 +607,7 @@ app.post('/edited', async function(req,res){
              if(academicsId != ""){
                 let experienceLen =  1
                 let companyLen = 1;
-                let experience_update = await query(`uupdate academics set course_name = "${req.body.course_select}", university_name = "${req.body.uni_select}", pass_out_year = "${req.body.passing_year}", score = "${req.body.score_data}" where academics_id = ${academicsId} `)
+                let experience_update = await query(`update academics set course_name = "${req.body.course_select}", university_name = "${req.body.uni_select}", pass_out_year = "${req.body.passing_year}", score = "${req.body.score_data}" where academics_id = ${academicsId} `)
             }
         }
     }
