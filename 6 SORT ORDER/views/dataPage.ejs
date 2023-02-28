@@ -77,30 +77,19 @@
 
 
         <div id="main-container">
-            <div id="sortByOrder" class="sortByOrder">
-                
-                <select name="sortingOrder" id="sortingOrder" class="selectBox">
-                    <option value="accending">Accending</option>
-                    <option value="decending">Decending</option>
-                </select>
-
-                <select name="sortingBy" id="sortingBy" class="selectBox">
-                    <option value="firstName"><a href="/table/?page=1&field=student_id&order=<%=order%>">First Name</a></option>
-                    <option value="lastName">Last Name</option>
-                    <option value="city">City</option>
-                </select>
-            </div>
+           
             
             <table id="tableMain">
                 <tr>
-                    <th><a href="/table/?page=1&field=student_id&order=<%=order%>">Student ID</a></th>
-                    <th><a href="/table/?page=1&field=first_name&order=<%=order%>">First Name</a></th>
-                    <th><a href="/table/?page=1&field=last_name&order=<%=order%>">Last Name</a></th>
-                    <th><a href="/table/?page=1&field=date_of_birth&order=<%=order%>">Date Of Birth</a></th>
-                    <th><a href="/table/?page=1&field=contact_number&order=<%=order%>">Contact Number</a></th>
-                    <th><a href="/table/?page=1&field=email&order=<%=order%>">Email</a></th>
-                    <th><a href="/table/?page=1&field=city&order=<%=order%>">City</a></th>
-                    <th><a href="/table/?page=1&field=clg_name&order=<%=order%>">College</a></th>
+
+                    <th><a href="/table/?page=1&field=student_id&order=<%=pre_order%>">Student ID</a></th>
+                    <th><a href="/table/?page=1&field=first_name&order=<%=pre_order%>">First Name</a></th>
+                    <th><a href="/table/?page=1&field=last_name&order=<%=pre_order%>">Last Name</a></th>
+                    <th><a href="/table/?page=1&field=date_of_birth&order=<%=pre_order%>">Date Of Birth</a></th>
+                    <th><a href="/table/?page=1&field=contact_number&order=<%=pre_order%>">Contact Number</a></th>
+                    <th><a href="/table/?page=1&field=email&order=<%=pre_order%>">Email</a></th>
+                    <th><a href="/table/?page=1&field=city&order=<%=pre_order%>">City</a></th>
+                    <th><a href="/table/?page=1&field=clg_name&order=<%=pre_order%>">College</a></th>
                 </tr>
                 <%resultArr.forEach(function(data){ %>
                     <tr>
@@ -120,9 +109,9 @@
             <div id="linkContainer">
             <% for(let i = 1; i<=counter;i++){ %>
                 <% if(i == page){ %>
-                    <a id="btn" class="linkBtn active" href="/table/?page=<%= i%>&field=<%= field%>"><%= i %></a> 
+                    <a id="btn" class="linkBtn active" href="/table/?page=<%= i%>&field=<%= field%>&order=<%=order%>"><%= i %></a> 
                     <% } else {%>
-                        <a id="btn" class="linkBtn" href="/table/?page=<%= i%>&field=<%= field%>"><%= i %></a> 
+                        <a id="btn" class="linkBtn" href="/table/?page=<%= i%>&field=<%= field%>&order=<%=order%>"><%= i %></a> 
                     <%}%>
               
             <% } %>
@@ -130,5 +119,16 @@
         </div>
 
 
+
+        <script>
+            function changeOrder(){
+                if(order == 'ASC'){
+                    order =  'DESC'
+                }
+                else{
+                    order = 'ASC'
+                }
+            }
+        </script>
 </body>
 </html>

@@ -73,22 +73,22 @@ app.get('/table/',function(req,res){
 
     let limit = 10
     let offset =  (page-1)*limit||0
-    
+    let pre_order = 'ASC';
         connection.query(`Select * from student_express order by ${field} ${order} limit ${offset},${limit}`, function(err, data){
             if(err) throw err;
             connection.query('select count(*) as count from student_express', function(err, coun_val){
                 if(err) throw err;
 
                 if(order=='ASC'){
-                    order="DESC"
+                    pre_order="DESC"
                 }
                 else{
-                    order="ASC"
+                    pre_order="ASC"
                 }
 
                 resultArr = data;
                 let counter = Math.ceil(coun_val[0].count/limit)
-                res.render('dataPage',{resultArr, page,counter,field,order})
+                res.render('dataPage',{resultArr, page,counter,field,order,pre_order})
                 }) 
             })
         })
