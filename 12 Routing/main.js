@@ -44,7 +44,7 @@ function auth(req,res,next){
     if(req.query.admin === 'true'){
         // pass variables to other sections from middleware
         req.admin =  true
-        next(true)
+        next()
         console.log("auth")
         return
     }
