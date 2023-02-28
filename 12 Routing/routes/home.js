@@ -5,8 +5,8 @@ router.get('/',(req,res)=>{
     res.send("Hello Home")
 })
 
-router.get('/home',(req,res)=>{
-    res.send("Hello Home2")
+router.get('/contact',(req,res)=>{
+    res.send("This is contact")
 })
 
 router.get('/*',(req,res)=>{
