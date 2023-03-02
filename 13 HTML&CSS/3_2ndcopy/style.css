@@ -91,6 +91,9 @@ li{
 .hero-left{
     width: 50%;
 }
+.hero-left-img{
+    width: 600px;
+}
 .hero-right{
     width: 50%;
     justify-content: center;
@@ -632,3 +635,24 @@ hr{
     padding-top:20px ;
     color: #7294b4;
 }
+
+/* Media Queries */
+
+@media only screen and (max-width:991){
+    /* hero section for width 991 */
+    .hero-section-container{
+        flex-wrap: wrap;
+    }
+    .hero-left-img{
+        width: 100%;
+    }
+    .hero-right{
+
+    }
+}
+/* @media screen and (max-width:767px){
+    
+}
+@media screen and (max-width:425){
+    
+} */
