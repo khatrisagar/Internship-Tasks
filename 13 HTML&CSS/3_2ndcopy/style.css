@@ -483,11 +483,16 @@ li{
     text-align: center;
     row-gap: 20px;
 }
-.cta-section-container{
-    margin-top: 100px;
-    height: 100vh;
+
+
+/* cta section */
+.cta-section{
     background-color: #0a253f;
+    margin-top: 100px;
+    padding-bottom: 100px;
 }
+
+
 .cta-left{
     width: 60vw;
 }
@@ -498,7 +503,7 @@ li{
 
 .cta-head-text{
     color: #ffffff;
-    font-size: 2.5rem;
+    font-size: 2rem;
 }
 
 
@@ -531,7 +536,6 @@ li{
 }
 .cta-left-inside{
     padding-top: 150px;
-    padding-left: 60px;
     width: 80%;
 }
 .cta-right-inside{
@@ -539,7 +543,7 @@ li{
 }
 
 .cta-card{
-    width: 80%;
+    width: 550px;
     background-color: #ffffff;
     border-radius: 15px;
     padding: 30px;
@@ -578,11 +582,13 @@ hr{
   border-top: 1px solid #577592;
 }
 /* footer designing */
-
-.footer-container{
-    height: 110vh;
+.footer-section{
     background-color: #0a253f;
 }
+/* .footer-container{
+    flex-wrap: wrap;
+} */
+
 .footer-left{
     width: 20%;
     padding-top: 100px;
@@ -622,12 +628,12 @@ hr{
     position: relative;
 }
 .footer-bottom{
-    position: absolute;
+    /* position: absolute;
     bottom: 0;
     right: 530px;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 60px;
+    padding-bottom: 60px; */
 }
 .copy-right-p{
     padding-top:20px ;
