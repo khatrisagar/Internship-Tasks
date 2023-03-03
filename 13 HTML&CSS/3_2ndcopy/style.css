@@ -221,10 +221,9 @@ li{
 }
 
 .service-card-container{
-    margin: 0 60px;
     align-items: center;
-
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 .quote-section{
     height: 70vh;
@@ -240,7 +239,7 @@ li{
     background-color: #f1ade6;
 } */
 .quote-card-container{
-    margin: 20px 0 0 60px;
+    margin: 20px 0 0 0;
     height: 340px;
     width: 30%;
     background-color: #ffffff;
@@ -284,14 +283,12 @@ li{
 .features-section-container{
     margin-bottom: 40px;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     flex-wrap: wrap;
 }
 
 .feature-card{
-    /* margin-inline: 16px; */
-    padding: 40px;
-    width: 32%;
+    width: 26%;
     line-height: 25px;
 }
 .feature-p{
@@ -309,14 +306,15 @@ li{
 .blog-section-container{
     margin-top: 80px;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
 }
 
 .blog-head{
     line-height: 46px;
     flex-direction: column;
     text-align: center;
-    align-items: center;
+    align-self: center;
+    justify-content: center;
     width: 40%;
 }
 
@@ -335,9 +333,9 @@ li{
 
 .blog-card-container{
     margin-top:50px;
-    justify-content: center;
+    display: flex;
     padding-bottom: 20px;
-    gap:20px;
+    justify-content: space-between;
 }
 
 .blog-card{
@@ -390,13 +388,13 @@ li{
 
 .testimonials-reviews-container{
     margin-top: 60px;
-    margin-inline: 40px;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .testimonials-reviews{
     width: 21%;
     flex-direction: column;
+    justify-content: space-between;
     row-gap: 25px;
 }
 
