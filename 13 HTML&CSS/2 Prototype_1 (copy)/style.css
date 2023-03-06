@@ -62,7 +62,7 @@ li{
 }
 .container{
     width: 1170px;
-    border:  1px solid black;
+    /* border:  1px solid #11111155; */
     margin-inline: auto;
     padding: 0 16px;
     overflow: none;
@@ -237,7 +237,7 @@ li{
 }
 
 .quote-section{
-    height: 70vh;
+    height: 100vh;
     background-image: url(./assets/thumb-Image\ \(1\).png);
     background-repeat: no-repeat;
     background-size: 100%;
@@ -246,13 +246,15 @@ li{
     margin-bottom: 100px;
     padding-top: 30px;
 }
-/* .quote-bg{
-    background-color: #f1ade6;
-} */
+.quote-card{
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
 .quote-card-container{
     margin: 20px 0 0 0;
     height: 340px;
-    width: 30%;
+    width: 33.33%;
     background-color: #ffffff;
     border-radius: 8px;
     padding: 40px;
