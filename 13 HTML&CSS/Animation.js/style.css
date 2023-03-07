@@ -1,0 +1,69 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container-main{
+    display: flex;
+    animation-name: slide-it;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+
+    animation-name: slide-it; 
+    animation-duration: 3s;
+    animation-direction: normal;
+    animation-iteration-count: infinite;
+    animation-fill-mode:forwards;
+}
+
+@keyframes slide-it {
+    0%{
+        transform:translate(-1200px);
+    }
+    20%{
+        transform:translate(-600px);
+    }
+    40%{
+        transform:translate(0);
+    }   
+    60%{
+        transform:translate(600px);
+    }
+    80%{
+        transform:translate(1200px);
+    }
+    100%{
+        transform:translate(1800px);
+    }
+}
+
+.card{
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  
+}
+/* .card:hover{
+} */
+
+.box-1{
+    background-color: aqua;
+}
+.box-2{
+    background-color:red;
+}
+.box-3{
+    background-color: green;
+}
+.box-4{
+    background-color: blue;
+}
+.box-5{
+    background-color: purple;
+}
