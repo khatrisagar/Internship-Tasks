@@ -4,41 +4,63 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Registeration</title>
+    <link rel="stylesheet" href="/css/registration.css">
 </head>
 <body>
-    <form action="/login" method="post">
+    <div class="registration-wrapper">
+        <div class="main-body">
+            <section class="main-body-section">
+                <div class="content-box flex">
+                    <form action="/login" method="post">
+                        <div class="outer-container">
+                            <div class="top-logo-container">
+                                <img src="/images/logo.svg" width="100px" alt="logo">
+                            </div>
+                       
+                       
+                            <div class="inner-container">
+                                
+                                <div class="head-container"> 
+                                    <h3 class="head-text">Welcome Back</h3>
+                                </div>
+                                <div class="">
+                                    
+                
+                                    <div class="email-box flex flex-col">
+                                        <label class="label-text" for="useremail">Email</label>
+                                        <input class="text-box" type="text" name="useremail" required>
+                                    </div>
+                
+                                    <div class="password-box flex flex-col" >
+                                        <label class="label-text" for="password">Password</label>
+                                        <input class="text-box" type="password" name="password" required>
+                                    </div>
 
-        <div class="main-container h-screen flex flex-col gap-y-4  items-center justify-center">
-            <div class="Heading Text"> 
-                <h1 class="text-3xl">Login Form</h1>
-            </div>
-            <div class="field-contianer flex flex-col mt-2 col gap-y-2">
-                <div class="username-box flex flex-col">
-                    <label for="useremail">Email</label>
-                    <input class="border-2 border-solid border-black rounded" type="text" name="useremail" required>
+                                    <div>
+                                        <p class="label-text" >Forgot Password? <a class="link-golden" href="/Login">Click Here</a></p>
+                                    </div>
+                
+                
+                                    <div class="submit-box flex">
+                                        <input type="submit" class="submitBtn" value="Login">
+                                    </div>
+                
+                                    <div class="bottom-text">
+                                        <p class="label-text" >Don't have an account? <a class="link-golden" href="/register">Sign up Here</a></p>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                
+                    </form>
+                    <div class="bottom-logo-container">
+                        <img src="/images/bottom-logo.png" width="150px" alt="">
+                    </div>
                 </div>
-
-                <div class="password-box flex flex-col">
-                    <label for="password">Password</label>
-                    <input class="border-2 border-solid border-black rounded" type="password" name="password" required>
-                </div>
-
-                <div class="submit-box flex justify-center m-2">
-                    <input type="submit" class="inline p-2 border-2 border-solid bg-black text-white rounded" value="Submit">
-                </div>
-
-                <div>
-                    <p>Didn't have a account <a class="text-yellow" href="/register">register</a> for new one</p>
-                </div>
-            </div>
+            </section>
         </div>
-
-
-    </form>
-
-
-
+    </div>
 </body>
 </html>

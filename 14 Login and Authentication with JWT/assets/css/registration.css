@@ -1,0 +1,80 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Fira+Sans&family=Oswald&display=swap'); */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family:sans-serif;
+}
+
+.main-body-section{
+    height: 100vh;
+    background-image: url(../images/auth-bg.png);
+    background-size: cover;
+}
+
+.flex{
+    display: flex;
+}
+
+.flex-col{
+    flex-direction: column;
+}
+.flex-row{
+    flex-direction: row;
+}
+
+.content-box{
+    margin-left: 250px;
+    width: 350px;
+    height: 100vh;
+    background-color: #11111199;
+    color: #fff;
+    justify-content: center;
+    padding-inline: 0px;
+}
+.label-text{
+    font-size: 13px;
+    margin-top: 15px;
+}
+.submitBtn{
+    margin-top: 15px;
+    padding: 7px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #174F2A;
+    border: none;
+}
+.text-box{
+    margin-top: 3px;
+    padding: 5px;
+    width: 270px;
+}
+.outer-container{
+    padding-top: 60px;
+}
+.inner-container{
+    padding-top: 50px;
+}
+.head-container{
+    margin-bottom: 10px;
+}
+.link-golden{
+    color: #A4843F;
+}
+.bottom-text{
+    margin-top: 100px;
+}
+.bottom-text{
+    position: absolute;
+    bottom: 30px;
+}
+.bottom-logo-container{
+    position: absolute;
+    bottom: 20px;
+    right: 200px;
+}

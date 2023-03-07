@@ -8,7 +8,7 @@ const route = require('./routes/home')
 
 app.use('/',route)
 app.set('view engine', 'ejs')
-app.use(express.static('public'))
+app.use(express.static('assets'))
 
 
 

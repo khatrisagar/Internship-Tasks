@@ -8,6 +8,7 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const cookieParser = require("cookie-parser");
 
+// router.use(express.static('/assets/css'))
 
 router.use(bodyParser.urlencoded({extended:true}))
 router.use(bodyParser.json())
@@ -41,7 +42,7 @@ router.post('/register', async (req,res)=>{
 
         const registerUser = query(`insert into users(user_name, user_email, user_password) value("${name}","${email}","${encryptedPass}")`)
         
-        res.send('registeration completed click here to <a href="/login">login<a>')
+        res.render('info', {data:`registeration completed Click Below to Login`})
     }
 
     
@@ -49,11 +50,6 @@ router.post('/register', async (req,res)=>{
         console.log(`Error From home.js `,e)
     }
 })
-
-// router.get('/',(req,res)=>{
-//     res.send('registeration completed click here to <a href="/login">login<a> ')
-    
-// })
 
 router.post('/login', async (req,res)=>{
 
@@ -70,12 +66,11 @@ router.post('/login', async (req,res)=>{
 
         if(await bcrypt.compare(password, encryptedPass)){
             const userToken =  jwt.sign({userData},process.env.Token_key);
-            // window.localStorage.setItem("userToken", userToken);
             res.cookie("userToken", userToken)
-            res.redirect('/home')
+            res.redirect('/')
         }
         else{
-            res.send("You Entered a Wrong Password")
+            res.render('info', {data:`You Entered a Wrong Password Try Again`})
         }
     }
     catch(e){
@@ -83,7 +78,7 @@ router.post('/login', async (req,res)=>{
     }
 })
 
-router.get('/home', (req,res)=>{
+router.get('/', (req,res)=>{
     try {
         // if(req.body.userToken == undefined){
             const token = req.cookies.userToken || "Null"
