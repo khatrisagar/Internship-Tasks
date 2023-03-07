@@ -131,12 +131,11 @@ router.get('/verify', async(req,res)=>{
     let email = req.query.userEmail;
     console.log(email)
     let val = await query(`select * from users where user_email = "${email}"`)
-    console.log(typeof val)
-    console.log(keys(val).length === 0)
-    if( val[0] !== "" ){
+    console.log(val.length)
+    if( val.length === 0 ){
         res.json({"match":"no"})
     }
-    else if(val[0] === "" ){
+    else if(val.length !== 0 ){
         res.json({"match":"yes"})
     }
     

@@ -30,9 +30,15 @@ function checkPass2(pass2){
     }
 }
 
-async function checkAll(){
-    let val = await fetch(`http://localhost:9999/verify?userEmail=${userEmail}`)
-    console.log("sda",val)
+function checkAll(){
+    fetch(`http://localhost:9999/verify?userEmail=${userEmail}`).then(res=>(res.json())).then(data=>{
+        if(data.match == "yes"){
+            let emailWarning = document.getElementById('email-warning')
+            emailWarning.innerHTML = `<p>Your Email already exist</p>`
+            return false
+        }
+    })
+    
     if(userPassword == userPassword2){
         console.log("1",userPassword)
         console.log("2",userPassword2)
@@ -46,6 +52,7 @@ async function checkAll(){
 
         return false;
     }
+  
     
     
 }
