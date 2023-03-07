@@ -15,11 +15,35 @@ router.use(bodyParser.json())
 router.use(cookieParser());
 
 router.get('/register', (req,res)=>{
-    res.render('registration')
+    try {   
+        const token = req.cookies.userToken || "Null"
+        if(token == "Null"){
+            res.render('registration')
+        }
+        else{
+            res.redirect('/') 
+        }
+      } 
+      catch (e) {
+        console.log(`error in get register`,e)
+      }
+    
 })
 
 router.get('/login', (req,res)=>{
-    res.render('login')
+    try {
+        const token = req.cookies.userToken || "Null"
+        if(token == "Null"){
+            res.render('login')
+            
+        }
+        else{
+            res.redirect('/') 
+        }
+      } 
+    catch (e) {
+        console.log(`error in get login`,e)
+    }
 })
 
 
@@ -80,10 +104,7 @@ router.post('/login', async (req,res)=>{
 
 router.get('/', (req,res)=>{
     try {
-        // if(req.body.userToken == undefined){
-            const token = req.cookies.userToken || "Null"
-            
-        // }
+        const token = req.cookies.userToken || "Null"
         if(token != "Null"){
             
             const decoded = jwt.verify(token, process.env.Token_key);
@@ -92,7 +113,7 @@ router.get('/', (req,res)=>{
 
         }
         else{
-            res.send('<h1>Click Here to <a href="/login">Login</a> First</h1>')
+            res.render('info', {data:`You are not Logged in Right Now Click Below to login First`})
         }
       } 
       catch (e) {
@@ -105,5 +126,20 @@ router.get('/logout', (req,res)=>{
     res.redirect('/login')
 })
 
+router.get('/verify', async(req,res)=>{
+    const query =  util.promisify(connection.query).bind(connection)
+    let email = req.query.userEmail;
+    console.log(email)
+    let val = await query(`select * from users where user_email = "${email}"`)
+    console.log(typeof val)
+    console.log(keys(val).length === 0)
+    if( val[0] !== "" ){
+        res.json({"match":"no"})
+    }
+    else if(val[0] === "" ){
+        res.json({"match":"yes"})
+    }
+    
+})
 
 module.exports= router;

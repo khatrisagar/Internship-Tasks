@@ -12,7 +12,7 @@
         <div class="main-body">
             <section class="main-body-section">
                 <div class="content-box flex">
-                    <form action="/register" method="post">
+                    <form action="/register" onsubmit="return checkAll()" method="post">
                         <div class="outer-container">
                             <div class="top-logo-container">
                                 <img src="/images/logo.svg" width="100px" alt="logo">
@@ -27,22 +27,26 @@
                                 <div class="">
                                     <div class="username-box flex flex-col">
                                         <label class="label-text" for="username">Name</label>
-                                        <input class="text-box" type="text" name="username" required>
+                                        <input class="text-box" id="username" oninput="checkName(this.value)" type="text" name="username" required>
+                                        <div class="red name-warning"> </div>
                                     </div>
                 
                                     <div class="email-box flex flex-col">
                                         <label class="label-text" for="useremail">Email</label>
-                                        <input class="text-box" type="text" name="useremail" required>
+                                        <input class="text-box" oninput="checkEmail(this.value)" type="text" name="useremail" required>
+                                        <div class="red email-warning"> </div>
                                     </div>
                 
                                     <div class="password-box flex flex-col" >
                                         <label class="label-text" for="password">Password</label>
-                                        <input class="text-box" type="password" name="password" required>
+                                        <input class="text-box" oninput="checkPass(this.value)" type="password" name="password" required>
+                                        <div id="password-warning" class="red password-warning"> </div>
                                     </div>
                 
                                     <div class="confirm-password-box flex flex-col">
                                         <label class="label-text" for="password2">Confirm Password</label>
-                                        <input class="text-box" type="password" name="password2" required>
+                                        <input class="text-box" oninput="checkPass2(this.value)" type="password" name="password2" required>
+                                        <div id="pass2-warning" class="red pass2-warning"> </div>
                                     </div>
                 
                                     <div class="submit-box flex">
@@ -65,5 +69,6 @@
             </section>
         </div>
     </div>
+    <script src="js/validation.js"></script>
 </body>
 </html>
