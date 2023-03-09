@@ -8,11 +8,16 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const cookieParser = require("cookie-parser");
 const { v4: uuidv4 } = require('uuid');
-// router.use(express.static('/assets/css'))
+const transporter =  require("../mail")
+
 
 router.use(bodyParser.urlencoded({extended:true}))
 router.use(bodyParser.json())
 router.use(cookieParser());
+
+  
+
+
 
 router.get('/register', (req,res)=>{
     try {   
@@ -34,7 +39,7 @@ router.get('/login', (req,res)=>{
     try {
         const token = req.cookies.userToken || "Null"
         if(token == "Null"){
-            res.render('login')
+            res.render('login', {errMessage:""})
             
         }
         else{
@@ -66,7 +71,7 @@ router.post('/register', async (req,res)=>{
         const query =  util.promisify(connection.query).bind(connection)
 
         const registerUser = query(`insert into users(user_name, user_email, user_password, activation_code) value("${name}","${email}","${encryptedPass}", "${activationCode}")`)
-        
+
         res.render('activation', {userEmail:`${email}`, activationCode:`${activationCode}` })
     }
 
@@ -88,16 +93,19 @@ router.post('/login', async (req,res, next)=>{
         let userData = await query(`select * from users where user_email = "${email}"`)
         if(userData.length !== 0){
             let encryptedPass = userData[0].user_password
-                // console.log(encryptedPass)
             let val = await bcrypt.compare(password, encryptedPass)
             if(val){
                 const userToken =  jwt.sign({userData},process.env.Token_key);
                 res.cookie("userToken", userToken)
                 res.redirect('/')
             }
+            else{
+                res.render('login',{errMessage:"You Entered a Wrong Email or Password"})
+            }
+
         }
         else{
-            res.send("hh") 
+            res.render('login',{errMessage:"You Entered a Wrong Email or Password"})
         }
     }
     catch(e){
@@ -113,8 +121,6 @@ router.get('/',async (req,res)=>{
             const decoded = jwt.verify(token, process.env.Token_key);
             const data = decoded.userData;
             let val = await query(`select * from users where user_email = "${data[0].user_email}"`)
-                console.log("val",val[0].is_activated) 
-                console.log("val",val[0].user_email) 
                 if(val[0].is_activated === 1){
                     res.render('home',{data})
                 }else if(val[0].is_activated === 0){
