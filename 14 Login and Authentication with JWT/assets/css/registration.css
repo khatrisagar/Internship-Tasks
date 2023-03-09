@@ -79,3 +79,89 @@ body{
     margin-top: 5px;
     font-size: 13px;
 }
+.dancing-button{
+    position: relative;
+    transition: 0.3s ease;
+    animation-duration: 2s;
+    animation-iteration-count: 6;
+    animation-timing-function: linear;
+    width: 100px
+}
+
+.dancing-button{
+    animation-name: danceBtn;
+}
+
+
+/* @keyframes danceBtn {
+    0%,100%{
+        transform: translate(-300px,0);
+
+    }
+    10%{
+        transform: translate(-300px,-200px);
+    }
+    20%{
+        transform: translate(-300px,-400px);
+    }
+    30%{
+        transform: rotateZ(360deg);
+        transform: translate(-300px,-400px);
+    }
+    40%{
+        transform: translate(950px, -400px);
+    }
+    50%{
+        transform: translate(950px, -400px);
+    }
+    60%{
+        transform: translate(950px, -200px);
+        
+    }
+    70%{
+        transform: translate(950px, 0);
+    }
+    80%{
+        transform: translate(950px, 100px);
+    }
+    90%{
+        transform: translate(-300px, 100px);
+
+    }
+} */
+
+@keyframes danceBtn {
+    0%,100%{
+        transform: translate(0,0);
+
+    }
+    10%{
+        transform: translate(-240px,-430px);
+    }
+    20%{
+        transform: translate(980px,-130px);
+    }
+    30%{
+        transform: translate(980px,-430px);
+    }
+    40%{
+        transform: translate(-240px, -130px);
+    }
+    50%{
+        transform: translate(980px,-430px);
+    }
+    60%{
+        transform: translate(-240px,-430px);
+        
+    }
+    70%{
+        transform: translate(980px,-130px);
+    }
+    80%{
+        transform: translate(-240px, -130px);
+    }
+    90%{
+        transform: translate(980px,-430px);
+
+    }
+}

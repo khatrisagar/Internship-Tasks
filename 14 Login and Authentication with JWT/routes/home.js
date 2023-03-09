@@ -7,7 +7,7 @@ const util =  require('util');
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const cookieParser = require("cookie-parser");
-
+const { v4: uuidv4 } = require('uuid');
 // router.use(express.static('/assets/css'))
 
 router.use(bodyParser.urlencoded({extended:true}))
@@ -52,6 +52,7 @@ router.post('/register', async (req,res)=>{
         let name = req.body.username
         let email = req.body.useremail
         let password = req.body.password
+        let activationCode = uuidv4()
 
         if(!(name && email && password)){
             res.status(400).send("Empty fields not allowed")
@@ -64,9 +65,9 @@ router.post('/register', async (req,res)=>{
 
         const query =  util.promisify(connection.query).bind(connection)
 
-        const registerUser = query(`insert into users(user_name, user_email, user_password) value("${name}","${email}","${encryptedPass}")`)
+        const registerUser = query(`insert into users(user_name, user_email, user_password, activation_code) value("${name}","${email}","${encryptedPass}", "${activationCode}")`)
         
-        res.render('info', {data:`registeration completed Click Below to Login`})
+        res.render('activation', {userEmail:`${email}`, activationCode:`${activationCode}` })
     }
 
     
@@ -75,7 +76,7 @@ router.post('/register', async (req,res)=>{
     }
 })
 
-router.post('/login', async (req,res)=>{
+router.post('/login', async (req,res, next)=>{
 
     try{
         
@@ -85,16 +86,18 @@ router.post('/login', async (req,res)=>{
         const query =  util.promisify(connection.query).bind(connection)
 
         let userData = await query(`select * from users where user_email = "${email}"`)
-        let encryptedPass = userData[0].user_password
-            // console.log(encryptedPass)
-
-        if(await bcrypt.compare(password, encryptedPass)){
-            const userToken =  jwt.sign({userData},process.env.Token_key);
-            res.cookie("userToken", userToken)
-            res.redirect('/')
+        if(userData.length !== 0){
+            let encryptedPass = userData[0].user_password
+                // console.log(encryptedPass)
+            let val = await bcrypt.compare(password, encryptedPass)
+            if(val){
+                const userToken =  jwt.sign({userData},process.env.Token_key);
+                res.cookie("userToken", userToken)
+                res.redirect('/')
+            }
         }
         else{
-            res.render('info', {data:`You Entered a Wrong Password Try Again`})
+            res.send("hh") 
         }
     }
     catch(e){
@@ -102,15 +105,21 @@ router.post('/login', async (req,res)=>{
     }
 })
 
-router.get('/', (req,res)=>{
+router.get('/',async (req,res)=>{
     try {
+        const query =  util.promisify(connection.query).bind(connection)
         const token = req.cookies.userToken || "Null"
-        if(token != "Null"){
-            
+        if(token != "Null"){       
             const decoded = jwt.verify(token, process.env.Token_key);
             const data = decoded.userData;
-            res.render('home',{data})
-
+            let val = await query(`select * from users where user_email = "${data[0].user_email}"`)
+                console.log("val",val[0].is_activated) 
+                console.log("val",val[0].user_email) 
+                if(val[0].is_activated === 1){
+                    res.render('home',{data})
+                }else if(val[0].is_activated === 0){
+                    res.render('activation',{userEmail: val[0].user_email, activationCode: val[0].activation_code})
+                }
         }
         else{
             res.render('info', {data:`You are not Logged in Right Now Click Below to login First`})
@@ -138,7 +147,29 @@ router.get('/verify', async(req,res)=>{
     else if(val.length !== 0 ){
         res.json({"match":"yes"})
     }
-    
 })
+
+router.get('/verifyLogin', async(req,res)=>{
+    const query =  util.promisify(connection.query).bind(connection)
+    let email = req.query.userEmail;
+    let val = await query(`select * from users where user_email = "${email}"`)
+    console.log(val.length)
+    if( val.length === 0 ){
+        res.json({"result":"no"})
+    }
+    else if(val.length !== 0 ){
+        res.json({"result": val})
+    }
+})
+
+router.get('/activate', async(req,res)=>{
+  let userEmail = req.query.userEmail
+  let activationCode = req.query.activationCode
+
+  const query =  util.promisify(connection.query).bind(connection)
+  let val = await query(`update users set is_activated = 1 where user_email = "${userEmail}" and activation_code ="${activationCode}"`)
+  res.redirect('/')
+})
+
 
 module.exports= router;

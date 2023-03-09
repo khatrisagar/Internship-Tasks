@@ -27,30 +27,31 @@
                                 <div class="">
                                     <div class="username-box flex flex-col">
                                         <label class="label-text" for="username">Name</label>
-                                        <input class="text-box" id="username" oninput="checkName(this.value)" type="text" name="username" required>
+                                        <input class="text-box" id="username" oninput="checkName(this.value)" type="text" name="username" >
                                         <div id="name-warning" class="red name-warning"> </div>
                                     </div>
                 
                                     <div class="email-box flex flex-col">
                                         <label class="label-text" for="useremail">Email</label>
-                                        <input class="text-box" onchange="checkEmail(this.value)" type="text" name="useremail" required>
+                                        <input class="text-box" onchange="checkEmail(this.value)" type="text" name="useremail" >
                                         <div id="email-warning" class="red email-warning"> </div>
                                     </div>
                 
                                     <div class="password-box flex flex-col" >
                                         <label class="label-text" for="password">Password</label>
-                                        <input class="text-box" oninput="checkPass(this.value)" type="password" name="password" required>
+                                        <input class="text-box" oninput="checkPass(this.value)" type="password" name="password" >
                                         <div id="password-warning" class="red password-warning"> </div>
                                     </div>
                 
                                     <div class="confirm-password-box flex flex-col">
                                         <label class="label-text" for="password2">Confirm Password</label>
-                                        <input class="text-box" oninput="checkPass2(this.value)" type="password" name="password2" required>
+                                        <input class="text-box" oninput="checkPass2(this.value)" type="password" name="password2" >
                                         <div id="pass2-warning" class="red pass2-warning"> </div>
                                     </div>
                 
-                                    <div class="submit-box flex">
-                                        <input type="submit" class="submitBtn" value="Sign up">
+                                    <label class="red" id="abc"></label>
+                                    <div id="submit-button" class="submit-box flex">
+                                        <input id="submitBtn" type="submit" class="submitBtn" value="Sign up">
                                     </div>
                 
                                     <div class="bottom-text">

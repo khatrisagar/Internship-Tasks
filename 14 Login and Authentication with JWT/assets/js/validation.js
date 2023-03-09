@@ -1,13 +1,16 @@
-var userName;
-var userEmail
-var userPassword
-var userPassword2
+var userName = "";
+var userEmail = ""
+var userPassword = ""
+var userPassword2 = ""
     
 var nameWarning = document.getElementById('name-warning')
 var emailWarning = document.getElementById('email-warning')
 var passwordWarning = document.getElementById('password-warning');
 var passwordWarning2 = document.getElementById('pass2-warning');
-    
+
+
+let submitButton =  document.getElementById("submit-button")
+let submitBtn =  document.getElementById("submitBtn")
 
 
 function checkName(name){
@@ -55,11 +58,37 @@ function checkPass2(pass2){
             passwordWarning2.innerHTML = `<p>Your Confirm Password Not Match</p>`
             return false
         }
+        if(userPassword == userPassword2){
+            passwordWarning2.innerHTML = ``
+        }
     }
 }
+let abc = document.getElementById('abc');
+
+function letsDance(){
+    submitButton.classList.add("dancing-button")
+    submitBtn.style.backgroundColor = "red"
+    // abc.innerText = "Required Field Kon Fill Karega?"
+}
+
 
 function checkAll(){
-    
+
+    if(userName == ""){
+        nameWarning.innerHTML = `<p>This is Required Field</p>`
+
+        return false;
+    }
+    if(userEmail == ""){
+        emailWarning.innerHTML = `<p>This is Required Field</p>`
+ 
+        return false;
+    }
+    if(userPassword == ""){
+        passwordWarning.innerHTML = `<p>This is Required Field</p>`
+        return false;
+    }
+
     if(emailWarning.innerHTML != `` ){
         return false;
     }
@@ -67,5 +96,6 @@ function checkAll(){
     if(userPassword !== userPassword2){
         return false;
     }
-       return true;
+    return true;
 }
+
