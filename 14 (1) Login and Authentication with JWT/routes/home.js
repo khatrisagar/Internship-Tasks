@@ -8,15 +8,12 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const cookieParser = require("cookie-parser");
 const { v4: uuidv4 } = require('uuid');
-const transporter =  require("../mail")
+
 
 
 router.use(bodyParser.urlencoded({extended:true}))
 router.use(bodyParser.json())
 router.use(cookieParser());
-
-  
-
 
 
 router.get('/register', (req,res)=>{
@@ -124,7 +121,9 @@ router.get('/',async (req,res)=>{
                 if(val[0].is_activated === 1){
                     res.render('home',{data})
                 }else if(val[0].is_activated === 0){
+
                     res.render('activation',{userEmail: val[0].user_email, activationCode: val[0].activation_code})
+
                 }
         }
         else{
