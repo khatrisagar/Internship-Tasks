@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registeration</title>
+    <link rel="stylesheet" href="/css/registration.css">
+</head>
+<body>
+    <div class="registration-wrapper">
+        <div class="main-body">
+            <section class="main-body-section">
+                <div class="content-box flex">
+                    <form action="/login" method="post" onsubmit="return checkLogin()">
+                        <div class="outer-container">
+                            <div class="top-logo-container">
+                                <img src="/images/logo.svg" width="100px" alt="logo">
+                            </div>
+                       
+                       
+                            <div class="inner-container">
+                                
+                                <div class="head-container"> 
+                                    <h3 class="head-text">Welcome Back</h3>
+                                </div>
+                                <div class="">
+                                    
+                
+                                    <div class="email-box flex flex-col">
+                                        <label class="label-text" for="useremail">Email</label>
+                                        <input class="text-box" id="loginEmail" type="text" name="useremail">
+                                    </div>
+                
+                                    <div class="password-box flex flex-col" >
+                                        <label class="label-text" for="password">Password</label>
+                                        <input class="text-box" id="loginPass" type="password" name="password">
+                                        <div id="login-warning" class="red login-warning"><label class="red label-test"><%=errMessage%></label> </div>
+                                    </div>
+
+                                    <div>
+                                        <p class="label-text" >Forgot Password? <a class="link-golden" href="/Login">Click Here</a></p>
+                                    </div>
+                
+                
+                                    <div class="submit-box flex">
+                                        <input type="submit" class="submitBtn" value="Login">
+                                    </div>
+                
+                                    <div class="bottom-text">
+                                        <p class="label-text" >Don't have an account? <a class="link-golden" href="/register">Sign up Here</a></p>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                
+                    </form>
+                    <div class="bottom-logo-container">
+                        <img src="/images/bottom-logo.png" width="150px" alt="">
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="js/checkLogin.js"></script>
+</body>
+</html>

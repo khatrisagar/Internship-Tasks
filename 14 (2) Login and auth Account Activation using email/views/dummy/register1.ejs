@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <form action="/register" method="post">
+
+        <div class="main-container h-screen flex flex-col gap-y-4  items-center justify-center">
+            <div class="inner-container p-[30px] border-black border-2 rounded">
+                <div class="Heading Text"> 
+                    <h1 class="text-3xl">Registration Form</h1>
+                </div>
+                <div class="field-contianer flex flex-col mt-2 col gap-y-2">
+                    <div class="username-box flex flex-col">
+                        <label for="username">Name</label>
+                        <input class="border-2 border-solid border-black rounded" type="text" name="username" required>
+                    </div>
+
+                    <div class="email-box flex flex-col">
+                        <label for="useremail">Email</label>
+                        <input class="border-2 border-solid border-black rounded" type="text" name="useremail" required>
+                    </div>
+
+                    <div class="password-box flex flex-col">
+                        <label for="password">Password</label>
+                        <input class="border-2 border-solid border-black rounded" type="password" name="password" required>
+                    </div>
+
+                    <div class="confirm-password-box flex flex-col">
+                        <label for="password2">Confirm Password</label>
+                        <input class="border-2 border-solid border-black rounded" type="password" name="password2" required>
+                    </div>
+
+                    <div class="submit-box flex justify-center m-2">
+                        <input type="submit" class="inline p-2 border-2 border-solid bg-black text-white rounded" value="Submit">
+                    </div>
+
+                    <div>
+                        <p>Already have an account? <a class="text-[#16a34a] hover:underline decoration-solid" href="/Login">Login</a> Now</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+
+
+
+</body>
+</html>

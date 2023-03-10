@@ -1,0 +1,167 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family:sans-serif;
+}
+.main-body-section{
+    height: 100vh;
+    background-image: url(../images/auth-bg.png);
+    background-size: cover;
+}
+.flex{
+    display: flex;
+}
+
+.flex-col{
+    flex-direction: column;
+}
+.flex-row{
+    flex-direction: row;
+}
+
+.content-box{
+    margin-left: 250px;
+    width: 350px;
+    height: 100vh;
+    background-color: #11111199;
+    color: #fff;
+    justify-content: center;
+    padding-inline: 0px;
+}
+.label-text{
+    font-size: 13px;
+    margin-top: 15px;
+}
+.submitBtn{
+    margin-top: 15px;
+    padding: 7px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #174F2A;
+    border: none;
+}
+.text-box{
+    margin-top: 3px;
+    padding: 5px;
+    width: 270px;
+}
+.outer-container{
+    padding-top: 60px;
+}
+.inner-container{
+    padding-top: 50px;
+}
+.head-container{
+    margin-bottom: 10px;
+}
+.link-golden{
+    color: #A4843F;
+}
+.bottom-text{
+    margin-top: 100px;
+}
+.bottom-text{
+    position: absolute;
+    bottom: 30px;
+}
+.bottom-logo-container{
+    position: absolute;
+    bottom: 20px;
+    right: 200px;
+}
+.red{
+    color: red;
+    margin-top: 5px;
+    font-size: 13px;
+}
+.dancing-button{
+    position: relative;
+    transition: 0.3s ease;
+    animation-duration: 2s;
+    animation-iteration-count: 6;
+    animation-timing-function: linear;
+    width: 100px
+}
+
+.dancing-button{
+    animation-name: danceBtn;
+}
+
+
+/* @keyframes danceBtn {
+    0%,100%{
+        transform: translate(-300px,0);
+
+    }
+    10%{
+        transform: translate(-300px,-200px);
+    }
+    20%{
+        transform: translate(-300px,-400px);
+    }
+    30%{
+        transform: rotateZ(360deg);
+        transform: translate(-300px,-400px);
+    }
+    40%{
+        transform: translate(950px, -400px);
+    }
+    50%{
+        transform: translate(950px, -400px);
+    }
+    60%{
+        transform: translate(950px, -200px);
+        
+    }
+    70%{
+        transform: translate(950px, 0);
+    }
+    80%{
+        transform: translate(950px, 100px);
+    }
+    90%{
+        transform: translate(-300px, 100px);
+
+    }
+} */
+
+@keyframes danceBtn {
+    0%,100%{
+        transform: translate(0,0);
+
+    }
+    10%{
+        transform: translate(-240px,-430px);
+    }
+    20%{
+        transform: translate(980px,-130px);
+    }
+    30%{
+        transform: translate(980px,-430px);
+    }
+    40%{
+        transform: translate(-240px, -130px);
+    }
+    50%{
+        transform: translate(980px,-430px);
+    }
+    60%{
+        transform: translate(-240px,-430px);
+        
+    }
+    70%{
+        transform: translate(980px,-130px);
+    }
+    80%{
+        transform: translate(-240px, -130px);
+    }
+    90%{
+        transform: translate(980px,-430px);
+
+    }
+}
