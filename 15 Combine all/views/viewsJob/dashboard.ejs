@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Job application</title>
+    <script src="https://kit.fontawesome.com/2d11fdd863.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .main-container{
+            background:linear-gradient(to top right, #000000, #13393f);
+            height: 100vh;
+        }
+        h1{
+            color: rgba(255, 255, 255, 0.726);
+        }
+        table{
+            width: 100%;
+            text-align: center;
+        }
+        table,tr,td,th{
+            border: 2px solid rgba(255, 255, 255, 0.726);
+            border-collapse: collapse;
+            color:rgba(255, 255, 255, 0.726);
+        }
+        td{
+            width: calc((100%-30)/15);
+            height: 50px;
+        }
+        .center{
+            text-align: center;
+        }
+
+        .dashboard-header{
+            margin-bottom: 10px;
+        }
+        .dashboard-search{
+            margin-bottom: 10px;
+        }
+        #linkContainer{
+            display: flex;
+            position: fixed;
+            bottom: 0;
+            left: 40%;
+        }
+        #linkContainer a{
+            float: left;
+            padding: 8px 16px;
+        }
+        .linkBtn{
+            background-color: #ffffff99;
+            padding: 5px 10px;
+            border: none;
+            text-decoration: none;
+            color: rgba(0, 0, 0, 0.726);
+            text-align: center;
+            margin: 4px 2px;
+            font-size: 15px;
+            justify-content:stretch;
+        }
+        .linkBtn:hover{
+            border-radius: 5px;
+            background-color: rgb(7, 141, 250);
+        }
+        .active{
+            background-color:rgb(1, 31, 48);
+            border-radius: 5px;
+        }
+        #search-input{
+            border: 1px solid rgb(255, 255, 255, 0.726);
+            border-radius: 5px;
+            font-size: 20px;
+        }
+        #submit-btn{
+            border: 2px solid rgb(255, 255, 255, 0.726);
+            border-radius: 5px;
+            background: linear-gradient( to top right, #5691ff, #3700fd );
+            color: #000000;
+            padding:6px 8px;
+        }
+        #submit-btn:hover{
+            background: linear-gradient( to bottom left, #5691ff, #3700fd );
+        }
+        .viewLink{
+            font-size: 30px;
+            color: #20deffb6;
+        }
+        .viewLink:hover{
+            color: #20deff;
+        }
+        .deleteAll{
+            /* display: inline; */
+            position: fixed;
+            bottom: 0;
+            font-size: 40px;
+            left: 2%;
+        }
+        #overlay {
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 3;
+            cursor: pointer;
+        }
+        .loader{
+            position: fixed;
+            display: none;
+            width: 2rem;
+            height: 2rem;
+            top: 45%;
+            left: 49%;
+            border: 5px solid #f3f3f3;
+            border-top: 6px solid #005e94;
+            border-radius: 100%;
+            margin: auto;
+            visibility: hidden;
+            animation: spin 1s infinite linear;
+            z-index: 2;
+        }
+        #loader.display {
+            visibility: visible;
+            display: block;
+        }
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+
+    <div class="main-container center">
+        <div id="overlay">
+                <div class="loader" id="loader"></div>
+        </div>
+        <div class="dashboard-header center">
+            <h1>Candidate Basic Details</h1>
+        </div>
+        <div class="dashboard-search center">
+            <form action="/dashboard" method="/get">
+                <input type="text" oninput="searchQuery(`/dashboard?searVal=<%= searchVal%>&xyz=true`)" value="<%=searchVal%>" name="search" id="search-input"/>
+                <input type="submit" id="submit-btn" value="Search">
+            </form>
+        </div>
+
+        
+        <table id=tableMain>
+            <tr>
+                <th>Select</th>
+                <th>Candidate Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Gender</th>
+                <th>Age</th>
+                <th>Contact Number</th>
+                <th>Email</th>
+                <th>State</th>
+                <th>City</th>
+                <th>Relatioship Status</th>
+                <th>Designation</th>
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <div id="table-data-container">
+
+            
+            <% candidate_data.forEach((data)=>{ %>
+            <tr id="tr<%=data.candidate_id%>">
+                <td><input type="checkbox" value="<%=data.candidate_id%>" name="deleteId" class="deleteId"></td>
+                <td><%=data.candidate_id%></td>
+                <td><%= data.firstname%></td>
+                <td><%= data.surname%></td>
+                <td><%= data.gender%></td>
+                <td><%=data.age%></td>
+                <td><%=data.contact%></td>
+                <td><%=data.email%></td>
+                <td><%=data.state%></td>
+                <td><%=data.city%></td>
+                <td><%=data.relation_status%></td>
+                <td><%=data.designation%></td>
+                <td><a class="viewLink" href="dashboard/view?candidateId=<%=data.candidate_id%>"><i class="fa-solid fa-plus"></i></a></td>
+                <td><a class="viewLink" href="edit?candidateId=<%=data.candidate_id%>"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                <td><p class="viewLink deleteBtn" onclick="deleteEntry(`<%=data.candidate_id%>`)" href="" id="deleteBtn"><i class="fa-sharp fa-solid fa-trash"></i></p></td>
+            </tr>
+            <% })%>
+        </div>
+        </table>
+        <div class="delete-container">
+            <p  class="viewLink deleteAll" onclick="deleteMulEntry()" href="" id="deleteAllBtn"><i class="fa-sharp fa-solid fa-trash"></i></p>
+        </div>
+        
+
+
+
+        <div id="linkContainer">
+            <% for(let i = 1; i<=counter;i++){ %>
+                        <a id="btn" class="linkBtn" onclick="changePage(`dashboard?page=<%= i%>&searchVal=<%= searchVal%>&xyz=true`)"><%= i %></a> 
+            <% } %>
+        </div>
+    </div>
+
+    <script>
+
+        function on() {
+            document.getElementById("overlay").style.display = "block"
+            document.getElementById("overlay").style.pointerEvents = "none"
+        }
+        function off() {
+            document.getElementById("overlay").style.display = "none"
+            document.getElementById("overlay").style.pointerEvents = "auto"
+        }
+        function changePage(page){
+            loader.classList.add("display");
+            on()
+            fetch(page).then((res) => res.json()).then((data1) =>{
+
+            let d = ""
+            d += ` <tr>
+                <th>Select</th>
+                <th>Candidate Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Gender</th>
+                <th>Age</th>
+                <th>Contact Number</th>
+                <th>Email</th>
+                <th>State</th>
+                <th>City</th>
+                <th>Relatioship Status</th>
+                <th>Designation</th>
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>`
+            data1.forEach(data =>{
+            d += `
+                <tr id="tr${data.candidate_id}">
+                <td><input type="checkbox" value="${data.candidate_id}" name="deleteId" class="deleteId"></td>
+                <td>${data.candidate_id}</td>
+                <td>${data.firstname}</td>
+                <td>${ data.surname}</td>
+                <td>${ data.gender}</td>
+                <td>${data.age}</td>
+                <td>${data.contact}</td>
+                <td>${data.email}</td>
+                <td>${data.state}</td>
+                <td>${data.city}</td>
+                <td>${data.relation_status}</td>
+                <td>${data.designation}</td>
+                <td><a class="viewLink" href="dashboard/view?candidateId=${data.candidate_id}"><i class="fa-solid fa-plus"></i></a></td>
+                <td><a class="viewLink" href="job/edit?candidateId=${data.candidate_id}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                <td><p class="viewLink deleteBtn" onclick="deleteEntry(${data.candidate_id})" href="" id="deleteBtn"><i class="fa-sharp fa-solid fa-trash"></i></p></td>
+                </tr>`
+            })
+            
+            setTimeout(() => {
+                off()
+                document.getElementById('tableMain').innerHTML = d
+                loader.classList.remove("display");
+            }, 200);
+            console.log(d)
+            })
+        }
+        
+
+        
+        function searchQuery(searchVal){
+            let loader = document.getElementById('loader')
+
+            fetch(searchVal).then((res) => res.json()).then((data1) =>{
+
+            let d = ""
+            console.log(data1)
+            console.log(data1[0].firstname)
+            d += ` <tr>
+                <th>Select</th>
+                <th>Candidate Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Gender</th>
+                <th>Age</th>
+                <th>Contact Number</th>
+                <th>Email</th>
+                <th>State</th>
+                <th>City</th>
+                <th>Relatioship Status</th>
+                <th>Designation</th>
+                <th>View</th>
+                <th>Delete</th>
+            </tr>`
+            data1.forEach(data =>{
+            d += `
+                <tr id="tr${data.candidate_id}">
+                <td><input type="checkbox" value="${data.candidate_id}" name="deleteId" class="deleteId"></td>
+                <td>${data.candidate_id}</td>
+                <td>${data.firstname}</td>
+                <td>${data.surname}</td>
+                <td>${data.gender}</td>
+                <td>${data.age}</td>
+                <td>${data.contact}</td>
+                <td>${data.email}</td>
+                <td>${data.state}</td>
+                <td>${data.city}</td>
+                <td>${data.relation_status}</td>
+                <td>${data.designation}</td>
+                <td><a class="viewLink" href="dashboard/view?candidateId=${data.candidate_id}"><i class="fa-solid fa-plus"></i></a></td>
+                <td><p class="viewLink deleteBtn" onclick="deleteEntry(${data.candidate_id})" href="" id="deleteBtn"><i class="fa-sharp fa-solid fa-trash"></i></p></td>
+                </tr>
+                `
+            })
+
+            document.getElementById('tableMain').innerHTML = d
+
+            console.log(d)
+            })
+
+         }
+
+
+
+
+
+
+
+
+
+
+
+        let deleteBtn = document.getElementById("deleteBtn")
+        function deleteEntry (id){
+            if (confirm("are you sure want to delete?")) {
+                document.getElementById(`tr${id}`).style.display = "none"
+            fetch(`delete?candidateId=${id}`,{
+                method: "POST"
+            })
+            }
+            else{
+                "Request Canceled By user"
+            }
+        }
+
+        
+        function deleteMulEntry(){
+            let deleteId = document.getElementsByClassName('deleteId');
+            let selectForDelete = [];
+            for(let i = 0; i< deleteId.length; i++){
+                if(deleteId[i].checked){
+                    selectForDelete.push(deleteId[i].value)
+                }
+            }
+            let deleteBtnId = document.getElementById('deleteAll')
+            if(selectForDelete.length != 0){
+
+                if (confirm("are you sure want to delete All selected Entries?")) {
+                    for(let i = 1; i<=selectForDelete.length; i++){
+                        document.getElementById(`tr${i}`).style.display = "none"
+                    }
+                    fetch(`delete?candidateId=${selectForDelete}`,{
+                    method: "POST"
+                })
+                }
+                else{
+                    "Request Canceled By user"
+                }
+            }
+
+            else{
+                deleteBtnId.style.pointerEvents = "none"
+            }
+        }
+
+    </script>
+</body>
+</html>

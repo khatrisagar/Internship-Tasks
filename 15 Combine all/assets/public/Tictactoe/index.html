@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe By Sagar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div id="tableContainer">
+        <section id="titleSection">
+            <h1 id="titleText">Tic Tac Toe</h1>
+        </section>
+        <section id="playerTurn">
+            <p id="playerTurnMsg"></p>
+        </section>
+
+        <table id="tableMain" class="tableMain" onclick="winCheck()">
+            <tr>
+                <td id="one" onclick="clickOne()">-</td>
+                <td id="two" onclick="clickTwo()">-</td>
+                <td id="three" onclick="clickThree()">-</td>
+            </tr>
+            <tr>
+                <td id="four" onclick="clickFour()">-</td>
+                <td id="five" onclick="clickFive()">-</td>
+                <td id="six" onclick="clickSix()">-</td>
+            </tr>
+            <tr>
+                <td id="seven" onclick="clickSeven()">-</td>
+                <td id="eight" onclick="clickEight()">-</td>
+                <td id="nine" onclick="clickNine()">-</td>
+            </tr>
+        </table>
+
+        <h2 id="winMsg"></h2>
+
+        <input type="button" id="resetBtn" value="Reset" onclick="resetGame()"/>
+    </div>
+
+
+
+
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>

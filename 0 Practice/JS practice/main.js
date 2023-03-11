@@ -26,3 +26,7 @@ else{
 }
 // console.log(typeof val1)
 // console.log(typeof val2)
+let date =  new Date()
+console.log(date)
+
+console.log(date.toLocaleDateString())

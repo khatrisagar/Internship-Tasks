@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate View</title>
+    <link href= "/public/jobApplicationPublic/css/view.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/2d11fdd863.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- <h1>Candidate view</h1> -->
+    <div class="view-main">
+
+        <div class="view-header-container inline">
+            <a class="backBtn inline" href="../dashboard">&#x2190 Back</a>
+            <h1 class="view-heading inline">Details of Candidate</h1>
+        </div>
+    <div class="view-main-container grid">
+        
+
+        <div class="view-basic-container view-glob">
+            <h2>Candidate Details</h2>
+            <hr />
+            <% basicView.forEach((data)=>{ %>
+                <p><span>Name: </span><%= data.firstname%></p>
+                <p><span>Last Name: </span><%= data.surname%></p>
+                <p><span>Date Of Birth: </span><%= data.date_of_birth.toJSON("YYYY-MM-DD").slice(0,10)%></p>
+                <p><span>Email: </span><%= data.email%></p>
+                <p><span>Address: </span><%= data.address%></p>
+                <p><span>Date of Birth: </span><%=data.date_of_birth.toJSON("yyyy-mm-dd").slice(0,10)%></p>
+                <p><span>Age: </span><%=data.age%></p>
+                <p><span>Contact: </span><%=data.contact%></p>
+                <p><span>Email: </span><%=data.email%></p>
+                <p><span>State: </span><%=data.state%></p>
+                <p><span>City: </span><%=data.city%></p>
+                <p><span>Realtion Status: </span><%=data.relation_status%></p>
+                <p><span>Designation: </span><%=data.designation%></p>
+            <% }) %>
+        </div>
+
+
+        <div class="view-language-container view-glob">
+            <h2>Languages Known</h2>
+            <hr />
+            <table class="center">
+                <tr>
+                    <th><p>Language</p></th>
+                    <th><p>Read</p></th>
+                    <th><p>Write</p></th>
+                    <th><p>Speak</p></th>
+                </tr>
+                <% languageView.forEach((data)=>{ %>
+                    <tr>
+                <!-- <div class="flex"> -->
+                
+                <td><p><span><%= data.language_name%></span></p></td>
+                <td><%= data.language_read%></td>
+                <td><%= data.language_write%></td>
+                <td><%= data.language_speak%></td>
+                <!-- </div> -->
+            </tr>
+            <% }) %>
+            </table>
+        </div>
+
+        <div class="view-tachnologies-container view-glob">
+            <h2>Technologies Known</h2>
+            <hr />
+            <table class="center">
+                <tr>
+                    <th><p>Technology</p></th>
+                    <th><p>Rating</p></th>
+                </tr>
+            <% technologyView.forEach((data)=>{ %>
+                <tr>
+                    <div class="tech-inner-container flex">
+                        <td><p><%= data.technology_name%></p></td>
+                        <td><p><%= data.tech_rating%></p></td>
+                    </div>
+                </tr>
+            <% }) %>
+            </table>
+        </div>
+
+
+
+        <div class="view-academics-container view-glob">
+            <h2>Academics Details</h2>
+            <hr />
+            <% academicsView.forEach((data)=>{ %>
+                <p><span>Course Name: </span><%= data.course_name%></p>
+                <p><span>University Name: </span><%= data.university_name%></p>
+                <p><span>Passout Year: </span><%= data.pass_out_year%></p>
+                <p><span>Score: </span><%= data.score%></p>
+            <% }) %>
+                
+        </div>
+        <div class="view-academics-container view-glob">
+            <h2>Experience Details</h2>
+            <% experienceView.forEach((data)=>{ %>
+                <hr />
+                <p><span>Company Name: </span> <%= data.company_name%></p>
+                <p><span>Designation: </span> <%= data.designation%></p>
+                <p><span>Start Date</span> <%= data.start_date.toJSON("yyyy-mm-dd").slice(0,10)%></p>
+                <p><span>End Date</span> <%= data.end_date.toJSON("yyyy-mm-dd").slice(0,10)%></p>
+            
+            <% }) %>
+
+        </div>
+           
+        
+
+        <div class="view-reference-container view-glob">
+            <h2>Reference Details</h2>
+            <hr />
+            <% referenceView.forEach((data)=>{ %>
+                <p><span>Reference Name: </span> <%= data.reference_name%></p>
+                <p><span>Reference Contact: </span> <%= data.reference_contact_number%></p>
+                <p><span>Reference Relation: </span> <%= data.reference_releation%></p>
+            <% }) %>
+        </div>  
+        
+        <div class="view-prefrence-container view-glob">
+            <h2>Prefrence Details</h2>
+            <hr />
+            <% prefrencesView.forEach((data)=>{ %>
+                <p><span>Prefred Location: </span> <%= data.prefered_location%></p>
+                <p><span>department: </span> <%= data.department%></p>
+                <p><span>Current CTC: </span> <%= data.current_ctc%></p>
+                <p><span>Expected CTC: </span> <%= data.expected_ctc%></p>
+                <p><span>Notice Period: </span> <%= data.notice_period%></p>
+            <% }) %>
+        </div>
+        
+        </div>
+        </div>
+    </body>
+</html>

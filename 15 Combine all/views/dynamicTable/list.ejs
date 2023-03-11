@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Data</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/2d11fdd863.js"     crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: rgb(58, 68, 77);
+        }
+        table{
+            border: 3px solid black !important;
+        }
+        .textBoxWidth{
+            width: 130px;
+        }
+        th{
+            text-align: center;
+        }
+        td{
+            text-align: center;
+            padding: 1rem 1rem 0rem 1rem !important;
+        }
+        input{
+            text-align: center;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+        .btn{
+            padding: 0.25rem 0.5rem !important;
+            line-height: 1.2 !important;
+        }
+        .header-text{
+            color:rgb(225, 244, 255);
+        }
+
+    </style>
+
+    <div class="list-main-container container ">
+        <div class="list-header pt-3">
+            <h1 class="header-text text-center ">
+                Friend Zone
+            </h1>
+        </div>
+
+        <div class="list-tables">
+            <form action="/update" method="post">
+                <div class="table-head d-flex justify-content-between">
+                    <p style="display:inline-block;" class="addButton btn btn-primary" onclick="addData()">
+                        <i class="fa-solid fa-plus"></i> Add Data
+                    </p>
+                    <p style="display:inline-block;" class="addButton btn btn-success" onclick="saveAll(`<%= listData.length%>`)">
+                        Save All
+                    </p>
+                    
+                </div>
+                <% var i = 0%>
+                <table id="mainTable" class="mainTable table table-bordered text-bg-info p-3 rounded">
+                    <tr>
+                        <th>Id</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>State</th>
+                        <th>City</th>
+                        <th>Contact</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                        
+                        <% listData.forEach(data=>{ %>
+                            <tr>
+                                <td><input type="text" id="userId<%= i%>" style="width: 30px;" name="user_id" value="<%= data.user_id %>"  readonly></td>
+                                <td><input type="text" id="firstname<%= i%>" class="textBoxWidth" name="first_name" value="<%=data.firstname %>" ></td>
+                                <td><input type="text" id="lastname<%= i%>" class="textBoxWidth" name="last_name" value="<%=data.lastname %>" ></td>
+                                <td><input type="text" id="state<%= i%>" class="textBoxWidth" name="state" value="<%=data.state %>" ></td>
+                                <td><input type="text" id="city<%= i%>" class="textBoxWidth" name="city" value="<%=data.city %>" ></td>
+                                <td><input type="text" id="contact<%= i%>" class="textBoxWidth" name="contact" value="<%=data.contact %>" ></td>
+                                <td><p onclick="updateSingle(`<%=i%>`)" class="btn btn-warning" ><i class="fa-solid fa-floppy-disk"></i></p></td>
+                                <td><p onclick="deleteRecord(`<%= data.user_id %>`)" class="btn btn-danger" ><i class="fa-solid fa-trash"></i></p></td>
+                            </tr>
+                            <% i+=1%>
+                        <% })%>
+                        <tbody id="dynamic">
+
+                        </tbody>
+                </table>
+            </form>
+        </div>
+
+
+    </div>
+
+    <script>
+        let mainTable = document.getElementById('dynamic');
+        var i = 0;
+        const addData = ()=>{
+            let tr=  document.createElement('tr')
+            let f;
+            f = `<td><input type="text" id="new_userId${i}" style="width: 30px;" name="user_id" id="user_id" value=""  readonly></td>
+                        <td><input type="text" id="new_firstname${i}" class="textBoxWidth" name="first_name" value="" ></td>
+                        <td><input type="text" id="new_lastname${i}" class="textBoxWidth" name="last_name" value="" ></td>
+                        <td><input type="text" id="new_state${i}" class="textBoxWidth" name="state" value="" ></td>
+                        <td><input type="text" id="new_city${i}" class="textBoxWidth" name="city" value="" ></td>
+                        <td><input type="text" id="new_contact${i}" class="textBoxWidth" name="contact" value="" ></td>
+                        <td><p onclick="addSingle('${i}')" class="btn btn-warning" ><i class="fa-solid fa-1x fa-floppy-disk"></i></p></td>`
+                    i++;
+                tr.innerHTML +=f
+                mainTable.appendChild(tr);
+        }
+
+
+
+    const updateSingle = (i) =>{
+         
+        let userId=  document.getElementById(`userId${i}`).value
+        let firstname=  document.getElementById(`firstname${i}`).value
+        let lastname=  document.getElementById(`lastname${i}`).value
+        let state=  document.getElementById(`state${i}`).value
+        let city=  document.getElementById(`city${i}`).value
+        let contact=  document.getElementById(`contact${i}`).value
+        
+            fetch(`dynamictable/update?userId=${userId}&firstname=${firstname}&lastname=${lastname}&state=${state}&city=${city}&contact=${contact}`)
+            location.reload()
+    }
+
+    const saveAll = (len) =>{
+        for(let j = 0; j<i;j++){
+            addSingle(j)
+        }
+
+        for(let x = 0; x<len;x++){
+            updateSingle(x)
+        }
+    }
+
+   const addSingle = (j) =>{
+        
+        let firstname=  document.getElementById(`new_firstname${j}`).value
+        let lastname=  document.getElementById(`new_lastname${j}`).value
+        let state=  document.getElementById(`new_state${j}`).value
+        let city=  document.getElementById(`new_city${j}`).value
+        let contact=  document.getElementById(`new_contact${j}`).value
+
+        fetch(`dynamictable/insert?&firstname=${firstname}&lastname=${lastname}&state=${state}&city=${city}&contact=${contact}`)
+        location.reload()
+    }
+
+    const deleteRecord = (userId)=>{
+        if(confirm("Are You Sure What to Delete? ")== true){
+            fetch(`dynamictable/delete?userId=${userId}`)
+            location.reload()
+        }
+        else{
+            "Canceled By user"
+        }
+    }
+        
+    </script>
+
+</body>
+</html>

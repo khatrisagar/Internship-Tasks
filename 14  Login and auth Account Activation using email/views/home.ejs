@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="site-wrapper flex items-center justify-center h-screen flex-col">
+        <div>
+            <h1 class="text-3xl">Hey, <%= data[0].user_name%> Welcome</h1>
+        </div>
+
+        <!-- <div>
+        </div> -->
+        <div class="mt-6">
+            <a class="inline p-2 border-2 border-solid border-black bg-white text-black rounded" href="/update/<%= data[0].user_id%>">Update Profile</a>
+            <a class="inline p-2 border-2 border-solid bg-black text-white rounded" href="/logout">Logout</a>
+        </div>
+    </div>
+</body>
+</html>
