@@ -18,7 +18,7 @@ let connection = mysql.createConnection({
 
 connection.connect(function(err){
     if(err) throw err;
-    console.log("Connected with MySQL")
+    console.log("Connected with MySQL Searching")
 app.get('/',(req,res)=>{
     
         connection.query("SELECT * FROM student_express", function(err,result){

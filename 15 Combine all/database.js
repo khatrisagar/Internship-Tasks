@@ -9,7 +9,7 @@ let connection = mysql.createConnection({
 
 connection.connect((err)=>{
     if(err) throw err;
-    console.log("Connected with MySql")
+    console.log("Connected with MySql Login and registration")
 })
 
 module.exports = connection
