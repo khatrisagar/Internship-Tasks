@@ -47,7 +47,12 @@ router.post('/register', async (req,res)=>{
 
         const registerUser = await query(`insert into users(user_name, user_email, user_password, activation_code) value("${name}","${email}","${encryptedPass}", "${activationCode}")`)
 
-        res.render('login/activation', {userEmail:`${email}`, activationCode:`${activationCode}` })
+        // res.render('login/activation', {
+        //     displayMsg: "Your Account is not activated Currently Click Below Get Activation Link On YourEmail Address",             
+        //     userEmail:`${email}`, 
+        //     activationCode:`${activationCode}` })
+        res.redirect('/login')
+
     }
 
     
