@@ -574,6 +574,7 @@ app.post('/edited', async function(req,res){
     let academicsLen = academicsId.length;
     let courseLen = courseSelect.length
 
+    console.log('req',typeof req.body.course_select,req.body.course_select)
     if(typeof courseSelect == "object" && typeof academicsId == "object"){
         if(academicsLen == courseLen){
             for(let i = 0; i<academicsLen;i++){
@@ -617,7 +618,7 @@ app.post('/edited', async function(req,res){
 
     let experienceLen = 0
     let companyLen = 0
-    console.log(typeof companyName)
+    // console.log(typeof companyName)
     
     if(typeof companyName == "object" && typeof experienceId == "object"){
         experienceLen = experienceId.length

@@ -8,12 +8,12 @@ const sendMail = async(email,activationcode)=>{
         host: "smtp.ethereal.email",
         port: 587,
         auth: {
-          user: "concepcion.lindgren@ethereal.email",
-          pass: "uB8uqBE7QUfaXAc68f", 
+          user: "bartholome98@ethereal.email",
+          pass: "7Z679BKKsTPGphFdEP", 
         },
     })
         let mailInfo ={
-            from: '"Sagar Khatri" <concepcion.lindgren@ethereal.email>' ,
+            from: '"Sagar Khatri" <bartholome98@ethereal.email>' ,
             to: email,
             subject: 'Activate Your Account',
             html: `<h2>You Need to Activate Your Account To use it.</h2>

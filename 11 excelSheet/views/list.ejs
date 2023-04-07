@@ -51,7 +51,7 @@
     <div class="list-main-container container ">
         <div class="list-header pt-3">
             <h1 class="header-text text-center ">
-                Friend Zone
+                Grid
             </h1>
         </div>
 
@@ -130,9 +130,9 @@
         let state=  document.getElementById(`state${i}`).value
         let city=  document.getElementById(`city${i}`).value
         let contact=  document.getElementById(`contact${i}`).value
-        
-            fetch(`http://localhost:9999/update?userId=${userId}&firstname=${firstname}&lastname=${lastname}&state=${state}&city=${city}&contact=${contact}`)
-            location.reload()
+        console.log(userId)
+            fetch(`/update?userId=${userId}&firstname=${firstname}&lastname=${lastname}&state=${state}&city=${city}&contact=${contact}`)
+            // location.reload()
     }
 
     const saveAll = (len) =>{
@@ -153,13 +153,13 @@
         let city=  document.getElementById(`new_city${j}`).value
         let contact=  document.getElementById(`new_contact${j}`).value
 
-        fetch(`http://localhost:9999/insert?&firstname=${firstname}&lastname=${lastname}&state=${state}&city=${city}&contact=${contact}`)
+        fetch(`/insert?&firstname=${firstname}&lastname=${lastname}&state=${state}&city=${city}&contact=${contact}`)
         location.reload()
     }
 
     const deleteRecord = (userId)=>{
         if(confirm("Are You Sure What to Delete? ")== true){
-            fetch(`http://localhost:9999/delete?userId=${userId}`)
+            fetch(`/delete?userId=${userId}`)
             location.reload()
         }
         else{

@@ -19,9 +19,22 @@ table, tr, td{
     border-collapse: collapse;
 }
 table{
-    height: 500px;
-    width: 500px;
+    height: 450px;
+    width: 450px;
 }
 table{
     margin-bottom: 20px;
+}
+.btn-container{
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+}
+
+#startBtn, #resetBtn{
+    border: 1px solid black;
+    padding: 6px 8px;
+    background-color: black;
+    color: aliceblue;
+    border-radius: 5px;
 }

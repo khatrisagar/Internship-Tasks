@@ -1,6 +1,6 @@
 const express= require("express")
 const app =  express()
-const PORT = 9999
+const PORT = 9998
 const connection =  require("./database")
 const util =  require("util")
 const bodyParser =  require('body-parser')

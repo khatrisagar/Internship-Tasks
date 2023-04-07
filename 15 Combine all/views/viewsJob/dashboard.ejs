@@ -153,8 +153,8 @@
             <h1>Candidate Basic Details</h1>
         </div>
         <div class="dashboard-search center">
-            <form action="/dashboard" method="/get">
-                <input type="text" oninput="searchQuery(`/dashboard?searVal=<%= searchVal%>&xyz=true`)" value="<%=searchVal%>" name="search" id="search-input"/>
+            <form action="/job/dashboard" method="/get">
+                <input type="text" oninput="searchQuery(`/job/dashboard?searVal=<%= searchVal%>&xyz=true`)" value="<%=searchVal%>" name="search" id="search-input"/>
                 <input type="submit" id="submit-btn" value="Search">
             </form>
         </div>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave count</title>
+</head>
+<body>
+    <% let x = 0%>
+    <% result.forEach(res=>{ %>
+        
+        <% if(res.is_halfday  ===  1){%>
+            <% x+=0.5 %>
+        <% } else if(res.is_halfday  ===  0){%>
+            <% x+=1 %>
+        <% } %>
+    <% }) %>
+        <p>let :<%=x %></p>
+
+
+
+</body>
+</html>

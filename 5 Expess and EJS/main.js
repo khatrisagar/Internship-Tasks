@@ -78,6 +78,15 @@ app.get('/table/:id',function(req,res){
         })
 })
 
+
+app.get('/test',(req,res)=>{
+    res.render('hello')
+})
+
+app.post('/test2',(req,res)=>{
+    res.send(req.body)
+})
+
 app.listen(PORT, ()=>{
     console.log(`Listening on Port: ${PORT}`)
 })

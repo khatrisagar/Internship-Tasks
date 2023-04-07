@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="section-container">
+        <select name="" id="leave-type-select-box" onfocus="getLeave()">
+            <option value="" hidden>Select</option>
+        </select>
+    </div>
+
+
+    <script>
+        let leavebox= document.getElementById('leave-type-select-box')
+        function getLeave(){
+
+            fetch(`http://localhost:9999/leavetype`).then(res => res.json())
+            .then(data=> {
+                console.log(jikm,n)
+           
+            d = ``
+            d+= `<option value=""disabled hidden>Select</option>`
+            if(data.sLeave <5){
+                d+= `<option value="">JLL</option>`
+            }
+            // `<option value=""disabled hidden>Select</option>
+            // <option value="">JLL</option>
+            // <option value="">BBB</option>
+            // <option value="">AAA</option>
+            // <option value="">LLlo</option>`
+
+            leavebox.innerHTML = d
+        })
+        }
+    </script>
+</body>
+
+</html>

@@ -9,8 +9,25 @@
 </head>
 <body>
     <div id="main-conatainer">
-        <p style="border: 3px solid black; width: 160px;">Click me</p>
+      <!-- <input type="text" id="hello" value="1">
+      <input type="text" id="hello" value="2">
+      <input type="text" id="hello" value="3"> -->
 
+      <input type="text" id="test" value="test1" oninput="check(this.value)">
+
+      <!-- <p onclick="addWW()">Asdd</p> -->
     </div>
+    <script>
+        // function addWW(){
+        //     let mainC = document.getElementById('main-conatainer')
+        //     mainC.innerHTML += `<input type="text" id="hello" value="4">`
+        //     let m = document.querySelectorAll("#hello")
+        //     console.log(m)
+        // }
+
+        const check = (value) =>{
+            console.log("test", value)
+        }
+    </script>
 </body>
 </html>

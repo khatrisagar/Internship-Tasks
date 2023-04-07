@@ -56,38 +56,38 @@ label{
     </section>
     
     
-        <form action="/submit" method="POST">
+        <form action="/job/submit" onsubmit="return validateForm()"  method="POST">
         <section class="basicDetails">
             <fieldset>
                 <legend>Basic Details</legend>
                 <table>
                     <tr>
                         <td><label for="first_name">First Name</label></td>
-                        <td><input type="text" name="first_name" class="firstName rightlabel" /></td>
+                        <td><input type="text" name="first_name" class="firstName rightlabel" id="first_name" /></td>
                         <td><label for="last_name">last Name</label></td>
-                        <td><input type="text" name="last_name" class="lastName" /></td>
+                        <td><input type="text" name="last_name" class="lastName" id="last_name" /></td>
                         
                     </tr>
 
                     <tr>
                         <td><label for="designation">Designation</label></td>
-                        <td><input type="text" name="designation" class="designation" /></td>
+                        <td><input type="text" name="designation" class="designation" id="designation"/></td>
                         <td><label for="address">Address</label></td>
                         <td>
-                            <textarea name="address" id="addressField" cols="30" rows="1"></textarea>
+                            <textarea name="address" id="addressField" cols="30" rows="1" ></textarea>
                         </td>
                     </tr>
                     <tr>
                         <td><label for="email">Email</label></td>
-                        <td><input type="text" name="email" class="email" /></td>
+                        <td><input type="email" name="email" class="email" id="email" /></td>
                         <td><label for="age">Age</label></td>
                         <td>
-                            <input type="text" name="age" class="ageField">
+                            <input type="number" name="age" class="ageField" id="ageField">
                         </td>
                     </tr>
                     <tr>
                         <td><label for="mobile_number">Phone Number</label></td>
-                        <td><input type="text" name="mobile_number" class="mobileNumber" /></td>
+                        <td><input type="number" name="mobile_number" class="mobileNumber" id="mobileNumber"/></td>
 
                         <td><label for="state">State</label></td>
                         <td><select name="state_select" id="state_select">
@@ -102,7 +102,7 @@ label{
 
                     <tr>
                         <td><label for="date_of_birth">Date Of Birth</label></td>
-                        <td><input type="date" name="date_of_birth" class="dateOfBirth"></td>
+                        <td><input type="date" name="date_of_birth" class="dateOfBirth" id="dateOfBirth"></td>
                         
                         <td><label for="city">City</label></td>
                         <td><select name="city" id="cityOptions">
@@ -113,7 +113,7 @@ label{
                     </tr>
                     <tr>
                         <td><label for="gender">Gender</label></td>
-                        <td><select name="gender_select" id="">
+                        <td><select name="gender_select" id="gender_select">
                             <option value="" disabled selected>Select</option>
                             <% for(let i = 0 ; i<genderData.length; i++){ %>
                                 <option value="<%= genderData[i].option_value%>"><%= genderData[i].option_value%></option>
@@ -122,14 +122,14 @@ label{
                         </td>
 
                         <td><label for="zipcode">Zip Code</label></td>
-                        <td><input type="text" name="zipcode" class="zipCode"/></td>
+                        <td><input type="number" name="zipcode" class="zipCode" id="zipCode"/></td>
                     
                     </tr>
                     <tr>
                         <td>
                             <label for="relationship_status">Relationship Status</label>
                         </td>
-                        <td><select name="relationship_select" id="">
+                        <td><select name="relationship_select" id="relationship_select">
                             <option value="" disabled selected>Status</option>
                             <% for(let i = 0 ; i<relationData.length; i++){ %>
                                 <option value="<%= relationData[i].option_value%>"><%= relationData[i].option_value%></option>
@@ -160,7 +160,7 @@ label{
                     <tr>
                         <td><label for="course_name">Course Name</label></td>
                         <td>
-                            <select name="course_select" id="">
+                            <select name="course_select" id="course_select">
                                 <option value="" disabled selected>Select Your Course</option>
                                 <% for(let i = 0 ; i<courseData.length; i++){ %>
                                     <option value="<%= courseData[i].option_value%>"><%= courseData[i].option_value%></option>
@@ -170,7 +170,7 @@ label{
 
                         <td><label for="university_name">University Name</label></td>
                         <td>
-                            <select name="uni_select" id="">
+                            <select name="uni_select" id="uni_select">
                                 <option value="" disabled selected>Select Your University</option>
                                 <% for(let i = 0 ; i<uniData.length; i++){ %>
                                     <option value="<%= uniData[i].option_value%>"><%= uniData[i].option_value%></option>
@@ -182,10 +182,10 @@ label{
 
                     <tr>
                         <td><label for="passing_year">Passing Year</label></td>
-                        <td><input type="text" name="passing_year" class="passingYear"></td>
+                        <td><input type="number" name="passing_year" class="passingYear" id="passingYear"></td>
                         
-                        <td><label for="score_data">Percentage</label></td>
-                        <td><input type="text" name="score_data" class="scoreData"></td>
+                        <td><label for="score_data">Percentage %</label></td>
+                        <td><input type="number" name="score_data" class="scoreData" id="scoreData"></td>
                     </tr>
                 </table>
             </fieldset>
@@ -199,6 +199,19 @@ label{
                 <table id="workExeperience">
                     <tr id="workExeperienceTr">
                         <input type="button" onclick="addWorkExe()"value="Add Work Experince"/>
+                        <tr>
+                            <td><label for="company_name">Company Name</label></td>
+                            <td><input type="text" name="company_name" class="companyName" id="companyName" /></td>
+
+                            <td><label for="designation">Designation</label></td>
+                            <td><input type="text" name="designationData" class="designation" id="oldDesignation" /></td>
+                        </tr>
+                        <tr>
+                            <td><label for="start_date">Start Date</label></td>
+                            <td><input type="date" name="start_date" class="startDate" id="startDate"></td>
+
+                            <td><label for="end-date"></label>End Date</td>
+                            <td><input type="date" name="end_date" class="endDate" id="endDate"></td>
                     </tr>
                 </table>
             </fieldset>
@@ -234,13 +247,13 @@ label{
 
                     <% for(let i = 0 ; i<techData.length; i++){ %>
                         <tr id="addTechnology">
-                        <td><input type="checkbox" name="techname" value="<%= techData[i].option_value%>"></td>
+                        <td><input type="checkbox" id="<%= techData[i].option_value%>" name="techname" value="<%= techData[i].option_value%>" oninput="validateSelect(this.id)"></td>
                         <td><label for="<%= techData[i].option_value%>"><%= techData[i].option_value%></label></td>
-                        <td><input type="radio" name="<%= techData[i].option_value%>" value = "Beginer"></td>
+                        <td><input type="radio" id="techBeginer<%= techData[i].option_value%>" name="<%= techData[i].option_value%>" value = "Beginer" disabled></td>
                         <td><label for="beginer">Beginer</label></td>
-                        <td><input type="radio" name="<%= techData[i].option_value%>" value="Mideator"></td>
+                        <td><input type="radio" id="techMideator<%= techData[i].option_value%>" name="<%= techData[i].option_value%>" value="Mideator" disabled></td>
                         <td><label for="mideator">Mideator</label></td>
-                        <td><input type="radio" name="<%= techData[i].option_value%>" value="Expert"></td>
+                        <td><input type="radio" id="techExpert<%= techData[i].option_value%>" name="<%= techData[i].option_value%>" value="Expert" disabled></td>
                         <td><label for="expert">Expert</label></td>
                     </tr>
                     <% } %>
@@ -258,13 +271,13 @@ label{
                     </tr>
                     <tr>
                         <td><label for="name">Reference Name</label></td>
-                        <td><input type="text" name="ref_name" /></td>
+                        <td><input type="text" name="ref_name" id="refName" /></td>
                         
                         <td><label for="contact_number">Contact Number</label></td>
-                        <td><input type="text" name="ref_contact_number" /></td>
+                        <td><input type="number" name="ref_contact_number" id="refContactNumber" /></td>
                         
                         <td><label for="relation">Relation</label></td>
-                        <td><input type="text" name="relation" /></td>
+                        <td><input type="text" name="relation" id="refRelation" /></td>
                     </tr>
                 </table>
             </fieldset>
@@ -278,7 +291,7 @@ label{
                     <tr>
                         <td><label for="location">Prefered Location</label></td>
                         <td>
-                            <select name="loacation_select" id="">
+                            <select name="loacation_select" id="loacationSelect">
                                 <option value="" disabled selected>Select Location</option>
                                 <% for(let i = 0 ; i<locationData.length; i++){ %>
                                     <option value="<%= locationData[i].option_value%>"><%= locationData[i].option_value%></option>
@@ -288,7 +301,7 @@ label{
 
                         <td><label for="department">Department</label></td>
                         <td>
-                            <select name="department_select" id="">
+                            <select name="department_select" id="departmentSelect">
                                 <option value="" disabled selected>Select Department</option>
                                 <% for(let i = 0 ; i<deptData.length; i++){ %>
                                     <option value="<%= deptData[i].option_value%>"><%= deptData[i].option_value%></option>
@@ -298,16 +311,16 @@ label{
                     </tr>
                     <tr>
                         <td><label for="current_ctc">Curernt CTC</label></td>
-                        <td><input type="text" name="current_ctc" class="current_ctc"></td>
+                        <td><input type="number" name="current_ctc" class="current_ctc" id="currentCtc"></td>
                     
                     
                         <td><label for="expected_ctc">Expected CTC</label></td>
-                        <td><input type="text" name="expected_ctc" class="expected_ctc"></td>
+                        <td><input type="number" name="expected_ctc" class="expected_ctc" id="expectedCtc"></td>
                     </tr>
 
                     <tr>
                         <td><label for="notice_period">Notice Pereiod</label></td>
-                        <td><input type="text" name="notice_period" class="noticePeriod"></td>
+                        <td><input type="number" name="notice_period" class="noticePeriod" id="noticePeriod"></td>
 
                     </tr>
                 </table>
@@ -329,7 +342,7 @@ let addEduFieldTr = document.getElementById("addEduFieldTr")
 let data = `
 <td><label for="course_name">Course Name</label></td>
 <td>
- <select name="course_select" id="">
+ <select name="course_select" id="course_select">
 <option value="" disabled selected>Select Your Course</option>
 <% for(let i = 0 ; i<courseData.length; i++){ %>
 <option value="<%= courseData[i].option_value%>"><%= courseData[i].option_value%></option>
@@ -339,7 +352,7 @@ let data = `
 
 <td><label for="university_name">University Name</label></td>
 <td>
-<select name="uni_select" id="">
+<select name="uni_select" id="uni_select">
  <option value="" disabled selected>Select Your University</option>
 <% for(let i = 0 ; i<uniData.length; i++){ %>
 <option value="<%= uniData[i].option_value%>"><%= uniData[i].option_value%></option>
@@ -348,10 +361,10 @@ let data = `
 </td>`
 
 let data2 = `<td><label for="passing_year">Passing Year</label></td>
-<td><input type="text" name="passing_year" class="passingYear"></td>
+<td><input type="number" name="passing_year" class="passingYear" id="passingYear"></td>
 
-<td><label for="score_data">Percentage</label></td>
-<td><input type="text" name="score_data" class="scoreData"></td>`
+<td><label for="score_data">Percentage %</label></td>
+<td><input type="number" name="score_data" class="scoreData" id="scoreData"></td>`
 
 function addEdu(){
     let trEdu = document.createElement('tr');
@@ -371,16 +384,16 @@ function addWorkExe(){
     let trWork2 = document.createElement('tr');
 
     trWork.innerHTML= `<td><label for="company_name">Company Name</label></td>
-    <td><input type="text" name="company_name" class="companyName" /></td>
+    <td><input type="text" name="company_name" class="companyName" id="companyName" /></td>
 
     <td><label for="designation">Designation</label></td>
-    <td><input type="text" name="designationData" class="designation" /></td>`
+    <td><input type="text" name="designationData" class="designation" id="oldDesignation" /></td>`
 
     trWork2.innerHTML = `<td><label for="start_date">Start Date</label></td>
-    <td><input type="date" name="start_date" class="startDate"></td>
+    <td><input type="date" name="start_date" class="startDate" id="startDate"></td>
 
     <td><label for="end-date"></label>End Date</td>
-    <td><input type="date" name="end_date" class="endDate"></td>`
+    <td><input type="date" name="end_date" class="endDate" id="endDate"></td>`
 
 workExeId.appendChild(trWork)
 workExeId.appendChild(trWork2)
@@ -394,25 +407,26 @@ function addReference(){
     let referenceTr = document.createElement('tr')
 
     referenceTr.innerHTML += `<td><label for="name">Reference Name</label></td>
-    <td><input type="text" name="ref_name" /></td>
+    <td><input type="text" name="ref_name" id="refName" /></td>
     
     <td><label for="contact_number">Contact Number</label></td>
-    <td><input type="text" name="ref_contact_number" /></td>
+    <td><input type="number" name="ref_contact_number" id="refContactNumber" /></td>
     
     <td><label for="relation">Relation</label></td>
-    <td><input type="text" name="relation" /></td>`
+    <td><input type="text" name="relation" id="refRelation" /></td>`
         
     referenceTable.appendChild(referenceTr)
     
 }
 
 let state_select =  document.getElementById('state_select');
+let cityOptions = document.getElementById("cityOptions")
 state_select.addEventListener('click', function(){
-        fetch(`http://localhost:9999/city?stateName="${state_select.value}"`)
+        fetch(`/job/city?stateName="${state_select.value}"`)
         .then((res) => res.json())
         .then((data) => {
 
-    let cityOptions = document.getElementById("cityOptions")
+    
     // var val = ""
     var val = `<option value="" disabled selected>Select Your City</option>`
         for(let x of data){
@@ -421,6 +435,312 @@ state_select.addEventListener('click', function(){
         cityOptions.innerHTML = val
     })
     })
+const first_name = document.getElementById('first_name')
+const last_name = document.getElementById('last_name')
+const designation = document.getElementById('designation')
+const addressField = document.getElementById('addressField')
+const email = document.getElementById('email')
+const ageField = document.getElementById('ageField')
+const mobileNumber = document.getElementById('mobileNumber')
+const dateOfBirth=  document.getElementById('dateOfBirth')
+const gender_select = document.getElementById('gender_select')
+const zipCode = document.getElementById('zipCode')
+const relationship_select = document.getElementById('relationship_select')
+
+
+
+function validateForm(){
+    const course_selectAll = document.querySelectorAll('#course_select')
+    const uni_selectAll = document.querySelectorAll('#uni_select')
+    const passingYearAll = document.querySelectorAll('#passingYear')
+    const scoreDataAll = document.querySelectorAll('#scoreData')
+
+
+    const companyName =  document.querySelectorAll('#companyName');
+    const oldDesignation =  document.querySelectorAll('#oldDesignation');
+    const startDate =  document.querySelectorAll('#startDate');
+    const endDate =  document.querySelectorAll('#endDate');
+
+    
+    const refName = document.querySelectorAll('#refName')
+    const refContactNumber = document.querySelectorAll('#refContactNumber')
+    const refRelation = document.querySelectorAll('#refRelation')
+    
+    console.log(refName)
+   
+    if(first_name.value == ""){
+        first_name.style.border = "3px solid red"
+        window.location.href = "#first_name"
+        return false;
+    }else{
+        first_name.style.border = "1px solid black"
+    }
+
+    if(last_name.value == ""){
+        last_name.style.border = "3px solid red"
+        window.location.href = "#last_name"
+        return false;
+    }else{
+        last_name.style.border = "1px solid black"
+    }
+
+    if(designation.value == ""){
+        designation.style.border = "3px solid red"
+        window.location.href = "#designation"
+        return false;
+    }else{
+        designation.style.border = "1px solid black"
+    }
+
+    if(addressField.value == ""){
+        addressField.style.border = "3px solid red"
+        window.location.href = "#addressField"
+        return false;
+    }else{
+        addressField.style.border = "1px solid black"
+    }
+
+    if(email.value == ""){
+        email.style.border = "3px solid red"
+        window.location.href = "#email"
+        return false;
+    }else{
+        email.style.border = "1px solid black"
+    }
+
+    if(ageField.value == ""){
+        ageField.style.border = "3px solid red"
+        window.location.href = "#ageField"
+        return false;
+    }else{
+        ageField.style.border = "1px solid black"
+    }
+
+    if(mobileNumber.value == ""){
+        mobileNumber.style.border = "3px solid red"
+        window.location.href = "#mobileNumber"
+        return false;
+    }else{
+        mobileNumber.style.border = "1px solid black"
+    }
+
+    if(state_select.value == ""){
+        state_select.style.border = "3px solid red"
+        window.location.href = "#state_select"
+        return false;
+    }else{
+        state_select.style.border = "1px solid black"
+    }
+
+    if(dateOfBirth.value == ""){
+        dateOfBirth.style.border = "3px solid red"
+        window.location.href = "#dateOfBirth"
+        return false;
+    }else{
+        dateOfBirth.style.border = "1px solid black"
+    }
+    
+    if(cityOptions.value == ""){
+        cityOptions.style.border = "3px solid red"
+        window.location.href = "#cityOptions"
+        return false;
+    }else{
+        cityOptions.style.border = "1px solid black"
+    }
+
+    if(gender_select.value == ""){
+        gender_select.style.border = "3px solid red"
+        window.location.href = "#gender_select"
+        return false;
+    }else{
+        gender_select.style.border = "1px solid black"
+    }
+
+    if(zipCode.value == ""){
+        zipCode.style.border = "3px solid red"
+        window.location.href = "#zipCode"
+        return false;
+    }else{
+        zipCode.style.border = "1px solid black"
+    }
+
+    if(relationship_select.value == ""){
+        relationship_select.style.border = "3px solid red"
+        window.location.href = "#relationship_select"
+        return false;
+    }else{
+        relationship_select.style.border = "1px solid black"
+    }
+    
+    for(let i  = 0; i< course_selectAll.length; i++){
+
+        if(course_selectAll[i].value == ""){
+            course_selectAll[i].style.border = "3px solid red"
+            window.location.href = "#course_select"
+            return false;
+        }else{
+            course_selectAll[i].style.border = "1px solid black"
+        }
+    
+        if(uni_selectAll[i].value == ""){
+            uni_selectAll[i].style.border = "3px solid red"
+            window.location.href = "#uni_select"
+            return false;
+        }else{
+            uni_selectAll[i].style.border = "1px solid black"
+        }
+
+        if(passingYearAll[i].value == ""){
+            passingYearAll[i].style.border = "3px solid red"
+            window.location.href = "#passingYear"
+            return false;
+        }else{
+            passingYearAll[i].style.border = "1px solid black"
+        }
+
+        if(scoreDataAll[i].value == ""){
+            scoreDataAll[i].style.border = "3px solid red"
+            window.location.href = "#scoreData"
+            return false;
+        }else{
+            scoreDataAll[i].style.border = "1px solid black"
+        }
+    }
+
+    for(let i = 0; i<companyName.length;i++){
+
+        if(companyName[i].value == ""){
+            companyName[i].style.border = "3px solid red"
+            window.location.href = "#companyName"
+            return false;
+        }else{
+            companyName[i].style.border = "1px solid black"
+        }
+
+        if(oldDesignation[i].value == ""){
+            oldDesignation[i].style.border = "3px solid red"
+            window.location.href = "#oldDesignation"
+            return false;
+        }else{
+            oldDesignation[i].style.border = "1px solid black"
+        }
+
+        if(startDate[i].value == ""){
+            startDate[i].style.border = "3px solid red"
+            window.location.href = "#startDate"
+            return false;
+        }else{
+            startDate[i].style.border = "1px solid black"
+        }
+
+        if(endDate[i].value == ""){
+            endDate[i].style.border = "3px solid red"
+            window.location.href = "#endDate"
+            return false;
+        }else{
+            endDate[i].style.border = "1px solid black"
+        }
+    }
+
+    for(let i =0;i<refName.length; i++){
+        if(refName[i].value == ""){
+            refName[i].style.border = "3px solid red"
+            window.location.href = "#refName"
+            return false;
+        }else{
+            refName[i].style.border = "1px solid black"
+        }
+
+        if(refContactNumber[i].value == ""){
+            refContactNumber[i].style.border = "3px solid red"
+            window.location.href = "#refContactNumber"
+            return false;
+        }else{
+            refContactNumber[i].style.border = "1px solid black"
+        }
+        
+        if(refRelation[i].value == ""){
+            refRelation[i].style.border = "3px solid red"
+            window.location.href = "#refRelation"
+            return false;
+        }else{
+            refRelation[i].style.border = "1px solid black"
+        }
+
+        const loacationSelect = document.getElementById('loacationSelect')
+        const departmentSelect = document.getElementById('departmentSelect')
+        const currentCtc = document.getElementById('currentCtc')
+        const expectedCtc = document.getElementById('expectedCtc')
+        const noticePeriod = document.getElementById('noticePeriod')
+
+        if(loacationSelect.value == ""){
+            loacationSelect.style.border = "3px solid red"
+            window.location.href = "#loacationSelect"
+            return false;
+        }else{
+            loacationSelect.style.border = "1px solid black"
+        }
+
+        if(departmentSelect.value == ""){
+            departmentSelect.style.border = "3px solid red"
+            window.location.href = "#departmentSelect"
+            return false;
+        }else{
+            departmentSelect.style.border = "1px solid black"
+        }
+
+        if(currentCtc.value == ""){
+            currentCtc.style.border = "3px solid red"
+            window.location.href = "#currentCtc"
+            return false;
+        }else{
+            currentCtc.style.border = "1px solid black"
+        }
+
+        if(expectedCtc.value == ""){
+            expectedCtc.style.border = "3px solid red"
+            window.location.href = "#expectedCtc"
+            return false;
+        }else{
+            expectedCtc.style.border = "1px solid black"
+        }
+
+        if(noticePeriod.value == ""){
+            noticePeriod.style.border = "3px solid red"
+            window.location.href = "#noticePeriod"
+            return false;
+        }else{
+            noticePeriod.style.border = "1px solid black"
+        }
+
+
+    }
+
+    
+    return true
+}
+
+
+
+const validateSelect = (id) =>{
+    let checkId = document.getElementById(id)
+    let beginer = document.getElementById('techBeginer'+id)
+    let mideator = document.getElementById('techMideator'+id)
+    let expert = document.getElementById('techExpert'+id)
+    if(checkId.checked){
+        beginer.disabled = false
+        mideator.disabled = false
+        expert.disabled = false
+    }
+    else{
+        beginer.disabled = true
+        mideator.disabled = true
+        expert.disabled = true
+
+    }
+
+}
+
 
 
 </script>

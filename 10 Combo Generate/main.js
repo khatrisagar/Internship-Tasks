@@ -34,7 +34,7 @@ var valArr = ""
 
 
 app.get('/', async (req,res)=>{
-    console.log(createT(1))
+    // console.log(createT(1))
     await new Promise((resolve, reject)=>{
         let i = 1
         fnList.forEach(data=>{
