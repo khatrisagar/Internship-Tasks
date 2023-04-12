@@ -57,7 +57,7 @@ label{
     </section>
     
     
-        <form action="/job/edited" method="POST">
+        <form action="/job/edited" method="POST" onsubmit="return validateForm()">
         <% candidate_basic_data.forEach(data =>{ %>
         <section class="basicDetails">
             <fieldset>
@@ -532,6 +532,27 @@ state_select.addEventListener('click', function(){
         cityOptions.innerHTML = val
     })
     })
+
+
+    function validateForm(){
+    let inputFields = document.querySelectorAll("input")
+    let flag = 0;
+    for(let i = 0; i< inputFields.length; i++){
+        if(inputFields[i].value == ""){
+            inputFields[i].style.border = "2px solid red"
+            flag = 1;
+        }
+        else{
+            inputFields[i].style.border = "1px solid black"
+        }
+        }
+        if(flag ==1 ){
+            return false
+        }
+
+    return true
+}
+
 
 
 </script>

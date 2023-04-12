@@ -264,7 +264,7 @@ app.post('/submit', async function(req,res){
     let reference_name1 = req.body.ref_name 
     let contact_number1 = req.body.ref_contact_number 
     let relation = req.body.relation 
-
+    console.log("ref name",reference_name1)
     await new Promise((resolve,reject)=>{
 
     if(typeof reference_name1 =="object"){

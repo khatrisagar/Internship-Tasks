@@ -44,9 +44,17 @@ label{
         color: #ffffff;
         background-color: #192764;
     }
+    .removeEducationField{
+        padding: 4px;
+        border-radius: 8px;
+        border: none;
+        color: #ffffff;
+        background-color: #000000;
+    }
     td:nth-child(3){
         padding-left: 100px;
     }
+    
 
     </style>
 
@@ -157,7 +165,7 @@ label{
                             <hr /> 
                         </td>
                     </tr>
-                    <tr>
+                    <tr id="education-1" class="education">
                         <td><label for="course_name">Course Name</label></td>
                         <td>
                             <select name="course_select" id="course_select">
@@ -180,12 +188,13 @@ label{
 
                     </tr>
 
-                    <tr>
+                    <tr id="education-1" class="education">
                         <td><label for="passing_year">Passing Year</label></td>
                         <td><input type="number" name="passing_year" class="passingYear" id="passingYear"></td>
                         
                         <td><label for="score_data">Percentage %</label></td>
                         <td><input type="number" name="score_data" class="scoreData" id="scoreData"></td>
+                        <td><input type="button" id="1" class="removeEducationField" onclick="removeEducation(this)" value="-"></td>
                     </tr>
                 </table>
             </fieldset>
@@ -225,13 +234,13 @@ label{
                     
                     <% for(let i = 0 ; i<lanData.length; i++){ %>
                     <tr>    
-                        <td><input type="checkbox" name="lan1" value="<%= lanData[i].option_value%>"></td>
+                        <td><input type="checkbox" name="lan1" value="<%= lanData[i].option_value%>" id="<%= lanData[i].option_value%>" onclick="validateLanguage(this.id)"></td>
                         <td><label for="lanData"><%= lanData[i].option_value%></label></td>
-                        <td><input type="checkbox" name="ch1" id="<%= lanData[i].option_value%>" value="<%= lanData[i].option_value%>"></td>
+                        <td><input type="checkbox" name="ch1" id="ch1<%= lanData[i].option_value%>" value="<%= lanData[i].option_value%>" disabled></td>
                         <td><label for="read">Read</label></td>
-                        <td><input type="checkbox" name="ch2" id="<%= lanData[i].option_value%>" value="<%= lanData[i].option_value%>"></td>
+                        <td><input type="checkbox" name="ch2" id="ch2<%= lanData[i].option_value%>" value="<%= lanData[i].option_value%>" disabled></td>
                         <td><label for="write">Write</label></td>
-                        <td><input type="checkbox" name="ch3" id="<%= lanData[i].option_value%>" value="<%= lanData[i].option_value%>"></td>
+                        <td><input type="checkbox" name="ch3" id="ch3<%= lanData[i].option_value%>" value="<%= lanData[i].option_value%>" disabled></td>
                         <td><label for="speak">Speak</label></td>
                     </tr>
                     <% } %>
@@ -337,7 +346,7 @@ label{
 let eductionId = document.getElementById("eductionTable");
 let addEduField = document.getElementById("addEduField")
 let addEduFieldTr = document.getElementById("addEduFieldTr")
-
+let educationLength = document.getElementsByClassName('education')
 
 let data = `
 <td><label for="course_name">Course Name</label></td>
@@ -358,24 +367,57 @@ let data = `
 <option value="<%= uniData[i].option_value%>"><%= uniData[i].option_value%></option>
 <% } %>
 </select>
-</td>`
+</td>
+`
 
 let data2 = `<td><label for="passing_year">Passing Year</label></td>
 <td><input type="number" name="passing_year" class="passingYear" id="passingYear"></td>
 
 <td><label for="score_data">Percentage %</label></td>
-<td><input type="number" name="score_data" class="scoreData" id="scoreData"></td>`
+<td><input type="number" name="score_data" class="scoreData" id="scoreData"></td>
+
+`
+
+
 
 function addEdu(){
+    // let removeField = `<td><input type="button" id="${(educationLength.length/2)+1}" removeEducationField" onclick="removeEducation(this)" value="-"></td> `
+
+
     let trEdu = document.createElement('tr');
+    trEdu.setAttribute('id',`education-${(educationLength.length/2)+1}`)
+    trEdu.setAttribute('class','education')
     let trEdu2 = document.createElement('tr');
+    trEdu2.setAttribute('id',`education-${(educationLength.length/2)+1}`)
+    trEdu2.setAttribute('class','education')
     trEdu.innerHTML += `${data}`
     trEdu2.innerHTML += `${data2}`
+    trEdu2.innerHTML += `<td><input type="button" id="${(educationLength.length/2)+1}" class="removeEducationField" onclick="removeEducation(this)" value="-"></td> `
 
 
     eductionId.appendChild(trEdu)
     eductionId.appendChild(trEdu2)
 }
+
+const removeEducation= (ele)=>{
+    const removeChildId = document.querySelectorAll(`#education-${ele.id}`)
+    // console.log("classname",eductionId.childNodes[1])
+    if(educationLength.length <= 2){
+            alert("You required Atleast One education field")
+    }
+            
+    else{
+        for(let i = 0; i< removeChildId.length;i++){
+                if(ele.id == 1){
+                    eductionId.childNodes[1].removeChild(removeChildId[i])
+                }else{
+                    eductionId.removeChild(removeChildId[i])
+                }
+        }    
+    }
+}
+
+
 
 let workExeId = document.getElementById("workExeperience")
 
@@ -450,273 +492,21 @@ const relationship_select = document.getElementById('relationship_select')
 
 
 function validateForm(){
-    const course_selectAll = document.querySelectorAll('#course_select')
-    const uni_selectAll = document.querySelectorAll('#uni_select')
-    const passingYearAll = document.querySelectorAll('#passingYear')
-    const scoreDataAll = document.querySelectorAll('#scoreData')
-
-
-    const companyName =  document.querySelectorAll('#companyName');
-    const oldDesignation =  document.querySelectorAll('#oldDesignation');
-    const startDate =  document.querySelectorAll('#startDate');
-    const endDate =  document.querySelectorAll('#endDate');
-
-    
-    const refName = document.querySelectorAll('#refName')
-    const refContactNumber = document.querySelectorAll('#refContactNumber')
-    const refRelation = document.querySelectorAll('#refRelation')
-    
-    console.log(refName)
-   
-    if(first_name.value == ""){
-        first_name.style.border = "3px solid red"
-        window.location.href = "#first_name"
-        return false;
-    }else{
-        first_name.style.border = "1px solid black"
-    }
-
-    if(last_name.value == ""){
-        last_name.style.border = "3px solid red"
-        window.location.href = "#last_name"
-        return false;
-    }else{
-        last_name.style.border = "1px solid black"
-    }
-
-    if(designation.value == ""){
-        designation.style.border = "3px solid red"
-        window.location.href = "#designation"
-        return false;
-    }else{
-        designation.style.border = "1px solid black"
-    }
-
-    if(addressField.value == ""){
-        addressField.style.border = "3px solid red"
-        window.location.href = "#addressField"
-        return false;
-    }else{
-        addressField.style.border = "1px solid black"
-    }
-
-    if(email.value == ""){
-        email.style.border = "3px solid red"
-        window.location.href = "#email"
-        return false;
-    }else{
-        email.style.border = "1px solid black"
-    }
-
-    if(ageField.value == ""){
-        ageField.style.border = "3px solid red"
-        window.location.href = "#ageField"
-        return false;
-    }else{
-        ageField.style.border = "1px solid black"
-    }
-
-    if(mobileNumber.value == ""){
-        mobileNumber.style.border = "3px solid red"
-        window.location.href = "#mobileNumber"
-        return false;
-    }else{
-        mobileNumber.style.border = "1px solid black"
-    }
-
-    if(state_select.value == ""){
-        state_select.style.border = "3px solid red"
-        window.location.href = "#state_select"
-        return false;
-    }else{
-        state_select.style.border = "1px solid black"
-    }
-
-    if(dateOfBirth.value == ""){
-        dateOfBirth.style.border = "3px solid red"
-        window.location.href = "#dateOfBirth"
-        return false;
-    }else{
-        dateOfBirth.style.border = "1px solid black"
-    }
-    
-    if(cityOptions.value == ""){
-        cityOptions.style.border = "3px solid red"
-        window.location.href = "#cityOptions"
-        return false;
-    }else{
-        cityOptions.style.border = "1px solid black"
-    }
-
-    if(gender_select.value == ""){
-        gender_select.style.border = "3px solid red"
-        window.location.href = "#gender_select"
-        return false;
-    }else{
-        gender_select.style.border = "1px solid black"
-    }
-
-    if(zipCode.value == ""){
-        zipCode.style.border = "3px solid red"
-        window.location.href = "#zipCode"
-        return false;
-    }else{
-        zipCode.style.border = "1px solid black"
-    }
-
-    if(relationship_select.value == ""){
-        relationship_select.style.border = "3px solid red"
-        window.location.href = "#relationship_select"
-        return false;
-    }else{
-        relationship_select.style.border = "1px solid black"
-    }
-    
-    for(let i  = 0; i< course_selectAll.length; i++){
-
-        if(course_selectAll[i].value == ""){
-            course_selectAll[i].style.border = "3px solid red"
-            window.location.href = "#course_select"
-            return false;
-        }else{
-            course_selectAll[i].style.border = "1px solid black"
+    let inputFields = document.querySelectorAll("input")
+    let flag = 0;
+    for(let i = 0; i< inputFields.length; i++){
+        if(inputFields[i].value == ""){
+            inputFields[i].style.border = "2px solid red"
+            flag = 1;
         }
-    
-        if(uni_selectAll[i].value == ""){
-            uni_selectAll[i].style.border = "3px solid red"
-            window.location.href = "#uni_select"
-            return false;
-        }else{
-            uni_selectAll[i].style.border = "1px solid black"
+        else{
+            inputFields[i].style.border = "1px solid black"
+        }
+        }
+        if(flag ==1 ){
+            return false
         }
 
-        if(passingYearAll[i].value == ""){
-            passingYearAll[i].style.border = "3px solid red"
-            window.location.href = "#passingYear"
-            return false;
-        }else{
-            passingYearAll[i].style.border = "1px solid black"
-        }
-
-        if(scoreDataAll[i].value == ""){
-            scoreDataAll[i].style.border = "3px solid red"
-            window.location.href = "#scoreData"
-            return false;
-        }else{
-            scoreDataAll[i].style.border = "1px solid black"
-        }
-    }
-
-    for(let i = 0; i<companyName.length;i++){
-
-        if(companyName[i].value == ""){
-            companyName[i].style.border = "3px solid red"
-            window.location.href = "#companyName"
-            return false;
-        }else{
-            companyName[i].style.border = "1px solid black"
-        }
-
-        if(oldDesignation[i].value == ""){
-            oldDesignation[i].style.border = "3px solid red"
-            window.location.href = "#oldDesignation"
-            return false;
-        }else{
-            oldDesignation[i].style.border = "1px solid black"
-        }
-
-        if(startDate[i].value == ""){
-            startDate[i].style.border = "3px solid red"
-            window.location.href = "#startDate"
-            return false;
-        }else{
-            startDate[i].style.border = "1px solid black"
-        }
-
-        if(endDate[i].value == ""){
-            endDate[i].style.border = "3px solid red"
-            window.location.href = "#endDate"
-            return false;
-        }else{
-            endDate[i].style.border = "1px solid black"
-        }
-    }
-
-    for(let i =0;i<refName.length; i++){
-        if(refName[i].value == ""){
-            refName[i].style.border = "3px solid red"
-            window.location.href = "#refName"
-            return false;
-        }else{
-            refName[i].style.border = "1px solid black"
-        }
-
-        if(refContactNumber[i].value == ""){
-            refContactNumber[i].style.border = "3px solid red"
-            window.location.href = "#refContactNumber"
-            return false;
-        }else{
-            refContactNumber[i].style.border = "1px solid black"
-        }
-        
-        if(refRelation[i].value == ""){
-            refRelation[i].style.border = "3px solid red"
-            window.location.href = "#refRelation"
-            return false;
-        }else{
-            refRelation[i].style.border = "1px solid black"
-        }
-
-        const loacationSelect = document.getElementById('loacationSelect')
-        const departmentSelect = document.getElementById('departmentSelect')
-        const currentCtc = document.getElementById('currentCtc')
-        const expectedCtc = document.getElementById('expectedCtc')
-        const noticePeriod = document.getElementById('noticePeriod')
-
-        if(loacationSelect.value == ""){
-            loacationSelect.style.border = "3px solid red"
-            window.location.href = "#loacationSelect"
-            return false;
-        }else{
-            loacationSelect.style.border = "1px solid black"
-        }
-
-        if(departmentSelect.value == ""){
-            departmentSelect.style.border = "3px solid red"
-            window.location.href = "#departmentSelect"
-            return false;
-        }else{
-            departmentSelect.style.border = "1px solid black"
-        }
-
-        if(currentCtc.value == ""){
-            currentCtc.style.border = "3px solid red"
-            window.location.href = "#currentCtc"
-            return false;
-        }else{
-            currentCtc.style.border = "1px solid black"
-        }
-
-        if(expectedCtc.value == ""){
-            expectedCtc.style.border = "3px solid red"
-            window.location.href = "#expectedCtc"
-            return false;
-        }else{
-            expectedCtc.style.border = "1px solid black"
-        }
-
-        if(noticePeriod.value == ""){
-            noticePeriod.style.border = "3px solid red"
-            window.location.href = "#noticePeriod"
-            return false;
-        }else{
-            noticePeriod.style.border = "1px solid black"
-        }
-
-
-    }
-
-    
     return true
 }
 
@@ -739,6 +529,24 @@ const validateSelect = (id) =>{
 
     }
 
+}
+
+const validateLanguage = (id) =>{
+    let languageCheck = document.getElementById(id)
+    let read = document.getElementById('ch1'+id)
+    let write = document.getElementById('ch2'+id)
+    let speak = document.getElementById('ch3'+id)
+    
+    if(languageCheck.checked){
+        read.disabled=  false
+        write.disabled= false
+        speak.disabled= false
+    }
+    else{
+        read.disabled = true
+        write.disabled = true
+        speak.disabled = true
+    }
 }
 
 

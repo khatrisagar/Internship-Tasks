@@ -22,6 +22,18 @@ app.get('/update', async(req,res)=>{
     res.end()
 
 })
+
+app.post('/updateAll', async(req,res)=>{
+    const query =  util.promisify(connection.query).bind(connection)
+    const userId = req.body.userIdArr
+    for(let i =0; i< userId.length; i++){
+        await query(`update users set firstname = "${req.body.firstNameArr[i]}", lastname="${req.body.lastNameArr[i]}",state="${req.body.stateArr[i]}",city="${req.body.cityArr[i]}",contact="${req.body.contactArr[i]}" where user_id =${userId[i]}`)
+
+    }
+    res.end()
+
+})
+
 app.get('/insert', async (req,res)=>{  
     const query =  util.promisify(connection.query).bind(connection)
     let insertData =  await query(`insert into users(firstname,lastname,state,city,contact)values("${req.query.firstname}","${req.query.lastname}","${req.query.state}","${req.query.city}","${req.query.contact}")`)

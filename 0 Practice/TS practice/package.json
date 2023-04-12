@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "typescript": "^5.0.4"
+  },
+  "name": "ts-practice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start":  "tsc index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

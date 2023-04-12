@@ -97,7 +97,7 @@
     </style>
 
 
-        <div id="main-container">
+        <div id="main-container" style="min-height: 100vh;">
             <div class="searchContainer" id="searchBoxContainer">
                 <form action="" method="get" >
                     <input type="text" id="searchBox" name="searchVal" value="<%= searchVal%>" placeholder="Search"   />
@@ -138,15 +138,17 @@
             </table>
             
 
-            <div id="linkContainer">
+            <div id="linkContainer" style="display: flex; align-items: center;">
+            <p id="loadPrevious" onclick="loadBtn(-1)">Previous</p>
+            
             <% for(let i = 1; i<=counter;i++){ %>
                 <% if(i == page){ %>
                     <a id="btn" class="linkBtn active" href="?page=<%= i%>&field=<%= field%>&order=<%=order%>"><%= i %></a> 
                     <% } else {%>
                         <a id="btn" class="linkBtn" href="?page=<%= i%>&field=<%= field%>&order=<%=order%>"><%= i %></a> 
                     <%}%>
-              
             <% } %>
+            <p id="loadNext" onclick="loadBtn(+1)">Next</p>
             </div>
         </div>
 
@@ -161,6 +163,27 @@
                     order = 'ASC'
                 }
             }
+
+            let defaultIndex = 5
+            showBtn(defaultIndex)
+
+
+            function loadBtn(n){
+                showBtn(defaultIndex+=n); 
+            }
+
+            function showBtn(n){
+                let btns =  document.querySelectorAll('#btn')
+                
+
+                for (let i = 0; i < btns.length; i++) {
+                    btns[i].style.display = "none";  
+                }
+                for(let i = defaultIndex-5 ; i<defaultIndex; i++){
+                    btns[i].style.display = "block";
+                }
+            }
+
         </script>
 </body>
 </html>

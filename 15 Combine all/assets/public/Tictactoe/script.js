@@ -1,261 +1,70 @@
-let sagarOne = document.getElementById("one")
-let sagarTwo = document.getElementById("two")
-let sagarThree = document.getElementById("three")
-let sagarFour = document.getElementById("four")
-let sagarFive = document.getElementById("five")
-let sagarSix = document.getElementById("six")
-let sagarSeven = document.getElementById("seven")
-let sagarEight = document.getElementById("eight")
-let sagarNine = document.getElementById("nine")
+const containerId = document.getElementById('tic-tac-toe-container')
 
-let sagarFlag = 1;
+let n = 3
 
-let sagarResetBtn = document.getElementById("resetBtn")
+for(let i = 0; i<n; i++){
 
-let sagarWinMsg = document.getElementById("winMsg")
-let playerTurnMsg = document.getElementById("playerTurnMsg")
-
-let sagarStateOne = 1;
-let sagarStateTwo = 1;
-let sagarStateThree = 1;
-let sagarStateFour = 1;
-let sagarStateFive = 1;
-let sagarStateSix = 1;
-let sagarStateSeven = 1;
-let sagarStateEight = 1;
-let sagarStateNine = 1;
-
-
-function disableClick(){
-    sagarStateOne = 0;
-    sagarStateTwo = 0;
-    sagarStateThree = 0;
-    sagarStateFour = 0;
-    sagarStateFive = 0;
-    sagarStateSix = 0;
-    sagarStateSeven = 0;
-    sagarStateEight = 0;
-    sagarStateNine = 0;
+  containerId.innerHTML+= `
+    <div id="tic-tac-toe-container-ele">
+        <table id="tableMain" class="tableMain" onclick="winCheck()">
+            <tr>
+                <td id="one-${i}">-</td>
+                <td id="two-${i}">-</td>
+                <td id="three-${i}">-</td>
+            </tr>
+            <tr>
+                <td id="four-${i}">-</td>
+                <td id="five-${i}">-</td>
+                <td id="six-${i}">-</td>
+            </tr>
+            <tr>
+                <td id="seven-${i}">-</td>
+                <td id="eight-${i}">-</td>
+                <td id="nine-${i}">-</td>
+            </tr>
+        </table>
+    </div>`
 }
 
-// function turnCheck(){
-//     if(flag==1){
-//         playerTurnMsg.innerHTML = "X's turn"    
-//     }
-//     else{
-//         playerTurnMsg.innerHTML = "O's turn"
-//     }
-// }
+let td = document.querySelectorAll('td')
+let tableMain = document.getElementById('tableMain')
+let winMsg =  document.getElementById('winMsg')
 
-function resetGame(){
-    sagarOne.innerHTML = "-"
-    sagarTwo.innerHTML = "-"
-    sagarThree.innerHTML = "-"
-    sagarFour.innerHTML = "-"
-    sagarFive.innerHTML = "-"
-    sagarSix.innerHTML = "-"
-    sagarSeven.innerHTML = "-"
-    sagarEight.innerHTML = "-"
-    sagarNine.innerHTML = "-"
+let flag  = new Array(td.length)
+flag.fill(0)
+let turnFlag = 0;
 
-    sagarOne.style.backgroundColor = "#fff"
-    sagarTwo.style.backgroundColor = "#fff"
-    sagarThree.style.backgroundColor = "#fff"
-    sagarFour.style.backgroundColor = "#fff"
-    sagarFive.style.backgroundColor = "#fff"
-    sagarSix.style.backgroundColor = "#fff"
-    sagarSeven.style.backgroundColor = "#fff"
-    sagarEight.style.backgroundColor = "#fff"
-    sagarNine.style.backgroundColor = "#fff"
-
-    sagarWinMsg.innerHTML = ""
-
-    sagarStateOne = 1;
-    sagarStateTwo = 1;
-    sagarStateThree = 1;
-    sagarStateFour = 1;
-    sagarStateFive = 1;
-    sagarStateSix = 1;
-    sagarStateSeven = 1;
-    sagarStateEight = 1;
-    sagarStateNine = 1;
-}
-
-function clickOne(){
-    if(sagarStateOne == 1){
-        if(sagarFlag==1){
-                sagarOne.innerHTML = "X"
-                sagarOne.style.backgroundColor = "aqua"
-                sagarFlag =0
+for(let i = 0 ; i< td.length; i++){
+    
+    td[i].addEventListener('click', ()=>{
+        if(flag[i] === 0){
+            if(turnFlag == 0){
+                td[i].innerHTML = "X"
+                td[i].style.backgroundColor = "aqua"
+                turnFlag = 1;
             }
             else{
-                sagarOne.innerHTML = "O"
-                sagarOne.style.backgroundColor = "yellow" 
-                sagarFlag = 1
+                td[i].innerHTML = "O"
+                td[i].style.backgroundColor = "yellow"
+                turnFlag = 0;
             }
-        sagarStateOne = 0;
-    }
-    return
-}
-function clickTwo(){
-    if(sagarStateTwo == 1){
-        if(sagarFlag==1){
-            sagarTwo.innerHTML = "X"
-            sagarTwo.style.backgroundColor = "aqua"
-            sagarFlag =0
-        }
-        else{
-            sagarTwo.innerHTML = "O"
-            sagarTwo.style.backgroundColor = "yellow"
-            sagarFlag = 1
-        }
-    sagarStateTwo = 0;
-    }
-    return
-}
-function clickThree(){
-    if(sagarStateThree == 1){
-        if(sagarFlag==1){
-            sagarThree.innerHTML = "X"
-            sagarThree.style.backgroundColor = "aqua"
-            sagarFlag = 0
-        }
-        else{
-            sagarThree.innerHTML = "O"
-            sagarThree.style.backgroundColor = "yellow"
-            sagarFlag = 1
-        }
-    sagarStateThree = 0;
-    }
-    return
-}
-function clickFour(){
-    if(sagarStateFour == 1){
-        if(sagarFlag==1){
-            sagarFour.innerHTML = "X"
-            sagarFour.style.backgroundColor = "aqua"
-            sagarFlag =0
-        }
-        else{
-            sagarFour.innerHTML = "O"
-            sagarFour.style.backgroundColor = "yellow"
-            sagarFlag = 1
-        }
-    sagarStateFour = 0;
-    }
-    return
-}
-function clickFive(){
-    if(sagarStateFive == 1){
-        if(sagarFlag==1){
-            sagarFive.innerHTML = "X"
-            sagarFive.style.backgroundColor = "aqua"
-            sagarFlag =0
-        }
-        else{
-            sagarFive.innerHTML = "O"
-            sagarFive.style.backgroundColor = "yellow"
-            sagarFlag = 1
-        }
-    sagarStateFive = 0;
-    }
-    return
-}
-function clickSix(){
-    if(sagarStateSix == 1){
-        if(sagarFlag==1){
-            sagarSix.innerHTML = "X"
-            sagarSix.style.backgroundColor = "aqua"
-            sagarFlag =0
-        }
-        else{
-            sagarSix.innerHTML = "O"
-            sagarSix.style.backgroundColor = "yellow"
-            sagarFlag = 1
-        }
-    sagarStateSix = 0;
-    }
-    return
-}
-function clickSeven(){
-    if(sagarStateSeven == 1){
-        if(sagarFlag==1){
-            sagarSeven.innerHTML = "X"
-            sagarSeven.style.backgroundColor = "aqua"
-            sagarFlag =0
-        }
-        else{
-            sagarSeven.innerHTML = "O"
-            sagarSeven.style.backgroundColor = "yellow"
-            sagarFlag = 1
-        }
-    sagarStateSeven = 0;
-    }
-    return
-}
-function clickEight(){
-    if(sagarStateEight == 1){
-        if(sagarFlag==1){
-            sagarEight.innerHTML = "X"
-            sagarEight.style.backgroundColor = "aqua"
-            sagarFlag =0
-        }
-        else{
-            sagarEight.innerHTML = "O"
-            sagarEight.style.backgroundColor = "yellow"
-            sagarFlag = 1
-        }
-    sagarStateEight = 0;
-    }
-    return
-}
-function clickNine(){
-    if(sagarStateNine == 1){
-        if(sagarFlag==1){
-            sagarNine.innerHTML = "X"
-            sagarNine.style.backgroundColor = "aqua"
-            sagarFlag = 0
-        }
-        else{
-            sagarNine.innerHTML = "O"
-            sagarNine.style.backgroundColor = "yellow"
-            sagarFlag = 1
-        }
-    sagarStateNine = 0;
-    }
-    return
-}
-
-function winCheck(){
-    let sagarWin = [
-        [sagarOne,sagarTwo,sagarThree],
-        [sagarFour,sagarFive,sagarSix],
-        [sagarSeven,sagarEight,sagarNine],
-        [sagarOne,sagarFour,sagarSeven],
-        [sagarTwo,sagarFive,sagarEight],
-        [sagarThree,sagarSix,sagarNine],
-        [sagarOne,sagarFive,sagarNine],
-        [sagarThree,sagarFive,sagarSeven],
-    ]
-
-    if(sagarStateOne ==0 && sagarStateTwo == 0 && sagarStateThree == 0 && sagarStateFour==0 && sagarStateFive == 0 && sagarStateSix == 0 && sagarStateSeven == 0 && sagarStateEight == 0 && sagarStateNine ==0 ){
-        sagarWinMsg.innerHTML = "No one wins Try Again"
-    }
-    sagarWin.forEach(win => {
-        if(win[0].innerText == "X" && win[1].innerText == "X" && win[2].innerText=="X"){
-            sagarWinMsg.innerHTML = "X win"
-            disableClick()
-        }
-        if(win[0].innerText == "O" && win[1].innerText == "O" && win[2].innerText=="O"){
-            sagarWinMsg.innerHTML = "O win"
-            disableClick()
+            flag[i] = 1
         }
     })
 }
 
-// pointer event none to disable click
-// function resetOnInactivity(){
-//     alert("Inactive from a longtime")
-//     resetGame()
-// }
-// setTimeout(resetOnInactivity, 300000)
+console.log("td")
+
+
+for(let i  = 0; i<n;i++){
+    let winArr = [
+        [td[0],td[1],td[2]],
+        [td[3],td[4],td[5]],
+        [td[6],td[7],td[8]],
+        [td[0],td[3],td[6]],
+        [td[1],td[4],td[7]],
+        [td[2],td[5],td[8]],
+        [td[0],td[4],td[8]],
+        [td[2],td[4],td[6]],
+    ] 
+}

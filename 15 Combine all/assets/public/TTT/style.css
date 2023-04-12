@@ -8,31 +8,28 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100%;
 }
 #titleText{
     margin-top: 20px;
-} 
-tr, td{
+}
+.tableMain, tr, td{
     border: 3px solid black;
-
+    border-collapse: collapse;
 }
 td{
-    width: 50px;
-    height: 50px;  
+    width: 80px;
+    height: 80px;  
 }
 
 .tableMain{
-    display: inline-block;
     font-size:xx-large;
     margin-top: 20px;
     text-align: center;
-    border-collapse: collapse;
 }
 
 #resetBtn{
     padding: 10px;
-    margin-top: 50px;
+    margin-top: 20px;
     border-radius: 8px;
     background-color: rgb(255, 123, 0);
     border: 1px solid rgb(240, 97, 1);
@@ -40,23 +37,6 @@ td{
 
 #resetBtn:hover{
     background-color: rgb(240, 97, 1);
-}
-.tic-tac-toe-container{
-    display: grid;
-    grid-template-columns: auto auto auto;
-}
-
-#tic-tac-toe-container{
-    width: 500px;
-    height: 500px;
-    display: grid;
-    grid-template-columns: auto auto auto;
-
-    /* gap: 20px; */
-}
-#tic-tac-toe-container-ele{
-    display: flex;
-    justify-content: center;
 }
 
 
